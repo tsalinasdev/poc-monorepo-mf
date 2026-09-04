@@ -1,0 +1,10 @@
+# Reemplaza el campo `workspaces` del package.json raíz: pnpm no lo soporta.
+packages:
+  - 'apps/*'
+  - 'packages/*'
+
+# pnpm 10 bloquea los scripts de postinstall por defecto — buena decisión de
+# seguridad, pero hay que declarar explícitamente los que sí se necesitan.
+# unrs-resolver compila el binario nativo que usa eslint-import-resolver-typescript.
+onlyBuiltDependencies:
+  - unrs-resolver

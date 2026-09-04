@@ -1,0 +1,181 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+
+  // ---------------------------------------------------------------------------
+  // Por qué existe este archivo
+  //
+  // El monorepo resuelve mantenibilidad (un PR cambia el paquete compartido y
+  // todos sus consumidores), pero introduce un problema propio: sin grafo de
+  // tareas ni cache, cada push rebuildea y retestea las tres apps aunque el
+  // cambio toque solo una. Turborepo pone ese grafo explícito y cachea por
+  // hash de inputs, así que `turbo run test` sobre un cambio en
+  // remote-dragonball no vuelve a correr los tests de remote-pokemon.
+  //
+  // Ver docs/adr/0002-turborepo.md para la decisión completa.
+  // ---------------------------------------------------------------------------
+
+  "ui": "stream",
+
+  // Cualquier cambio en estos archivos invalida el cache de TODAS las tareas.
+  // El lockfile va acá porque una versión distinta de una dependencia cambia
+  // el resultado de build, lint, tipos y tests por igual. Si se vuelve a cambiar
+  // de gestor de paquetes, ESTE NOMBRE hay que cambiarlo: con un lockfile que no
+  // existe, turbo no invalida nada y el cache queda obsoleto en silencio.
+  "globalDependencies": [
+    "pnpm-lock.yaml",
+    "pnpm-workspace.yaml",
+    ".prettierrc.json",
+    ".editorconfig"
+  ],
+
+  // Variables que no afectan el hash pero sí deben llegar al proceso hijo.
+  "globalPassThroughEnv": ["CI", "TURBO_TOKEN", "TURBO_TEAM", "PLAYWRIGHT_BROWSERS_PATH"],
+
+  "tasks": {
+    // -------------------------------------------------------------------------
+    // type-check — `vue-tsc --build`, por app.
+    //
+    // Tarea propia (y no un paso escondido dentro de `build`) para que cachee
+    // por separado: cambiar un test no invalida el chequeo de tipos del src, y
+    // el job rápido de CI puede correr solo esto.
+    // -------------------------------------------------------------------------
+    "type-check": {
+      "dependsOn": ["^type-check"],
+      "outputs": ["*.tsbuildinfo", "**/*.tsbuildinfo"]
+    },
+
+    // -------------------------------------------------------------------------
+    // build — `vite build`, por app.
+    //
+    // `^build` es topológico: espera a las DEPENDENCIAS DE WORKSPACE de la app
+    // (hoy solo @pokedex/mf-shared). Deliberadamente NO declara que el host
+    // dependa del build de los remotes: en Module Federation el host solo
+    // hornea la URL del `remoteEntry.js`, no consume el artefacto del remote.
+    // Encadenarlos acá reintroduciría por la puerta de atrás el acoplamiento de
+    // despliegue que MF existe para evitar.
+    //
+    // `env` NO es cosmético. Estas variables entran al bundle (base de Vite y
+    // URLs de los remotes). Si no se declaran, turbo devolvería un build
+    // cacheado con la URL del CDN equivocada y el fallo aparecería en
+    // producción, no en CI.
+    // -------------------------------------------------------------------------
+    "build": {
+      "dependsOn": ["^build", "type-check"],
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        ".env",
+        ".env.*",
+        "!.env.example",
+        "!tests/**",
+        "!e2e/**",
+        "!**/*.md"
+      ],
+      "outputs": ["dist/**"],
+      "env": [
+        "VITE_PUBLIC_PATH",
+        "VITE_API_BASE_URL",
+        "VITE_REMOTE_POKEMON_ENTRY",
+        "VITE_REMOTE_DRAGONBALL_ENTRY"
+      ]
+    },
+
+    // -------------------------------------------------------------------------
+    // lint — oxlint + eslint (con eslint-plugin-boundaries), por app.
+    //
+    // `lint` NO lleva `--fix`: una tarea cacheada no debe mutar el fuente,
+    // porque un cache hit saltaría los arreglos y dejaría el árbol distinto
+    // según si el cache acertó o no. El `--fix` vive en `lint:fix`, que se
+    // corre a mano y no pasa por turbo.
+    // -------------------------------------------------------------------------
+    "lint": {
+      "dependsOn": ["^lint"],
+      "outputs": [".eslintcache"]
+    },
+
+    // -------------------------------------------------------------------------
+    // test — vitest, por app.
+    //
+    // No depende de `build`: cada remote prueba su hexágono y el host se prueba
+    // contra stubs de los contratos federados. Ninguno necesita `dist/`, y es
+    // lo que mantiene rápido el job de feedback de CI.
+    // -------------------------------------------------------------------------
+    "test": {
+      "outputs": []
+    },
+
+    // El guard de contrato de @pokedex/mf-shared falla si el rango declarado en
+    // `requiredVersion` deja de ser superconjunto de lo que cada app instala —
+    // y para eso LEE los package.json de las tres apps, que están fuera de su
+    // propio paquete. Turbo hashea por defecto sólo los archivos del paquete,
+    // así que sin declararlos, subir el host a Vue 4 dejaría el guard en cache
+    // y en verde: exactamente el fallo que existe para atrapar.
+    "@pokedex/mf-shared#test": {
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        "../../apps/host/package.json",
+        "../../apps/remote-pokemon/package.json",
+        "../../apps/remote-dragonball/package.json"
+      ],
+      "outputs": []
+    },
+
+    // -------------------------------------------------------------------------
+    // E2E — el único lugar donde el host real carga los remotes reales por MF.
+    //
+    // Acá SÍ hace falta el fan-out explícito a los builds de los remotes:
+    // Playwright levanta los tres `dist/` en sus propios puertos, así que los
+    // tres artefactos tienen que existir. Es una dependencia de la SUITE, no de
+    // los builds entre sí.
+    //
+    // Sin cache: depende de puertos libres, de red (APIs reales) y de un
+    // navegador. Un "cache hit" acá sería una mentira útil para nadie.
+    // -------------------------------------------------------------------------
+    "host#test:e2e:preview": {
+      "dependsOn": ["build", "remote-pokemon#build", "remote-dragonball#build"],
+      "cache": false
+    },
+
+    // Modo dev: Playwright levanta los tres dev servers. Rápido para iterar,
+    // pero NO reproduce producción: un dev server no minifica ni chunkea, así
+    // que el contrato `shared` nunca se negocia de verdad. Y el grafo de chunks
+    // federados depende del gestor de paquetes (ver docs/adr/0003-pnpm.md), así
+    // que sólo `test:e2e:preview` verifica el artefacto que se despliega.
+    "host#test:e2e": {
+      "cache": false
+    },
+
+    // -------------------------------------------------------------------------
+    // smoke — coherencia de los artefactos federados, sin navegador.
+    //
+    // No reemplaza al E2E: cubre la capa de abajo (los remoteEntry y los
+    // mf-manifest son sirvibles, coherentes entre sí y traen los headers
+    // correctos). Corre en cualquier runner, y apuntado a las URLs del bucket
+    // es el smoke test post-deploy del riesgo R17.
+    //
+    // Necesita los tres dist/, igual que el E2E. Sin cache: abre puertos.
+    // -------------------------------------------------------------------------
+    // El prefijo `//#` es lo que hace que turbo ejecute el script de la RAÍZ.
+    // Sin él, turbo busca un script `smoke` en cada workspace, no encuentra
+    // ninguno, corre las dependencias y reporta éxito sin haber verificado nada.
+    "//#smoke": {
+      "dependsOn": ["host#build", "remote-pokemon#build", "remote-dragonball#build"],
+      "cache": false
+    },
+
+    // Servidores de larga duración: nunca se cachean y turbo los mantiene vivos.
+    "dev": {
+      "cache": false,
+      "persistent": true
+    },
+
+    "preview": {
+      "dependsOn": ["build"],
+      "cache": false,
+      "persistent": true
+    },
+
+    "format": {
+      "cache": false
+    }
+  }
+}

@@ -1,0 +1,79 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended", ":semanticCommitTypeAll(chore)"],
+  "timezone": "America/Santiago",
+  "schedule": ["before 9am on monday"],
+  "prConcurrentLimit": 3,
+  "labels": ["dependencies"],
+  "packageRules": [
+    {
+      "description": "Los cuatro singletons de Module Federation se mueven JUNTOS y en las tres apps a la vez. Un PR que suba vue en el host y no en un remote deja el contrato `shared` mintiendo: dos copias de Vue en la misma pagina e `inject()` que no encuentra nada. Nunca automerge: cada bump obliga a revisar el `requiredVersion` de packages/mf-shared y a correr el E2E contra builds.",
+      "groupName": "singletons de Module Federation",
+      "matchPackageNames": ["vue", "vue-router", "pinia", "@pinia/colada", "@vue/**"],
+      "automerge": false,
+      "addLabels": ["mf-contract", "revisar-requiredVersion"]
+    },
+    {
+      "description": "El plugin de federacion y su runtime tambien van juntos: una version distinta entre host y remotes cambia el formato del remoteEntry.",
+      "groupName": "Module Federation",
+      "matchPackageNames": ["@module-federation/**"],
+      "automerge": false,
+      "addLabels": ["mf-contract"]
+    },
+    {
+      "description": "Toolchain de build: vite, vitest y sus plugins comparten API interna, conviene subirlos de una.",
+      "groupName": "toolchain de build",
+      "matchPackageNames": [
+        "vite",
+        "vitest",
+        "@vitejs/**",
+        "rolldown**",
+        "@tailwindcss/**",
+        "tailwindcss"
+      ]
+    },
+    {
+      "description": "Linters y formateadores: ruido puro por separado.",
+      "groupName": "lint y formato",
+      "matchPackageNames": [
+        "eslint",
+        "eslint-**",
+        "@vue/eslint-**",
+        "oxlint",
+        "prettier",
+        "typescript-eslint**"
+      ]
+    },
+    {
+      "description": "TypeScript y vue-tsc van juntos o vue-tsc rompe.",
+      "groupName": "TypeScript",
+      "matchPackageNames": ["typescript", "vue-tsc", "@tsconfig/**", "@vue/tsconfig"]
+    },
+    {
+      "description": "Playwright: el paquete y el navegador tienen que corresponder.",
+      "groupName": "Playwright",
+      "matchPackageNames": ["@playwright/**", "playwright**"]
+    },
+    {
+      "description": "Tooling del monorepo. Automerge en patch: si rompe, lo dice el CI antes del merge.",
+      "groupName": "tooling del monorepo",
+      "matchPackageNames": ["turbo", "syncpack", "husky", "lint-staged"],
+      "matchUpdateTypes": ["patch"],
+      "automerge": true
+    },
+    {
+      "description": "Los majors nunca se agrupan: cada uno merece su propio PR y su propia revision.",
+      "matchUpdateTypes": ["major"],
+      "dependencyDashboardApproval": true,
+      "automerge": false
+    }
+  ],
+  "lockFileMaintenance": {
+    "enabled": true,
+    "schedule": ["before 9am on the first day of the month"]
+  },
+  "vulnerabilityAlerts": {
+    "labels": ["security"],
+    "schedule": ["at any time"]
+  }
+}

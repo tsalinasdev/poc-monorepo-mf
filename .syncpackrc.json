@@ -1,0 +1,9 @@
+{
+  "versionGroups": [
+    {
+      "label": "Singletons de Module Federation — el rango debe ser IDENTICO en todas las apps",
+      "dependencies": ["vue", "vue-router", "pinia", "@pinia/colada"],
+      "packages": ["**"]
+    }
+  ]
+}

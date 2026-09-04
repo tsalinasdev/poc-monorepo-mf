@@ -1,0 +1,41 @@
+{
+  "name": "pokedex-microfrontend",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@10.34.5",
+  "scripts": {
+    "dev": "turbo run dev",
+    "dev:host": "turbo run dev --filter=host",
+    "dev:remote-pokemon": "turbo run dev --filter=remote-pokemon",
+    "dev:remote-dragonball": "turbo run dev --filter=remote-dragonball",
+    "build": "turbo run build",
+    "preview": "turbo run preview",
+    "preview:host": "turbo run preview --filter=host",
+    "preview:remote-pokemon": "turbo run preview --filter=remote-pokemon",
+    "preview:remote-dragonball": "turbo run preview --filter=remote-dragonball",
+    "test": "turbo run test",
+    "test:e2e": "turbo run test:e2e",
+    "test:e2e:preview": "turbo run test:e2e:preview",
+    "smoke": "node scripts/smoke-federation.mjs",
+    "smoke:build": "turbo run //#smoke",
+    "lint": "turbo run lint",
+    "type-check": "turbo run type-check",
+    "deps:check": "syncpack lint",
+    "deps:fix": "syncpack fix",
+    "format": "prettier --write --experimental-cli apps/*/src/ packages/*/src/",
+    "affected": "turbo run lint type-check test --affected",
+    "graph": "turbo run build --graph",
+    "prepare": "husky"
+  },
+  "devDependencies": {
+    "husky": "^9.1.7",
+    "lint-staged": "^17.0.7",
+    "prettier": "3.8.3",
+    "syncpack": "^15.3.3",
+    "turbo": "^2.10.12"
+  },
+  "engines": {
+    "node": "^20.19.0 || >=22.12.0"
+  }
+}

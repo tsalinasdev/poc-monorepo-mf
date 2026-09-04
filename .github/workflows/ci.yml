@@ -1,0 +1,137 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  NODE_VERSION: '24'
+  # Sin TTY el logging interactivo no aporta nada y ensucia el output del runner.
+  TURBO_UI: 'false'
+
+jobs:
+  # ---------------------------------------------------------------------------
+  # Feedback rápido: todo lo que no necesita navegador.
+  #
+  # Turborepo hace dos cosas acá que npm workspaces no puede:
+  #   1. Cache por hash de inputs — un push que solo toca remote-dragonball
+  #      devuelve tipos y tests de remote-pokemon desde cache en vez de correrlos.
+  #   2. Grafo de tareas — `build` espera a `type-check` y a las dependencias de
+  #      workspace de cada app, sin encadenarlo a mano en los scripts.
+  #
+  # El cache vive en el cache de GitHub Actions, por rama y con fallback a main:
+  # la primera corrida de una rama nueva parte del cache de main en lugar de
+  # arrancar en frío. Cuando esto deje de alcanzar, el paso siguiente es Remote
+  # Cache compartido — ver docs/adr/0002-turborepo.md.
+  # ---------------------------------------------------------------------------
+  checks:
+    name: Lint, types and unit tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+
+      # --frozen-lockfile falla si el lockfile no corresponde a los package.json.
+      # En CI eso es lo que se quiere: un lockfile desactualizado es un bug, no
+      # algo que el pipeline deba arreglar en silencio.
+      - run: pnpm install --frozen-lockfile
+
+      - name: Restore Turborepo cache
+        uses: actions/cache@v4
+        with:
+          path: .turbo
+          key: turbo-${{ runner.os }}-${{ github.ref_name }}-${{ github.sha }}
+          restore-keys: |
+            turbo-${{ runner.os }}-${{ github.ref_name }}-
+            turbo-${{ runner.os }}-main-
+
+      # Una sola invocación: turbo paraleliza las tres tareas respetando el
+      # grafo, en vez de tres pasos secuenciales que no comparten cache.
+      #
+      # `test` incluye el guard de contrato de @pokedex/mf-shared, que falla si
+      # el rango declarado en `requiredVersion` deja de ser superconjunto de lo
+      # que cada app instala.
+      # Consistencia de versiones entre workspaces. No pasa por turbo: es una
+      # comprobación de los package.json, no una tarea por paquete.
+      #
+      # Cubre el hueco que el guard de mf-shared no puede cubrir: ese verifica
+      # que el rango declarado esté DENTRO del requiredVersion federado; este
+      # verifica que las tres apps declaren el MISMO rango entre sí. Con host en
+      # vue ^3.5.32 y un remote en ^3.6.0 los dos checks anteriores pasan, y en
+      # producción puede haber dos copias de Vue.
+      - name: Consistencia de versiones entre workspaces
+        run: pnpm deps:check
+
+      - name: Lint, type-check and unit tests
+        run: pnpm exec turbo run lint type-check test
+
+  # ---------------------------------------------------------------------------
+  # El job que de verdad importa para Module Federation.
+  #
+  # Los unit tests verifican el host contra STUBS de cada contrato remoto, y un
+  # dev server sirve módulos sin minificar ni chunkear, así que el contrato
+  # `shared` nunca se ejercita de verdad. Solo los bundles construidos, servidos
+  # desde tres orígenes distintos, ejercitan la negociación real de singletons,
+  # los remote entries, el CSS federado y el output minificado.
+  #
+  # Y no es un matiz: el grafo de chunks federados cambia según el gestor de
+  # paquetes (ver docs/adr/0003-pnpm.md). Este job es el único que verifica el
+  # artefacto que realmente se despliega.
+  #
+  # No hay build explícito: la tarea declara
+  # `dependsOn: [build, remote-pokemon#build, remote-dragonball#build]`, así que
+  # turbo construye lo que falte y devuelve desde cache lo que no cambió.
+  # ---------------------------------------------------------------------------
+  e2e:
+    name: E2E against production builds
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+
+      # --frozen-lockfile falla si el lockfile no corresponde a los package.json.
+      # En CI eso es lo que se quiere: un lockfile desactualizado es un bug, no
+      # algo que el pipeline deba arreglar en silencio.
+      - run: pnpm install --frozen-lockfile
+
+      - name: Restore Turborepo cache
+        uses: actions/cache@v4
+        with:
+          path: .turbo
+          key: turbo-e2e-${{ runner.os }}-${{ github.ref_name }}-${{ github.sha }}
+          restore-keys: |
+            turbo-e2e-${{ runner.os }}-${{ github.ref_name }}-
+            turbo-e2e-${{ runner.os }}-main-
+            turbo-${{ runner.os }}-main-
+
+      - name: Install Playwright browser
+        run: pnpm --filter host exec playwright install --with-deps chromium
+
+      - name: Build and run E2E
+        run: pnpm exec turbo run test:e2e:preview
+
+      - name: Upload Playwright report
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: apps/host/playwright-report/
+          retention-days: 7

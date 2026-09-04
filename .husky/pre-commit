@@ -1,0 +1,4 @@
+# `pnpm exec`, no `npx`: con pnpm el node_modules no es plano y npx no resuelve
+# el binario local — se baja lint-staged de la red y lo corre en un contexto sin
+# el .bin del proyecto en el PATH, así que prettier y eslint fallan con ENOENT.
+pnpm exec lint-staged

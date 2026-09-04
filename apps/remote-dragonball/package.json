@@ -1,0 +1,55 @@
+{
+  "name": "remote-dragonball",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "type-check": "vue-tsc --build",
+    "lint": "oxlint . && eslint . --cache",
+    "lint:fix": "oxlint . --fix && eslint . --fix --cache",
+    "format": "prettier --write --experimental-cli src/",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@pinia/colada": "^1.3.1",
+    "@vueuse/core": "^14.3.0",
+    "awilix": "^13.0.3",
+    "axios": "^1.17.0",
+    "pinia": "^3.0.4",
+    "vue": "^3.5.32",
+    "vue-router": "^5.0.4",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@module-federation/vite": "^1.21.2",
+    "@pokedex/mf-shared": "workspace:*",
+    "@tailwindcss/vite": "^4.3.0",
+    "@tsconfig/node24": "^24.0.4",
+    "@types/node": "^24.12.2",
+    "@vitejs/plugin-vue": "^6.0.6",
+    "@vue/eslint-config-typescript": "^14.7.0",
+    "@vue/test-utils": "^2.4.11",
+    "@vue/tsconfig": "^0.9.1",
+    "eslint": "^10.2.1",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-import-resolver-typescript": "^4.4.5",
+    "eslint-plugin-boundaries": "^6.0.2",
+    "eslint-plugin-oxlint": "~1.60.0",
+    "eslint-plugin-vue": "~10.8.0",
+    "jiti": "^2.6.1",
+    "jsdom": "^29.1.1",
+    "oxlint": "~1.60.0",
+    "tailwindcss": "^4.3.0",
+    "typescript": "~6.0.0",
+    "vite": "^8.0.8",
+    "vite-plugin-vue-devtools": "^8.1.1",
+    "vitest": "^4.1.8",
+    "vue-tsc": "^3.2.6"
+  },
+  "engines": {
+    "node": "^20.19.0 || >=22.12.0"
+  }
+}
