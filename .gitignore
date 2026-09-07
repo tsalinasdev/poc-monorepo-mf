@@ -53,3 +53,7 @@ __screenshots__/
 /apps/*/playwright-report/
 /apps/*/test-results/
 /apps/*/blob-report/
+
+# Vercel — el `vercel link` por app deja un .vercel/ con el projectId.
+/.vercel
+/apps/*/.vercel
