@@ -59,6 +59,19 @@ pnpm exec turbo run test:e2e:preview --dry-run=text   # el grafo, en texto
 pnpm exec turbo run build --force                     # ignorar el cache (escotilla)
 ```
 
+Para compilar una sola app (útil cuando solo tocaste un remote y querés saltar las otras dos):
+
+```bash
+pnpm --filter remote-pokemon build    # solo remote-pokemon, respeta el cache de turbo
+pnpm --filter remote-dragonball build # solo remote-dragonball
+pnpm --filter host build              # solo el host
+```
+
+Turborepo resuelve el subgrafo desde la raíz, así que el symlink de `@pokedex/mf-shared`
+se encuentra sin pasos extra. Output en `apps/<app>/dist/`. Si necesitás forzar la
+recompilación ignorando el cache, agregá `--force`:
+`pnpm exec turbo run build --filter=remote-pokemon --force`.
+
 `turbo run dev` etiqueta la salida por app, así se sabe de quién es cada línea:
 
 ```
