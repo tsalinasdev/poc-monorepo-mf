@@ -53,3 +53,6 @@ __screenshots__/
 /apps/*/playwright-report/
 /apps/*/test-results/
 /apps/*/blob-report/
+
+# Temp files
+_tmp_*

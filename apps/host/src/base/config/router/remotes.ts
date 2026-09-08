@@ -54,17 +54,24 @@ export interface RemoteDefinition {
  * `import()` into `loadRemote(...)`. See `vite.config.ts` for the test-mode
  * alias that resolves the same specifier to the unit-test stub.
  */
-const loadPokemonBridge = () => import('remotePokemon/export-app')
-const loadDragonballBridge = () => import('remoteDragonball/export-app')
-
-const bridgeComponentFor = (loader: () => Promise<unknown>) =>
-  createRemoteAppComponent({
-    // Cast: the loader returns `Promise<any>`; createRemoteAppComponent's
-    // signature accepts `Promise<any>` and extracts `module.default` at render
-    // time. The bridge function returned by `createBridgeComponent` satisfies
-    // that shape.
+/**
+ * Eagerly probe a remote's contract so `allSettled` can detect a failure
+ * during `registerRemoteRoutes`. Without this, `createRemoteAppComponent`
+ * returns a `defineAsyncComponent` whose loader only fires at mount time —
+ * `allSettled` always resolves and the unavailable route is never registered.
+ *
+ * The MF runtime caches the imported module, so the component's own lazy
+ * load hits cache and costs nothing extra.
+ */
+async function probeAndWrap(loader: () => Promise<unknown>): Promise<Component> {
+  await loader()
+  return createRemoteAppComponent({
     loader: loader as () => Promise<{ default: unknown }>,
   })
+}
+
+const loadPokemonBridge = () => import('remotePokemon/export-app')
+const loadDragonballBridge = () => import('remoteDragonball/export-app')
 
 export const REMOTES: readonly RemoteDefinition[] = [
   {
@@ -72,13 +79,13 @@ export const REMOTES: readonly RemoteDefinition[] = [
     routeName: 'remote-pokemon',
     navLabel: 'Pokédex',
     basePath: '/pokemons',
-    loadApp: async () => bridgeComponentFor(loadPokemonBridge),
+    loadApp: () => probeAndWrap(loadPokemonBridge),
   },
   {
     id: 'remoteDragonball',
     routeName: 'remote-dragonball',
     navLabel: 'Dragon Ball',
     basePath: '/dragon-ball',
-    loadApp: async () => bridgeComponentFor(loadDragonballBridge),
+    loadApp: () => probeAndWrap(loadDragonballBridge),
   },
 ]
