@@ -122,6 +122,20 @@ import App from './App.vue'
 import { pokemonRoutes } from './modules/pokemon/presentation/routes/pokemon.routes'
 import { coladaOptions } from './base/config/colada/colada.options'
 
+// Strip basename prefix so bridge router doesn't double-prefix
+function routesRelativeTo(basename: string | undefined) {
+  if (!basename) return pokemonRoutes
+  const prefix = basename.replace(/\/+$/, '')
+  return pokemonRoutes.map((route) => ({
+    ...route,
+    path: route.path.startsWith(prefix + '/')
+      ? route.path.slice(prefix.length)
+      : route.path === prefix
+        ? '/'
+        : route.path,
+  }))
+}
+
 export default createBridgeComponent({
   rootComponent: App,
   appOptions: ({ app, basename }) => {
@@ -129,7 +143,7 @@ export default createBridgeComponent({
     app.use(PiniaColada, coladaOptions)
     const router = createRouter({
       history: createWebHistory(basename ?? import.meta.env.BASE_URL),
-      routes: [{ path: '/', redirect: { name: 'pokemon-list' } }, ...pokemonRoutes],
+      routes: [{ path: '/', redirect: { name: 'pokemon-list' } }, ...routesRelativeTo(basename)],
     })
     return { router }
   },
@@ -138,10 +152,34 @@ export default createBridgeComponent({
 
 El host mantiene su **catálogo** (`apps/host/src/base/config/router/remotes.ts`)
 con los datos de cada remote (id, `routeName` de la sección, `navLabel`,
-`basePath`) y un `loadApp()` que llama a
-[`createRemoteAppComponent`](https://module-federation.io/integrations/practice/vue.html)
-sobre `loadRemote('<id>/./export-app')`. El resultado se monta como **una sola ruta
-catch-all** dentro del layout del host:
+`basePath`) y un `loadApp()` que usa `probeAndWrap` para cargar eagerly el
+contrato federado y envolverlo con `createRemoteAppComponent`. Si el remote
+no responde, `allSettled` detecta la falla y registra la ruta degradada:
+
+```ts
+// apps/host/src/base/config/router/remotes.ts
+async function probeAndWrap(loader: () => Promise<unknown>): Promise<Component> {
+  await loader() // eagerly probe — allSettled detecta la falla
+  return createRemoteAppComponent({
+    loader: loader as () => Promise<{ default: unknown }>,
+  })
+}
+
+const loadPokemonBridge = () => import('remotePokemon/export-app')
+
+export const REMOTES: readonly RemoteDefinition[] = [
+  {
+    id: 'remotePokemon',
+    routeName: 'remote-pokemon',
+    navLabel: 'Pokédex',
+    basePath: '/pokemons',
+    loadApp: () => probeAndWrap(loadPokemonBridge),
+  },
+  // ...
+]
+```
+
+Las rutas se registran dinámicamente en `registerRemoteRoutes()`:
 
 ```ts
 // apps/host/src/base/config/router/index.ts
@@ -149,23 +187,7 @@ routes: [
   {
     path: '/',
     component: () => import('@/modules/shared/presentation/layouts/public/PublicLayout.vue'),
-    children: [
-      { path: '', redirect: { name: 'remote-pokemon' } },
-      {
-        path: '/pokemons/:pathMatch(.*)*',
-        name: 'remote-pokemon',
-        component: RemotePokemon, // createRemoteAppComponent(...)
-        props: { basename: '/pokemons' },
-        meta: { navLabel: 'Pokédex' },
-      },
-      {
-        path: '/dragon-ball/:pathMatch(.*)*',
-        name: 'remote-dragonball',
-        component: RemoteDragonball,
-        props: { basename: '/dragon-ball' },
-        meta: { navLabel: 'Dragon Ball' },
-      },
-    ],
+    children: [], // filled by registerRemoteRoutes()
   },
 ]
 ```
@@ -195,7 +217,7 @@ catch-all (`meta: { navLabel: 'Pokédex' }`). Razón: el label es un problema de
   routeName: 'remote-pokemon',
   navLabel: 'Pokédex',
   basePath: '/pokemons',
-  loadApp: () => bridgeComponentFor('remotePokemon'),
+  loadApp: () => probeAndWrap(loadPokemonBridge),
 }
 ```
 
@@ -242,6 +264,34 @@ VITE_REMOTE_DRAGONBALL_MANIFEST_URL=http://localhost:5175/mf-manifest.json
 Y están declaradas en `turbo.json → tasks.build.env` para que turbo no cachee
 un build con la URL del manifest equivocada.
 
+### API Proxies
+
+Cuando los remotes corren dentro del host (federado), sus llamadas a API
+hittean el origen del host, no el suyo propio. El host provee proxies en
+`vite.config.ts` para reescribir las URLs:
+
+```ts
+// apps/host/vite.config.ts
+server: {
+  proxy: {
+    '/api/pokeapi': {
+      target: 'https://pokeapi.co',
+      changeOrigin: true,
+      rewrite: (path) => path.replace(/^\/api\/pokeapi/, '/api/v2'),
+    },
+    '/api/dragonball': {
+      target: 'https://dragonball-api.com',
+      changeOrigin: true,
+      rewrite: (path) => path.replace(/^\/api\/dragonball/, '/api'),
+    },
+  },
+},
+```
+
+Cada remote también tiene su propio proxy para modo standalone
+(`apps/remote-*/vite.config.ts`), pero en modo federado solo el proxy del
+host está activo.
+
 ### Qué debe cumplir el host (la otra mitad del contrato)
 
 Los remotes no son autosuficientes en tiempo de ejecución federado. Dan por hecho que el
@@ -262,10 +312,23 @@ host:
 
 ### Un remote caído no tumba el shell
 
-Los contratos se cargan con `import()` dinámico y `Promise.allSettled` en
-`registerRemoteRoutes()` (`src/base/config/router/`). Un remote que no responde degrada
-**solo su sección** —queda en la barra y su ruta base explica qué pasó— mientras el resto
-de la aplicación funciona con normalidad.
+Los contratos se cargan con `probeAndWrap` (eagerly probe) y `Promise.allSettled`
+en `registerRemoteRoutes()` (`src/base/config/router/`). Si el remote no
+responde, se registra una ruta degradada con `RemoteUnavailableScreen` que
+muestra "Pokédex is unavailable" o "Dragon Ball is unavailable". El remote
+queda en la barra de navegación y su ruta base explica qué pasó, mientras el
+resto de la aplicación funciona con normalidad.
+
+```ts
+// Degraded mode en registerRemoteRoutes()
+router.addRoute(SHELL_ROUTE_NAME, {
+  path: remote.basePath,
+  name: `${remote.id}-unavailable`,
+  component: () => import('@/modules/shared/presentation/screens/RemoteUnavailableScreen.vue'),
+  props: { sectionLabel: remote.navLabel },
+  meta: { navLabel: remote.navLabel },
+})
+```
 
 Con los imports estáticos anteriores, un remote caído dejaba el `#app` en 0 bytes: sin
 navbar, y el otro remote inaccesible aunque estuviera sano. Está cubierto en
@@ -485,3 +548,5 @@ apps/remote-<dominio>/
 La duplicación de `src/base/` entre las tres apps es **deliberada** (regla de la skill): es
 el precio de que cada una sea autónoma y desplegable por separado. Extraer un paquete
 compartido acoplaría los despliegues y es una decisión explícita, no automática.
+
+![Diagrama](image.png)

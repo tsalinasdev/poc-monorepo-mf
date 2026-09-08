@@ -1,0 +1,180 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Host-Remote Module Federation Flow",
+    "subtitle": "Communication and dependency flow between host shell and federated remotes",
+    "quality_profile": "showcase",
+    "viewBox": [1100, 1000]
+  },
+  "components": [
+    {
+      "id": "browser",
+      "type": "frontend",
+      "label": "Browser",
+      "pos": [450, 30],
+      "size": [150, 38]
+    },
+    {
+      "id": "host",
+      "type": "frontend",
+      "label": "Host Shell",
+      "pos": [420, 120],
+      "size": [210, 40]
+    },
+    {
+      "id": "probe",
+      "type": "backend",
+      "label": "probeAndWrap()",
+      "pos": [430, 220],
+      "size": [190, 40]
+    },
+    {
+      "id": "bridge",
+      "type": "messagebus",
+      "label": "MF Bridge",
+      "pos": [420, 320],
+      "size": [210, 40]
+    },
+    {
+      "id": "pokemon",
+      "type": "frontend",
+      "label": "Pokemon Remote",
+      "pos": [120, 430],
+      "size": [170, 40]
+    },
+    {
+      "id": "dragonball",
+      "type": "frontend",
+      "label": "DragonBall Remote",
+      "pos": [700, 430],
+      "size": [170, 40]
+    },
+    {
+      "id": "proxy",
+      "type": "backend",
+      "label": "Vite Proxy",
+      "pos": [440, 540],
+      "size": [180, 38]
+    },
+    {
+      "id": "pokeapi",
+      "type": "external",
+      "label": "PokeAPI",
+      "pos": [140, 640],
+      "size": [130, 32]
+    },
+    {
+      "id": "dbapi",
+      "type": "external",
+      "label": "Dragon Ball API",
+      "pos": [710, 640],
+      "size": [140, 32]
+    }
+  ],
+  "connections": [
+    {
+      "from": "browser",
+      "to": "host",
+      "label": "HTTP",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "labelAt": [620, 85]
+    },
+    {
+      "from": "host",
+      "to": "probe",
+      "label": "registerRemoteRoutes()",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "labelAt": [620, 185]
+    },
+    {
+      "from": "probe",
+      "to": "bridge",
+      "label": "loadRemote()",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "labelAt": [620, 285]
+    },
+    {
+      "from": "bridge",
+      "to": "pokemon",
+      "label": "import('remotePokemon')",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "bridge",
+      "to": "dragonball",
+      "label": "import('remoteDragonball')",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "from": "pokemon",
+      "to": "proxy",
+      "label": "fetch('/api/pokeapi')",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "variant": "dashed"
+    },
+    {
+      "from": "dragonball",
+      "to": "proxy",
+      "label": "fetch('/api/dragonball')",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "variant": "dashed"
+    },
+    {
+      "from": "proxy",
+      "to": "pokeapi",
+      "label": "Proxy rewrite",
+      "fromSide": "left",
+      "toSide": "right"
+    },
+    {
+      "from": "proxy",
+      "to": "dbapi",
+      "label": "Proxy rewrite",
+      "fromSide": "right",
+      "toSide": "left"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Startup Flow",
+      "items": [
+        "1. Browser → Host shell",
+        "2. Host calls registerRemoteRoutes()",
+        "3. probeAndWrap() eagerly loads each remote",
+        "4. allSettled catches failures",
+        "5. Routes registered or degraded"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "Runtime Flow",
+      "items": [
+        "1. Navigate to /pokemons",
+        "2. MF Bridge mounts remote component",
+        "3. Remote calls API via host proxy",
+        "4. Proxy rewrites to external API",
+        "5. Data flows back to remote"
+      ]
+    },
+    {
+      "dot": "violet",
+      "title": "Degraded Mode",
+      "items": [
+        "1. probeAndWrap() fails for remote",
+        "2. allSettled detects rejection",
+        "3. Unavailable route registered",
+        "4. Remote stays in navbar",
+        "5. Other remotes unaffected"
+      ]
+    }
+  ]
+}

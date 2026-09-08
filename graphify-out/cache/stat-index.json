@@ -1,0 +1,1135 @@
+{
+  ".claude/launch.json": {
+    "size": 183,
+    "mtime_ns": 1788299754839241826,
+    "indexed_at_ns": 1788880599796651000,
+    "word_count": 18,
+    "hashes": {
+      ".claude/launch.json": "220a44222410994b841146139a88ff6d4a0fb641460b234faeda793afba85e5b"
+    }
+  },
+  ".github/workflows/ci.yml": {
+    "size": 5460,
+    "mtime_ns": 1788533647149620280,
+    "indexed_at_ns": 1788880579682739000,
+    "word_count": 712
+  },
+  ".prettierrc.json": {
+    "size": 120,
+    "mtime_ns": 1788299754840359352,
+    "indexed_at_ns": 1788880599799203000,
+    "word_count": 10,
+    "hashes": {
+      ".prettierrc.json": "2c552d01a9b0f1e7b8373ecca598a8c5fa66514d389ca771d1ebd7d5bdf8ffce"
+    }
+  },
+  ".syncpackrc.json": {
+    "size": 236,
+    "mtime_ns": 1788533647158696888,
+    "indexed_at_ns": 1788880599799942000,
+    "word_count": 29,
+    "hashes": {
+      ".syncpackrc.json": "47db5b05d27bee469529484603b7a55ae16bb3d6611ad115699ec1cc28a5dec6"
+    }
+  },
+  ".vscode/extensions.json": {
+    "size": 162,
+    "mtime_ns": 1788299754840548224,
+    "indexed_at_ns": 1788880599800508000,
+    "word_count": 10,
+    "hashes": {
+      ".vscode/extensions.json": "357f0f2bd431fe5cbdacd8dc43309bbd6d6313836c4adb5b90ec9dd05204882a"
+    }
+  },
+  "README.md": {
+    "size": 24017,
+    "mtime_ns": 1788876087206726670,
+    "indexed_at_ns": 1788880579688571000,
+    "word_count": 3222
+  },
+  "apps/host/.oxlintrc.json": {
+    "size": 217,
+    "mtime_ns": 1788443623122481917,
+    "indexed_at_ns": 1788880599801703000,
+    "word_count": 20,
+    "hashes": {
+      "apps/host/.oxlintrc.json": "c8f5bf5af33e3f5e3b742be18abf059c63adcb97115c7bd643e5148a4bbed4b2"
+    }
+  },
+  "apps/host/e2e/navbar.spec.ts": {
+    "size": 3553,
+    "mtime_ns": 1788880187642954882,
+    "indexed_at_ns": 1788880579689713000,
+    "word_count": 408
+  },
+  "apps/host/e2e/remote-outage.spec.ts": {
+    "size": 2153,
+    "mtime_ns": 1788443623122699377,
+    "indexed_at_ns": 1788880579689965000,
+    "word_count": 280
+  },
+  "apps/host/env.d.ts": {
+    "size": 38,
+    "mtime_ns": 1788443623122770586,
+    "indexed_at_ns": 1788880579690872000,
+    "word_count": 4
+  },
+  "apps/host/eslint.config.ts": {
+    "size": 3957,
+    "mtime_ns": 1788443623122857586,
+    "indexed_at_ns": 1788880579691228000,
+    "word_count": 310
+  },
+  "apps/host/index.html": {
+    "size": 340,
+    "mtime_ns": 1788443623122927545,
+    "indexed_at_ns": 1788880579692360000,
+    "word_count": 26
+  },
+  "apps/host/module-federation.config.ts": {
+    "size": 1581,
+    "mtime_ns": 1788872936628346854,
+    "indexed_at_ns": 1788880579692557000,
+    "word_count": 189
+  },
+  "apps/host/package.json": {
+    "size": 1618,
+    "mtime_ns": 1788872936631454294,
+    "indexed_at_ns": 1788880599802462000,
+    "word_count": 129,
+    "hashes": {
+      "apps/host/package.json": "58ac009ecedd778e75dc15196839aa0e8d12a71818b8dde7a47da8846120b784"
+    }
+  },
+  "apps/host/playwright.config.ts": {
+    "size": 2820,
+    "mtime_ns": 1788533647172805778,
+    "indexed_at_ns": 1788880579694057000,
+    "word_count": 387
+  },
+  "apps/host/src/App.vue": {
+    "size": 116,
+    "mtime_ns": 1788443623123439340,
+    "indexed_at_ns": 1788880579694561000,
+    "word_count": 14
+  },
+  "apps/host/src/base/config/colada/colada.options.ts": {
+    "size": 360,
+    "mtime_ns": 1788443623123780841,
+    "indexed_at_ns": 1788880579695991000,
+    "word_count": 51
+  },
+  "apps/host/src/base/config/env/env.config.ts": {
+    "size": 232,
+    "mtime_ns": 1788443623123894967,
+    "indexed_at_ns": 1788880579697383000,
+    "word_count": 24
+  },
+  "apps/host/src/base/config/env/env.schema.ts": {
+    "size": 545,
+    "mtime_ns": 1788872936636766429,
+    "indexed_at_ns": 1788880579697767000,
+    "word_count": 79
+  },
+  "apps/host/src/base/config/router/index.ts": {
+    "size": 4838,
+    "mtime_ns": 1788876087259621537,
+    "indexed_at_ns": 1788880579699054000,
+    "word_count": 582
+  },
+  "apps/host/src/base/config/router/remotes.ts": {
+    "size": 4017,
+    "mtime_ns": 1788876822587238663,
+    "indexed_at_ns": 1788880579699466000,
+    "word_count": 577
+  },
+  "apps/host/src/main.ts": {
+    "size": 1308,
+    "mtime_ns": 1788443623124226594,
+    "indexed_at_ns": 1788880579700444000,
+    "word_count": 176
+  },
+  "apps/host/src/modules/shared/presentation/layouts/public/PublicLayout.vue": {
+    "size": 1625,
+    "mtime_ns": 1788443623124527929,
+    "indexed_at_ns": 1788880579700862000,
+    "word_count": 152
+  },
+  "apps/host/src/modules/shared/presentation/layouts/public/usePublicLayoutViewModel.ts": {
+    "size": 1971,
+    "mtime_ns": 1788872936643406182,
+    "indexed_at_ns": 1788880579701579000,
+    "word_count": 251
+  },
+  "apps/host/src/modules/shared/presentation/models/nav-item.model.ts": {
+    "size": 92,
+    "mtime_ns": 1788443623124737972,
+    "indexed_at_ns": 1788880579703920000,
+    "word_count": 11
+  },
+  "apps/host/src/modules/shared/presentation/screens/NotFoundScreen.vue": {
+    "size": 389,
+    "mtime_ns": 1788443623124996265,
+    "indexed_at_ns": 1788880579704306000,
+    "word_count": 42
+  },
+  "apps/host/src/modules/shared/presentation/screens/RemoteUnavailableScreen.vue": {
+    "size": 880,
+    "mtime_ns": 1788443623125076932,
+    "indexed_at_ns": 1788880579704683000,
+    "word_count": 122
+  },
+  "apps/host/src/types/remotes.d.ts": {
+    "size": 828,
+    "mtime_ns": 1788872936648833483,
+    "indexed_at_ns": 1788880579705982000,
+    "word_count": 108
+  },
+  "apps/host/tests/base/config/router/router.spec.ts": {
+    "size": 6993,
+    "mtime_ns": 1788876087310759207,
+    "indexed_at_ns": 1788880579708102000,
+    "word_count": 692
+  },
+  "apps/host/tests/modules/shared/presentation/layouts/public/PublicLayout.spec.ts": {
+    "size": 2565,
+    "mtime_ns": 1788443623125976396,
+    "indexed_at_ns": 1788880579710079000,
+    "word_count": 283
+  },
+  "apps/host/tests/modules/shared/presentation/layouts/public/usePublicLayoutViewModel.spec.ts": {
+    "size": 4460,
+    "mtime_ns": 1788443623126139021,
+    "indexed_at_ns": 1788880579710444000,
+    "word_count": 546
+  },
+  "apps/host/tests/stubs/remote-dragonball-export-app.ts": {
+    "size": 526,
+    "mtime_ns": 1788876087325036365,
+    "indexed_at_ns": 1788880579710867000,
+    "word_count": 64
+  },
+  "apps/host/tests/stubs/remote-pokemon-export-app.ts": {
+    "size": 920,
+    "mtime_ns": 1788876087333925183,
+    "indexed_at_ns": 1788880579711267000,
+    "word_count": 129
+  },
+  "apps/host/tsconfig.app.json": {
+    "size": 594,
+    "mtime_ns": 1788443623126545524,
+    "indexed_at_ns": 1788880599803066000,
+    "word_count": 62,
+    "hashes": {
+      "apps/host/tsconfig.app.json": "36887a2ef6e84dd94d91f14bc950105b59468adf90c95432dc369a38d344c4e3"
+    }
+  },
+  "apps/host/tsconfig.json": {
+    "size": 191,
+    "mtime_ns": 1788443623126626524,
+    "indexed_at_ns": 1788880599804241000,
+    "word_count": 19,
+    "hashes": {
+      "apps/host/tsconfig.json": "427d257a140d85f3cdcc67159f46d9e72e3de6282ebee362d80b91fecd7ee9bf"
+    }
+  },
+  "apps/host/tsconfig.node.json": {
+    "size": 1156,
+    "mtime_ns": 1788443623126715441,
+    "indexed_at_ns": 1788880599806699000,
+    "word_count": 120,
+    "hashes": {
+      "apps/host/tsconfig.node.json": "ac865bc4fb44c79f29690846c21e1be6407e8d2d39116b4310cd180756ebc174"
+    }
+  },
+  "apps/host/tsconfig.vitest.json": {
+    "size": 294,
+    "mtime_ns": 1788443623126792067,
+    "indexed_at_ns": 1788880599807004000,
+    "word_count": 21,
+    "hashes": {
+      "apps/host/tsconfig.vitest.json": "7f37cd005b1be342dfa5ef548160307d93e3b039f838253c98693d506729e69e"
+    }
+  },
+  "apps/host/vite.config.ts": {
+    "size": 3353,
+    "mtime_ns": 1788873785502641397,
+    "indexed_at_ns": 1788880579712984000,
+    "word_count": 357
+  },
+  "apps/remote-dragonball/.oxlintrc.json": {
+    "size": 217,
+    "mtime_ns": 1788443623127500154,
+    "indexed_at_ns": 1788880599808048000,
+    "word_count": 20,
+    "hashes": {
+      "apps/remote-dragonball/.oxlintrc.json": "d87e2ecafce37a4d543c028551c23fd9182dcfc1c1b5004e07c6e5d0be402382"
+    }
+  },
+  "apps/remote-dragonball/env.d.ts": {
+    "size": 38,
+    "mtime_ns": 1788443623127748155,
+    "indexed_at_ns": 1788880579715140000,
+    "word_count": 4
+  },
+  "apps/remote-dragonball/eslint.config.ts": {
+    "size": 4152,
+    "mtime_ns": 1788443623127908906,
+    "indexed_at_ns": 1788880579715893000,
+    "word_count": 333
+  },
+  "apps/remote-dragonball/index.html": {
+    "size": 355,
+    "mtime_ns": 1788443623127998449,
+    "indexed_at_ns": 1788880579716584000,
+    "word_count": 27
+  },
+  "apps/remote-dragonball/module-federation.config.ts": {
+    "size": 1314,
+    "mtime_ns": 1788872936670384023,
+    "indexed_at_ns": 1788880579716778000,
+    "word_count": 184
+  },
+  "apps/remote-dragonball/package.json": {
+    "size": 1579,
+    "mtime_ns": 1788872936675748783,
+    "indexed_at_ns": 1788880599808280000,
+    "word_count": 126,
+    "hashes": {
+      "apps/remote-dragonball/package.json": "ba7ede31e03b6c7c7bfc903f3d1f17180e55a3027a3bb464abab1861f31be085"
+    }
+  },
+  "apps/remote-dragonball/src/App.vue": {
+    "size": 541,
+    "mtime_ns": 1788872936678786765,
+    "indexed_at_ns": 1788880579718863000,
+    "word_count": 74
+  },
+  "apps/remote-dragonball/src/base/config/colada/colada.options.ts": {
+    "size": 512,
+    "mtime_ns": 1788443623128972829,
+    "indexed_at_ns": 1788880579719751000,
+    "word_count": 79
+  },
+  "apps/remote-dragonball/src/base/config/di/container.ts": {
+    "size": 2367,
+    "mtime_ns": 1788443623129108413,
+    "indexed_at_ns": 1788880579720453000,
+    "word_count": 264
+  },
+  "apps/remote-dragonball/src/base/config/env/env.config.ts": {
+    "size": 232,
+    "mtime_ns": 1788443623129234205,
+    "indexed_at_ns": 1788880579720856000,
+    "word_count": 24
+  },
+  "apps/remote-dragonball/src/base/config/env/env.schema.ts": {
+    "size": 499,
+    "mtime_ns": 1788873822059242832,
+    "indexed_at_ns": 1788880579721183000,
+    "word_count": 73
+  },
+  "apps/remote-dragonball/src/base/config/http/axios.http-client.ts": {
+    "size": 2526,
+    "mtime_ns": 1788443623129674208,
+    "indexed_at_ns": 1788880579721623000,
+    "word_count": 256
+  },
+  "apps/remote-dragonball/src/base/config/http/exception/http-service.exception.ts": {
+    "size": 688,
+    "mtime_ns": 1788443623129806750,
+    "indexed_at_ns": 1788880579722408000,
+    "word_count": 62
+  },
+  "apps/remote-dragonball/src/base/config/http/http-response.ts": {
+    "size": 137,
+    "mtime_ns": 1788443623129890417,
+    "indexed_at_ns": 1788880579723509000,
+    "word_count": 17
+  },
+  "apps/remote-dragonball/src/base/config/router/index.ts": {
+    "size": 557,
+    "mtime_ns": 1788443623130089044,
+    "indexed_at_ns": 1788880579723910000,
+    "word_count": 67
+  },
+  "apps/remote-dragonball/src/base/constants/index.ts": {
+    "size": 212,
+    "mtime_ns": 1788443623130217461,
+    "indexed_at_ns": 1788880579724786000,
+    "word_count": 26
+  },
+  "apps/remote-dragonball/src/base/lib/application/use-case.base.ts": {
+    "size": 355,
+    "mtime_ns": 1788443623130408379,
+    "indexed_at_ns": 1788880579726253000,
+    "word_count": 51
+  },
+  "apps/remote-dragonball/src/base/lib/domain/command.base.ts": {
+    "size": 72,
+    "mtime_ns": 1788443623130577171,
+    "indexed_at_ns": 1788880579726667000,
+    "word_count": 10
+  },
+  "apps/remote-dragonball/src/base/lib/domain/domain-exception.base.ts": {
+    "size": 178,
+    "mtime_ns": 1788443623130664755,
+    "indexed_at_ns": 1788880579728500000,
+    "word_count": 20
+  },
+  "apps/remote-dragonball/src/base/lib/domain/paginated.ts": {
+    "size": 293,
+    "mtime_ns": 1788443623130814089,
+    "indexed_at_ns": 1788880579728805000,
+    "word_count": 39
+  },
+  "apps/remote-dragonball/src/base/lib/domain/props.base.ts": {
+    "size": 68,
+    "mtime_ns": 1788443623130929965,
+    "indexed_at_ns": 1788880579729112000,
+    "word_count": 10
+  },
+  "apps/remote-dragonball/src/base/lib/domain/query.base.ts": {
+    "size": 68,
+    "mtime_ns": 1788443623131014882,
+    "indexed_at_ns": 1788880579729410000,
+    "word_count": 10
+  },
+  "apps/remote-dragonball/src/base/lib/domain/result.ts": {
+    "size": 799,
+    "mtime_ns": 1788443623131105216,
+    "indexed_at_ns": 1788880579729709000,
+    "word_count": 100
+  },
+  "apps/remote-dragonball/src/base/lib/utils/index.ts": {
+    "size": 31,
+    "mtime_ns": 1788443623131235050,
+    "indexed_at_ns": 1788880579730699000,
+    "word_count": 4
+  },
+  "apps/remote-dragonball/src/base/lib/utils/string.utils.ts": {
+    "size": 110,
+    "mtime_ns": 1788443623131322467,
+    "indexed_at_ns": 1788880579731040000,
+    "word_count": 11
+  },
+  "apps/remote-dragonball/src/export-app.ts": {
+    "size": 2467,
+    "mtime_ns": 1788876087362154459,
+    "indexed_at_ns": 1788880579731296000,
+    "word_count": 332
+  },
+  "apps/remote-dragonball/src/main.ts": {
+    "size": 637,
+    "mtime_ns": 1788443623132002054,
+    "indexed_at_ns": 1788880579732345000,
+    "word_count": 79
+  },
+  "apps/remote-dragonball/src/modules/character/application/use-cases/character-finder/character-finder.use-case.ts": {
+    "size": 666,
+    "mtime_ns": 1788443623132463057,
+    "indexed_at_ns": 1788880579732814000,
+    "word_count": 57
+  },
+  "apps/remote-dragonball/src/modules/character/application/use-cases/characters-finder/characters-finder.use-case.ts": {
+    "size": 782,
+    "mtime_ns": 1788443623132600391,
+    "indexed_at_ns": 1788880579733858000,
+    "word_count": 64
+  },
+  "apps/remote-dragonball/src/modules/character/domain/entities/character-summary.entity.ts": {
+    "size": 372,
+    "mtime_ns": 1788443623132777017,
+    "indexed_at_ns": 1788880579734326000,
+    "word_count": 49
+  },
+  "apps/remote-dragonball/src/modules/character/domain/entities/character.entity.ts": {
+    "size": 785,
+    "mtime_ns": 1788443623132862142,
+    "indexed_at_ns": 1788880579735319000,
+    "word_count": 89
+  },
+  "apps/remote-dragonball/src/modules/character/domain/exceptions/character-not-found.exception.ts": {
+    "size": 255,
+    "mtime_ns": 1788443623132989518,
+    "indexed_at_ns": 1788880579736581000,
+    "word_count": 25
+  },
+  "apps/remote-dragonball/src/modules/character/domain/ports/character.repository.ts": {
+    "size": 593,
+    "mtime_ns": 1788443623133140811,
+    "indexed_at_ns": 1788880579737007000,
+    "word_count": 53
+  },
+  "apps/remote-dragonball/src/modules/character/domain/props/find-character.props.ts": {
+    "size": 164,
+    "mtime_ns": 1788443623133288228,
+    "indexed_at_ns": 1788880579737518000,
+    "word_count": 20
+  },
+  "apps/remote-dragonball/src/modules/character/domain/props/find-characters.props.ts": {
+    "size": 211,
+    "mtime_ns": 1788443623133381146,
+    "indexed_at_ns": 1788880579738314000,
+    "word_count": 26
+  },
+  "apps/remote-dragonball/src/modules/character/domain/value-objects/character-transformation.ts": {
+    "size": 166,
+    "mtime_ns": 1788443623133524605,
+    "indexed_at_ns": 1788880579738647000,
+    "word_count": 22
+  },
+  "apps/remote-dragonball/src/modules/character/domain/value-objects/origin-planet.ts": {
+    "size": 231,
+    "mtime_ns": 1788443623133604897,
+    "indexed_at_ns": 1788880579739715000,
+    "word_count": 33
+  },
+  "apps/remote-dragonball/src/modules/character/infrastructure/dtos/character-list-response.dto.ts": {
+    "size": 426,
+    "mtime_ns": 1788443623133787023,
+    "indexed_at_ns": 1788880579740190000,
+    "word_count": 51
+  },
+  "apps/remote-dragonball/src/modules/character/infrastructure/dtos/character-response.dto.ts": {
+    "size": 581,
+    "mtime_ns": 1788443623133868107,
+    "indexed_at_ns": 1788880579741027000,
+    "word_count": 77
+  },
+  "apps/remote-dragonball/src/modules/character/infrastructure/mappers/character.mapper.ts": {
+    "size": 1466,
+    "mtime_ns": 1788443623133999441,
+    "indexed_at_ns": 1788880579741372000,
+    "word_count": 136
+  },
+  "apps/remote-dragonball/src/modules/character/infrastructure/repositories/http-character.repository.ts": {
+    "size": 2703,
+    "mtime_ns": 1788443623134120858,
+    "indexed_at_ns": 1788880579741717000,
+    "word_count": 244
+  },
+  "apps/remote-dragonball/src/modules/character/presentation/mappers/character-detail-screen.mapper.ts": {
+    "size": 1114,
+    "mtime_ns": 1788443623134309901,
+    "indexed_at_ns": 1788880579742070000,
+    "word_count": 78
+  },
+  "apps/remote-dragonball/src/modules/character/presentation/mappers/character-list-screen.mapper.ts": {
+    "size": 476,
+    "mtime_ns": 1788443623134557277,
+    "indexed_at_ns": 1788880579742438000,
+    "word_count": 38
+  },
+  "apps/remote-dragonball/src/modules/character/presentation/models/character-card.model.ts": {
+    "size": 124,
+    "mtime_ns": 1788443623134823070,
+    "indexed_at_ns": 1788880579742760000,
+    "word_count": 15
+  },
+  "apps/remote-dragonball/src/modules/character/presentation/models/character-detail.model.ts": {
+    "size": 507,
+    "mtime_ns": 1788443623135104155,
+    "indexed_at_ns": 1788880579743120000,
+    "word_count": 56
+  },
+  "apps/remote-dragonball/src/modules/character/presentation/routes/character.routes.ts": {
+    "size": 1018,
+    "mtime_ns": 1788876087368143504,
+    "indexed_at_ns": 1788880579743455000,
+    "word_count": 136
+  },
+  "apps/remote-dragonball/src/modules/character/presentation/screens/character-detail/CharacterDetailScreen.vue": {
+    "size": 2930,
+    "mtime_ns": 1788443623135833743,
+    "indexed_at_ns": 1788880579743941000,
+    "word_count": 216
+  },
+  "apps/remote-dragonball/src/modules/character/presentation/screens/character-detail/useCharacterDetailViewModel.ts": {
+    "size": 1868,
+    "mtime_ns": 1788443623136015119,
+    "indexed_at_ns": 1788880579745264000,
+    "word_count": 225
+  },
+  "apps/remote-dragonball/src/modules/character/presentation/screens/character-list/CharacterListScreen.vue": {
+    "size": 1964,
+    "mtime_ns": 1788443623136178578,
+    "indexed_at_ns": 1788880579746122000,
+    "word_count": 166
+  },
+  "apps/remote-dragonball/src/modules/character/presentation/screens/character-list/useCharacterListViewModel.ts": {
+    "size": 2268,
+    "mtime_ns": 1788443623136277870,
+    "indexed_at_ns": 1788880579746634000,
+    "word_count": 274
+  },
+  "apps/remote-dragonball/tests/helpers/with-setup.ts": {
+    "size": 592,
+    "mtime_ns": 1788443623136456080,
+    "indexed_at_ns": 1788880579748148000,
+    "word_count": 87
+  },
+  "apps/remote-dragonball/tests/modules/character/application/use-cases/characters-finder/characters-finder.use-case.spec.ts": {
+    "size": 1542,
+    "mtime_ns": 1788443623136883957,
+    "indexed_at_ns": 1788880579748554000,
+    "word_count": 126
+  },
+  "apps/remote-dragonball/tests/modules/character/builders/character.builder.ts": {
+    "size": 1207,
+    "mtime_ns": 1788443623137130875,
+    "indexed_at_ns": 1788880579749013000,
+    "word_count": 100
+  },
+  "apps/remote-dragonball/tests/modules/character/infrastructure/repositories/http-character.repository.spec.ts": {
+    "size": 3537,
+    "mtime_ns": 1788443623137383501,
+    "indexed_at_ns": 1788880579749863000,
+    "word_count": 344
+  },
+  "apps/remote-dragonball/tests/modules/character/presentation/screens/character-list/useCharacterListViewModel.spec.ts": {
+    "size": 1814,
+    "mtime_ns": 1788443623137634961,
+    "indexed_at_ns": 1788880579750275000,
+    "word_count": 164
+  },
+  "apps/remote-dragonball/tsconfig.app.json": {
+    "size": 594,
+    "mtime_ns": 1788443623137724670,
+    "indexed_at_ns": 1788880599808582000,
+    "word_count": 62,
+    "hashes": {
+      "apps/remote-dragonball/tsconfig.app.json": "6cb298ee7a47f20a02256321e164769b4840a02b8feae6cf7a53c95ba8036c12"
+    }
+  },
+  "apps/remote-dragonball/tsconfig.json": {
+    "size": 191,
+    "mtime_ns": 1788443623137807045,
+    "indexed_at_ns": 1788880599809254000,
+    "word_count": 19,
+    "hashes": {
+      "apps/remote-dragonball/tsconfig.json": "9160cbc2d56b893168c2b0ce0bdfc4bcb5ffa8b57faddaf2b8aa3df8c3ce9ed4"
+    }
+  },
+  "apps/remote-dragonball/tsconfig.node.json": {
+    "size": 1156,
+    "mtime_ns": 1788443623137889504,
+    "indexed_at_ns": 1788880599810118000,
+    "word_count": 120,
+    "hashes": {
+      "apps/remote-dragonball/tsconfig.node.json": "02075149660cd2a7a5f802be893100313cd6c345a0e8ea833b2fb95cc6115ee3"
+    }
+  },
+  "apps/remote-dragonball/tsconfig.vitest.json": {
+    "size": 282,
+    "mtime_ns": 1788443623137969838,
+    "indexed_at_ns": 1788880599810327000,
+    "word_count": 20,
+    "hashes": {
+      "apps/remote-dragonball/tsconfig.vitest.json": "d754c958789efa9a1d6ed124f9179f71d5dbeeadc6d446ab856765d7c6464017"
+    }
+  },
+  "apps/remote-dragonball/vite.config.ts": {
+    "size": 2238,
+    "mtime_ns": 1788873796087406695,
+    "indexed_at_ns": 1788880579754894000,
+    "word_count": 273
+  },
+  "apps/remote-pokemon/.oxlintrc.json": {
+    "size": 217,
+    "mtime_ns": 1788443623138396715,
+    "indexed_at_ns": 1788880599811235000,
+    "word_count": 20,
+    "hashes": {
+      "apps/remote-pokemon/.oxlintrc.json": "eb83df78f722d3422f0f0a7b0372dd8ddb15cd5d2b4ca8a712f0db6aa9a3b466"
+    }
+  },
+  "apps/remote-pokemon/env.d.ts": {
+    "size": 38,
+    "mtime_ns": 1788443623138481549,
+    "indexed_at_ns": 1788880579758764000,
+    "word_count": 4
+  },
+  "apps/remote-pokemon/eslint.config.ts": {
+    "size": 4152,
+    "mtime_ns": 1788443623139386388,
+    "indexed_at_ns": 1788880579759055000,
+    "word_count": 333
+  },
+  "apps/remote-pokemon/index.html": {
+    "size": 355,
+    "mtime_ns": 1788443623139499305,
+    "indexed_at_ns": 1788880579759979000,
+    "word_count": 27
+  },
+  "apps/remote-pokemon/module-federation.config.ts": {
+    "size": 1570,
+    "mtime_ns": 1788872936702424542,
+    "indexed_at_ns": 1788880579760175000,
+    "word_count": 229
+  },
+  "apps/remote-pokemon/package.json": {
+    "size": 1576,
+    "mtime_ns": 1788872936704184157,
+    "indexed_at_ns": 1788880599812161000,
+    "word_count": 126,
+    "hashes": {
+      "apps/remote-pokemon/package.json": "bd2dc67620e52bcb0be19c2443397b9d3c9d4b840ad71b3dce55f3fba9f57925"
+    }
+  },
+  "apps/remote-pokemon/src/App.vue": {
+    "size": 541,
+    "mtime_ns": 1788872936704486863,
+    "indexed_at_ns": 1788880579761536000,
+    "word_count": 74
+  },
+  "apps/remote-pokemon/src/base/config/colada/colada.options.ts": {
+    "size": 512,
+    "mtime_ns": 1788443623140364143,
+    "indexed_at_ns": 1788880579763292000,
+    "word_count": 79
+  },
+  "apps/remote-pokemon/src/base/config/di/container.ts": {
+    "size": 2305,
+    "mtime_ns": 1788443623140521352,
+    "indexed_at_ns": 1788880579763944000,
+    "word_count": 264
+  },
+  "apps/remote-pokemon/src/base/config/env/env.config.ts": {
+    "size": 232,
+    "mtime_ns": 1788443623140664311,
+    "indexed_at_ns": 1788880579764379000,
+    "word_count": 24
+  },
+  "apps/remote-pokemon/src/base/config/env/env.schema.ts": {
+    "size": 546,
+    "mtime_ns": 1788872936704837153,
+    "indexed_at_ns": 1788880579765065000,
+    "word_count": 82
+  },
+  "apps/remote-pokemon/src/base/config/http/axios.http-client.ts": {
+    "size": 2526,
+    "mtime_ns": 1788443623140890563,
+    "indexed_at_ns": 1788880579766103000,
+    "word_count": 256
+  },
+  "apps/remote-pokemon/src/base/config/http/exception/http-service.exception.ts": {
+    "size": 688,
+    "mtime_ns": 1788443623141037230,
+    "indexed_at_ns": 1788880579766534000,
+    "word_count": 62
+  },
+  "apps/remote-pokemon/src/base/config/http/http-response.ts": {
+    "size": 137,
+    "mtime_ns": 1788443623142524197,
+    "indexed_at_ns": 1788880579767665000,
+    "word_count": 17
+  },
+  "apps/remote-pokemon/src/base/config/router/index.ts": {
+    "size": 545,
+    "mtime_ns": 1788443623142667489,
+    "indexed_at_ns": 1788880579768003000,
+    "word_count": 67
+  },
+  "apps/remote-pokemon/src/base/constants/index.ts": {
+    "size": 212,
+    "mtime_ns": 1788443623142798365,
+    "indexed_at_ns": 1788880579768369000,
+    "word_count": 26
+  },
+  "apps/remote-pokemon/src/base/lib/application/use-case.base.ts": {
+    "size": 355,
+    "mtime_ns": 1788443623142973699,
+    "indexed_at_ns": 1788880579769132000,
+    "word_count": 51
+  },
+  "apps/remote-pokemon/src/base/lib/domain/command.base.ts": {
+    "size": 72,
+    "mtime_ns": 1788443623143159826,
+    "indexed_at_ns": 1788880579769440000,
+    "word_count": 10
+  },
+  "apps/remote-pokemon/src/base/lib/domain/domain-exception.base.ts": {
+    "size": 178,
+    "mtime_ns": 1788443623143381660,
+    "indexed_at_ns": 1788880579769742000,
+    "word_count": 20
+  },
+  "apps/remote-pokemon/src/base/lib/domain/paginated.ts": {
+    "size": 293,
+    "mtime_ns": 1788443623143464744,
+    "indexed_at_ns": 1788880579770036000,
+    "word_count": 39
+  },
+  "apps/remote-pokemon/src/base/lib/domain/props.base.ts": {
+    "size": 68,
+    "mtime_ns": 1788443623143537453,
+    "indexed_at_ns": 1788880579770329000,
+    "word_count": 10
+  },
+  "apps/remote-pokemon/src/base/lib/domain/query.base.ts": {
+    "size": 68,
+    "mtime_ns": 1788443623143618828,
+    "indexed_at_ns": 1788880579770619000,
+    "word_count": 10
+  },
+  "apps/remote-pokemon/src/base/lib/domain/result.ts": {
+    "size": 799,
+    "mtime_ns": 1788443623143708079,
+    "indexed_at_ns": 1788880579771681000,
+    "word_count": 100
+  },
+  "apps/remote-pokemon/src/base/lib/utils/index.ts": {
+    "size": 31,
+    "mtime_ns": 1788443623143838913,
+    "indexed_at_ns": 1788880579771986000,
+    "word_count": 4
+  },
+  "apps/remote-pokemon/src/base/lib/utils/string.utils.ts": {
+    "size": 110,
+    "mtime_ns": 1788443623143921996,
+    "indexed_at_ns": 1788880579772391000,
+    "word_count": 11
+  },
+  "apps/remote-pokemon/src/export-app.ts": {
+    "size": 2446,
+    "mtime_ns": 1788876087393792505,
+    "indexed_at_ns": 1788880579773301000,
+    "word_count": 332
+  },
+  "apps/remote-pokemon/src/main.ts": {
+    "size": 637,
+    "mtime_ns": 1788443623144016997,
+    "indexed_at_ns": 1788880579773852000,
+    "word_count": 79
+  },
+  "apps/remote-pokemon/src/modules/pokemon/application/use-cases/pokemon-finder/pokemon-finder.use-case.ts": {
+    "size": 640,
+    "mtime_ns": 1788443623144342999,
+    "indexed_at_ns": 1788880579775053000,
+    "word_count": 57
+  },
+  "apps/remote-pokemon/src/modules/pokemon/application/use-cases/pokemons-finder/pokemons-finder.use-case.ts": {
+    "size": 754,
+    "mtime_ns": 1788443623144471958,
+    "indexed_at_ns": 1788880579776256000,
+    "word_count": 64
+  },
+  "apps/remote-pokemon/src/modules/pokemon/domain/entities/pokemon-summary.entity.ts": {
+    "size": 283,
+    "mtime_ns": 1788443623144663542,
+    "indexed_at_ns": 1788880579776808000,
+    "word_count": 38
+  },
+  "apps/remote-pokemon/src/modules/pokemon/domain/entities/pokemon.entity.ts": {
+    "size": 573,
+    "mtime_ns": 1788443623144746584,
+    "indexed_at_ns": 1788880579777203000,
+    "word_count": 75
+  },
+  "apps/remote-pokemon/src/modules/pokemon/domain/exceptions/pokemon-not-found.exception.ts": {
+    "size": 253,
+    "mtime_ns": 1788443623144877543,
+    "indexed_at_ns": 1788880579778142000,
+    "word_count": 25
+  },
+  "apps/remote-pokemon/src/modules/pokemon/domain/ports/pokemon.repository.ts": {
+    "size": 569,
+    "mtime_ns": 1788443623145016753,
+    "indexed_at_ns": 1788880579779220000,
+    "word_count": 53
+  },
+  "apps/remote-pokemon/src/modules/pokemon/domain/props/find-pokemon.props.ts": {
+    "size": 164,
+    "mtime_ns": 1788443623145132920,
+    "indexed_at_ns": 1788880579780001000,
+    "word_count": 20
+  },
+  "apps/remote-pokemon/src/modules/pokemon/domain/props/find-pokemons.props.ts": {
+    "size": 209,
+    "mtime_ns": 1788443623145229504,
+    "indexed_at_ns": 1788880579781335000,
+    "word_count": 26
+  },
+  "apps/remote-pokemon/src/modules/pokemon/domain/value-objects/pokemon-stat.ts": {
+    "size": 64,
+    "mtime_ns": 1788443623145351588,
+    "indexed_at_ns": 1788880579781737000,
+    "word_count": 9
+  },
+  "apps/remote-pokemon/src/modules/pokemon/infrastructure/dtos/pokemon-list-response.dto.ts": {
+    "size": 162,
+    "mtime_ns": 1788443623145546131,
+    "indexed_at_ns": 1788880579782594000,
+    "word_count": 18
+  },
+  "apps/remote-pokemon/src/modules/pokemon/infrastructure/dtos/pokemon-response.dto.ts": {
+    "size": 420,
+    "mtime_ns": 1788443623145641048,
+    "indexed_at_ns": 1788880579782928000,
+    "word_count": 64
+  },
+  "apps/remote-pokemon/src/modules/pokemon/infrastructure/mappers/pokemon.mapper.ts": {
+    "size": 1331,
+    "mtime_ns": 1788443623145773549,
+    "indexed_at_ns": 1788880579783254000,
+    "word_count": 106
+  },
+  "apps/remote-pokemon/src/modules/pokemon/infrastructure/repositories/http-pokemon.repository.ts": {
+    "size": 2199,
+    "mtime_ns": 1788443623145905632,
+    "indexed_at_ns": 1788880579783580000,
+    "word_count": 188
+  },
+  "apps/remote-pokemon/src/modules/pokemon/presentation/mappers/pokemon-detail-screen.mapper.ts": {
+    "size": 1062,
+    "mtime_ns": 1788443623146086300,
+    "indexed_at_ns": 1788880579785224000,
+    "word_count": 95
+  },
+  "apps/remote-pokemon/src/modules/pokemon/presentation/mappers/pokemon-list-screen.mapper.ts": {
+    "size": 538,
+    "mtime_ns": 1788443623146223718,
+    "indexed_at_ns": 1788880579786384000,
+    "word_count": 45
+  },
+  "apps/remote-pokemon/src/modules/pokemon/presentation/models/pokemon-card.model.ts": {
+    "size": 167,
+    "mtime_ns": 1788443623146514636,
+    "indexed_at_ns": 1788880579787275000,
+    "word_count": 24
+  },
+  "apps/remote-pokemon/src/modules/pokemon/presentation/models/pokemon-detail.model.ts": {
+    "size": 352,
+    "mtime_ns": 1788443623146599970,
+    "indexed_at_ns": 1788880579787723000,
+    "word_count": 45
+  },
+  "apps/remote-pokemon/src/modules/pokemon/presentation/routes/pokemon.routes.ts": {
+    "size": 1000,
+    "mtime_ns": 1788876087401849036,
+    "indexed_at_ns": 1788880579788524000,
+    "word_count": 136
+  },
+  "apps/remote-pokemon/src/modules/pokemon/presentation/screens/pokemon-detail/PokemonDetailScreen.vue": {
+    "size": 2098,
+    "mtime_ns": 1788443623146914263,
+    "indexed_at_ns": 1788880579789456000,
+    "word_count": 184
+  },
+  "apps/remote-pokemon/src/modules/pokemon/presentation/screens/pokemon-detail/usePokemonDetailViewModel.ts": {
+    "size": 1828,
+    "mtime_ns": 1788443623147009305,
+    "indexed_at_ns": 1788880579789826000,
+    "word_count": 225
+  },
+  "apps/remote-pokemon/src/modules/pokemon/presentation/screens/pokemon-list/PokemonListScreen.vue": {
+    "size": 1942,
+    "mtime_ns": 1788443623147152973,
+    "indexed_at_ns": 1788880579791376000,
+    "word_count": 162
+  },
+  "apps/remote-pokemon/src/modules/pokemon/presentation/screens/pokemon-list/usePokemonListViewModel.ts": {
+    "size": 2216,
+    "mtime_ns": 1788443623147272474,
+    "indexed_at_ns": 1788880579791731000,
+    "word_count": 270
+  },
+  "apps/remote-pokemon/tests/helpers/with-setup.ts": {
+    "size": 592,
+    "mtime_ns": 1788443623147514308,
+    "indexed_at_ns": 1788880579792014000,
+    "word_count": 87
+  },
+  "apps/remote-pokemon/tests/modules/pokemon/application/use-cases/pokemons-finder/pokemons-finder.use-case.spec.ts": {
+    "size": 1561,
+    "mtime_ns": 1788443623147861852,
+    "indexed_at_ns": 1788880579794359000,
+    "word_count": 128
+  },
+  "apps/remote-pokemon/tests/modules/pokemon/builders/pokemon.builder.ts": {
+    "size": 789,
+    "mtime_ns": 1788443623147994769,
+    "indexed_at_ns": 1788880579794796000,
+    "word_count": 73
+  },
+  "apps/remote-pokemon/tests/modules/pokemon/infrastructure/repositories/http-pokemon.repository.spec.ts": {
+    "size": 2806,
+    "mtime_ns": 1788443623148183604,
+    "indexed_at_ns": 1788880579795969000,
+    "word_count": 235
+  },
+  "apps/remote-pokemon/tests/modules/pokemon/presentation/screens/pokemon-list/usePokemonListViewModel.spec.ts": {
+    "size": 1771,
+    "mtime_ns": 1788443623148442647,
+    "indexed_at_ns": 1788880579797365000,
+    "word_count": 160
+  },
+  "apps/remote-pokemon/tsconfig.app.json": {
+    "size": 594,
+    "mtime_ns": 1788443623148538022,
+    "indexed_at_ns": 1788880599812434000,
+    "word_count": 62,
+    "hashes": {
+      "apps/remote-pokemon/tsconfig.app.json": "c5667f837c3cc6d989a7c280b9b7fdfb43a47dd3d30d79e25c3314eddf572a5b"
+    }
+  },
+  "apps/remote-pokemon/tsconfig.json": {
+    "size": 191,
+    "mtime_ns": 1788443623148626398,
+    "indexed_at_ns": 1788880599812678000,
+    "word_count": 19,
+    "hashes": {
+      "apps/remote-pokemon/tsconfig.json": "c0bf09e0394621d30fc4ea835dff9b91f8fcd5d937ab0622b7a333e3a78d4bf6"
+    }
+  },
+  "apps/remote-pokemon/tsconfig.node.json": {
+    "size": 1156,
+    "mtime_ns": 1788443623148706065,
+    "indexed_at_ns": 1788880599812891000,
+    "word_count": 120,
+    "hashes": {
+      "apps/remote-pokemon/tsconfig.node.json": "4d40e66d60b385142bd31e96a2e86b03d685d6e8cbe000ab51f62ca5dfe7ecc5"
+    }
+  },
+  "apps/remote-pokemon/tsconfig.vitest.json": {
+    "size": 282,
+    "mtime_ns": 1788443623148899858,
+    "indexed_at_ns": 1788880599813815000,
+    "word_count": 20,
+    "hashes": {
+      "apps/remote-pokemon/tsconfig.vitest.json": "8cf838aa838e947733bb70bea9edec9efcb881d47f3ecbdbdac1fc1885ed28f6"
+    }
+  },
+  "apps/remote-pokemon/vite.config.ts": {
+    "size": 2589,
+    "mtime_ns": 1788872936708254966,
+    "indexed_at_ns": 1788880579802021000,
+    "word_count": 324
+  },
+  "docs/README.md": {
+    "size": 6471,
+    "mtime_ns": 1788876087926081195,
+    "indexed_at_ns": 1788880579802794000,
+    "word_count": 648
+  },
+  "docs/adr/0001-module-federation-en-monorepo.md": {
+    "size": 13081,
+    "mtime_ns": 1788872936714023391,
+    "indexed_at_ns": 1788880579804483000,
+    "word_count": 1746
+  },
+  "docs/adr/0002-turborepo.md": {
+    "size": 12298,
+    "mtime_ns": 1788872936716820124,
+    "indexed_at_ns": 1788880579805209000,
+    "word_count": 1511
+  },
+  "docs/adr/0003-pnpm.md": {
+    "size": 11919,
+    "mtime_ns": 1788533647198887188,
+    "indexed_at_ns": 1788880579807861000,
+    "word_count": 1642
+  },
+  "docs/adr/0004-syncpack-renovate.md": {
+    "size": 10650,
+    "mtime_ns": 1788533647202840555,
+    "indexed_at_ns": 1788880579809655000,
+    "word_count": 1407
+  },
+  "docs/adr/0005-bridge-y-manifest-como-contrato.md": {
+    "size": 11751,
+    "mtime_ns": 1788876088551867655,
+    "indexed_at_ns": 1788880579810369000,
+    "word_count": 1390
+  },
+  "docs/monorepo-vs-multirepo.md": {
+    "size": 10803,
+    "mtime_ns": 1788533647208496378,
+    "indexed_at_ns": 1788880579812799000,
+    "word_count": 1498
+  },
+  "docs/plan-implementacion-peoplefirst.md": {
+    "size": 50505,
+    "mtime_ns": 1788876088683776594,
+    "indexed_at_ns": 1788880579813839000,
+    "word_count": 5953
+  },
+  "docs/riesgos.md": {
+    "size": 30747,
+    "mtime_ns": 1788876088801755957,
+    "indexed_at_ns": 1788880579814891000,
+    "word_count": 4578
+  },
+  "lint-staged.config.js": {
+    "size": 698,
+    "mtime_ns": 1788533647223994516,
+    "indexed_at_ns": 1788880579815218000,
+    "word_count": 88
+  },
+  "package.json": {
+    "size": 1547,
+    "mtime_ns": 1788872936726710482,
+    "indexed_at_ns": 1788880599814742000,
+    "word_count": 142,
+    "hashes": { "package.json": "34554b904a0fc5e9281c879c689837b0aabb16778f5263f965ad0d518bdf5061" }
+  },
+  "packages/mf-shared/package.json": {
+    "size": 506,
+    "mtime_ns": 1788443623152198335,
+    "indexed_at_ns": 1788880599814972000,
+    "word_count": 48,
+    "hashes": {
+      "packages/mf-shared/package.json": "45daa66b9ef88868bb5d07d1522a655a82f9564021477a073866c6f9df8a6a1e"
+    }
+  },
+  "packages/mf-shared/src/index.ts": {
+    "size": 2237,
+    "mtime_ns": 1788443623153414466,
+    "indexed_at_ns": 1788880579817155000,
+    "word_count": 358
+  },
+  "packages/mf-shared/tests/shared-contract.spec.ts": {
+    "size": 2139,
+    "mtime_ns": 1788443623153578467,
+    "indexed_at_ns": 1788880579817597000,
+    "word_count": 282
+  },
+  "packages/mf-shared/tsconfig.json": {
+    "size": 289,
+    "mtime_ns": 1788443623153658718,
+    "indexed_at_ns": 1788880599815118000,
+    "word_count": 20,
+    "hashes": {
+      "packages/mf-shared/tsconfig.json": "8f64418601c4c8332f6fb606e1cc063c997b7db4c4e7d2dc0251464cc0ce09a9"
+    }
+  },
+  "pnpm-workspace.yaml": {
+    "size": 402,
+    "mtime_ns": 1788533647245380560,
+    "indexed_at_ns": 1788880579819719000,
+    "word_count": 55
+  },
+  "renovate.json": {
+    "size": 3010,
+    "mtime_ns": 1788533647248671845,
+    "indexed_at_ns": 1788880599815256000,
+    "word_count": 309,
+    "hashes": {
+      "renovate.json": "689afb51bf6f2686678f469d0c48d24269cc1b518e798c3c5ff2529d22bcbebd"
+    }
+  },
+  "scripts/smoke-federation.mjs": {
+    "size": 7461,
+    "mtime_ns": 1788872952968783199,
+    "indexed_at_ns": 1788880579820341000,
+    "word_count": 904
+  },
+  "turbo.json": {
+    "size": 7736,
+    "mtime_ns": 1788872936748543895,
+    "indexed_at_ns": 1788880599815499000,
+    "word_count": 954,
+    "hashes": { "turbo.json": "da26a519818d76c03f04f7150ee6c100410aff9908a8f53a1ce5ab225365bd77" }
+  }
+}

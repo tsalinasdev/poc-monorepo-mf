@@ -1,0 +1,621 @@
+{
+  "nodes": [
+    {
+      "id": "$graphify-root$_turbo_json",
+      "label": "turbo.json",
+      "file_type": "code",
+      "source_file": "turbo.json",
+      "source_location": "L1"
+    },
+    {
+      "id": "$graphify-root$_turbo_schema",
+      "label": "$schema",
+      "file_type": "code",
+      "source_file": "turbo.json",
+      "source_location": "L2"
+    },
+    {
+      "id": "$graphify-root$_turbo_ui",
+      "label": "ui",
+      "file_type": "code",
+      "source_file": "turbo.json",
+      "source_location": "L17"
+    },
+    {
+      "id": "$graphify-root$_turbo_globaldependencies",
+      "label": "globalDependencies",
+      "file_type": "code",
+      "source_file": "turbo.json",
+      "source_location": "L24"
+    },
+    {
+      "id": "$graphify-root$_turbo_globalpassthroughenv",
+      "label": "globalPassThroughEnv",
+      "file_type": "code",
+      "source_file": "turbo.json",
+      "source_location": "L32"
+    },
+    {
+      "id": "$graphify-root$_turbo_tasks",
+      "label": "tasks",
+      "file_type": "code",
+      "source_file": "turbo.json",
+      "source_location": "L34"
+    },
+    {
+      "id": "$graphify-root$_turbo_tasks_type_check",
+      "label": "type-check",
+      "file_type": "code",
+      "source_file": "turbo.json",
+      "source_location": "L42"
+    },
+    {
+      "id": "$graphify-root$_turbo_type_check_dependson",
+      "label": "dependsOn",
+      "file_type": "code",
+      "source_file": "turbo.json",
+      "source_location": "L43"
+    },
+    {
+      "id": "$graphify-root$_turbo_type_check_outputs",
+      "label": "outputs",
+      "file_type": "code",
+      "source_file": "turbo.json",
+      "source_location": "L44"
+    },
+    {
+      "id": "$graphify-root$_turbo_tasks_build",
+      "label": "build",
+      "file_type": "code",
+      "source_file": "turbo.json",
+      "source_location": "L62"
+    },
+    {
+      "id": "$graphify-root$_turbo_build_dependson",
+      "label": "dependsOn",
+      "file_type": "code",
+      "source_file": "turbo.json",
+      "source_location": "L63"
+    },
+    {
+      "id": "$graphify-root$_turbo_build_inputs",
+      "label": "inputs",
+      "file_type": "code",
+      "source_file": "turbo.json",
+      "source_location": "L64"
+    },
+    {
+      "id": "$graphify-root$_turbo_build_outputs",
+      "label": "outputs",
+      "file_type": "code",
+      "source_file": "turbo.json",
+      "source_location": "L73"
+    },
+    {
+      "id": "$graphify-root$_turbo_build_env",
+      "label": "env",
+      "file_type": "code",
+      "source_file": "turbo.json",
+      "source_location": "L74"
+    },
+    {
+      "id": "$graphify-root$_turbo_tasks_lint",
+      "label": "lint",
+      "file_type": "code",
+      "source_file": "turbo.json",
+      "source_location": "L90"
+    },
+    {
+      "id": "$graphify-root$_turbo_lint_dependson",
+      "label": "dependsOn",
+      "file_type": "code",
+      "source_file": "turbo.json",
+      "source_location": "L91"
+    },
+    {
+      "id": "$graphify-root$_turbo_lint_outputs",
+      "label": "outputs",
+      "file_type": "code",
+      "source_file": "turbo.json",
+      "source_location": "L92"
+    },
+    {
+      "id": "$graphify-root$_turbo_tasks_test",
+      "label": "test",
+      "file_type": "code",
+      "source_file": "turbo.json",
+      "source_location": "L102"
+    },
+    {
+      "id": "$graphify-root$_turbo_test_outputs",
+      "label": "outputs",
+      "file_type": "code",
+      "source_file": "turbo.json",
+      "source_location": "L103"
+    },
+    {
+      "id": "$graphify-root$_turbo_tasks_pokedex_mf_shared_test",
+      "label": "@pokedex/mf-shared#test",
+      "file_type": "code",
+      "source_file": "turbo.json",
+      "source_location": "L112"
+    },
+    {
+      "id": "$graphify-root$_turbo_pokedex_mf_shared_test_inputs",
+      "label": "inputs",
+      "file_type": "code",
+      "source_file": "turbo.json",
+      "source_location": "L113"
+    },
+    {
+      "id": "$graphify-root$_turbo_pokedex_mf_shared_test_outputs",
+      "label": "outputs",
+      "file_type": "code",
+      "source_file": "turbo.json",
+      "source_location": "L119"
+    },
+    {
+      "id": "$graphify-root$_turbo_tasks_host_test_e2e_preview",
+      "label": "host#test:e2e:preview",
+      "file_type": "code",
+      "source_file": "turbo.json",
+      "source_location": "L133"
+    },
+    {
+      "id": "$graphify-root$_turbo_host_test_e2e_preview_dependson",
+      "label": "dependsOn",
+      "file_type": "code",
+      "source_file": "turbo.json",
+      "source_location": "L134"
+    },
+    {
+      "id": "$graphify-root$_turbo_host_test_e2e_preview_cache",
+      "label": "cache",
+      "file_type": "code",
+      "source_file": "turbo.json",
+      "source_location": "L135"
+    },
+    {
+      "id": "$graphify-root$_turbo_tasks_host_test_e2e",
+      "label": "host#test:e2e",
+      "file_type": "code",
+      "source_file": "turbo.json",
+      "source_location": "L143"
+    },
+    {
+      "id": "$graphify-root$_turbo_host_test_e2e_cache",
+      "label": "cache",
+      "file_type": "code",
+      "source_file": "turbo.json",
+      "source_location": "L144"
+    },
+    {
+      "id": "$graphify-root$_turbo_tasks_smoke",
+      "label": "//#smoke",
+      "file_type": "code",
+      "source_file": "turbo.json",
+      "source_location": "L160"
+    },
+    {
+      "id": "$graphify-root$_turbo_smoke_dependson",
+      "label": "dependsOn",
+      "file_type": "code",
+      "source_file": "turbo.json",
+      "source_location": "L161"
+    },
+    {
+      "id": "$graphify-root$_turbo_smoke_cache",
+      "label": "cache",
+      "file_type": "code",
+      "source_file": "turbo.json",
+      "source_location": "L162"
+    },
+    {
+      "id": "$graphify-root$_turbo_tasks_dev",
+      "label": "dev",
+      "file_type": "code",
+      "source_file": "turbo.json",
+      "source_location": "L166"
+    },
+    {
+      "id": "$graphify-root$_turbo_dev_cache",
+      "label": "cache",
+      "file_type": "code",
+      "source_file": "turbo.json",
+      "source_location": "L167"
+    },
+    {
+      "id": "$graphify-root$_turbo_dev_persistent",
+      "label": "persistent",
+      "file_type": "code",
+      "source_file": "turbo.json",
+      "source_location": "L168"
+    },
+    {
+      "id": "$graphify-root$_turbo_tasks_preview",
+      "label": "preview",
+      "file_type": "code",
+      "source_file": "turbo.json",
+      "source_location": "L171"
+    },
+    {
+      "id": "$graphify-root$_turbo_preview_dependson",
+      "label": "dependsOn",
+      "file_type": "code",
+      "source_file": "turbo.json",
+      "source_location": "L172"
+    },
+    {
+      "id": "$graphify-root$_turbo_preview_cache",
+      "label": "cache",
+      "file_type": "code",
+      "source_file": "turbo.json",
+      "source_location": "L173"
+    },
+    {
+      "id": "$graphify-root$_turbo_preview_persistent",
+      "label": "persistent",
+      "file_type": "code",
+      "source_file": "turbo.json",
+      "source_location": "L174"
+    },
+    {
+      "id": "$graphify-root$_turbo_tasks_format",
+      "label": "format",
+      "file_type": "code",
+      "source_file": "turbo.json",
+      "source_location": "L177"
+    },
+    {
+      "id": "$graphify-root$_turbo_format_cache",
+      "label": "cache",
+      "file_type": "code",
+      "source_file": "turbo.json",
+      "source_location": "L178"
+    }
+  ],
+  "edges": [
+    {
+      "source": "$graphify-root$_turbo_json",
+      "target": "$graphify-root$_turbo_schema",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "turbo.json",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "$graphify-root$_turbo_json",
+      "target": "$graphify-root$_turbo_ui",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "turbo.json",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "$graphify-root$_turbo_json",
+      "target": "$graphify-root$_turbo_globaldependencies",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "turbo.json",
+      "source_location": "L24",
+      "weight": 1.0
+    },
+    {
+      "source": "$graphify-root$_turbo_json",
+      "target": "$graphify-root$_turbo_globalpassthroughenv",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "turbo.json",
+      "source_location": "L32",
+      "weight": 1.0
+    },
+    {
+      "source": "$graphify-root$_turbo_json",
+      "target": "$graphify-root$_turbo_tasks",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "turbo.json",
+      "source_location": "L34",
+      "weight": 1.0
+    },
+    {
+      "source": "$graphify-root$_turbo_tasks",
+      "target": "$graphify-root$_turbo_tasks_type_check",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "turbo.json",
+      "source_location": "L42",
+      "weight": 1.0
+    },
+    {
+      "source": "$graphify-root$_turbo_tasks_type_check",
+      "target": "$graphify-root$_turbo_type_check_dependson",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "turbo.json",
+      "source_location": "L43",
+      "weight": 1.0
+    },
+    {
+      "source": "$graphify-root$_turbo_tasks_type_check",
+      "target": "$graphify-root$_turbo_type_check_outputs",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "turbo.json",
+      "source_location": "L44",
+      "weight": 1.0
+    },
+    {
+      "source": "$graphify-root$_turbo_tasks",
+      "target": "$graphify-root$_turbo_tasks_build",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "turbo.json",
+      "source_location": "L62",
+      "weight": 1.0
+    },
+    {
+      "source": "$graphify-root$_turbo_tasks_build",
+      "target": "$graphify-root$_turbo_build_dependson",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "turbo.json",
+      "source_location": "L63",
+      "weight": 1.0
+    },
+    {
+      "source": "$graphify-root$_turbo_tasks_build",
+      "target": "$graphify-root$_turbo_build_inputs",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "turbo.json",
+      "source_location": "L64",
+      "weight": 1.0
+    },
+    {
+      "source": "$graphify-root$_turbo_tasks_build",
+      "target": "$graphify-root$_turbo_build_outputs",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "turbo.json",
+      "source_location": "L73",
+      "weight": 1.0
+    },
+    {
+      "source": "$graphify-root$_turbo_tasks_build",
+      "target": "$graphify-root$_turbo_build_env",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "turbo.json",
+      "source_location": "L74",
+      "weight": 1.0
+    },
+    {
+      "source": "$graphify-root$_turbo_tasks",
+      "target": "$graphify-root$_turbo_tasks_lint",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "turbo.json",
+      "source_location": "L90",
+      "weight": 1.0
+    },
+    {
+      "source": "$graphify-root$_turbo_tasks_lint",
+      "target": "$graphify-root$_turbo_lint_dependson",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "turbo.json",
+      "source_location": "L91",
+      "weight": 1.0
+    },
+    {
+      "source": "$graphify-root$_turbo_tasks_lint",
+      "target": "$graphify-root$_turbo_lint_outputs",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "turbo.json",
+      "source_location": "L92",
+      "weight": 1.0
+    },
+    {
+      "source": "$graphify-root$_turbo_tasks",
+      "target": "$graphify-root$_turbo_tasks_test",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "turbo.json",
+      "source_location": "L102",
+      "weight": 1.0
+    },
+    {
+      "source": "$graphify-root$_turbo_tasks_test",
+      "target": "$graphify-root$_turbo_test_outputs",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "turbo.json",
+      "source_location": "L103",
+      "weight": 1.0
+    },
+    {
+      "source": "$graphify-root$_turbo_tasks",
+      "target": "$graphify-root$_turbo_tasks_pokedex_mf_shared_test",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "turbo.json",
+      "source_location": "L112",
+      "weight": 1.0
+    },
+    {
+      "source": "$graphify-root$_turbo_tasks_pokedex_mf_shared_test",
+      "target": "$graphify-root$_turbo_pokedex_mf_shared_test_inputs",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "turbo.json",
+      "source_location": "L113",
+      "weight": 1.0
+    },
+    {
+      "source": "$graphify-root$_turbo_tasks_pokedex_mf_shared_test",
+      "target": "$graphify-root$_turbo_pokedex_mf_shared_test_outputs",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "turbo.json",
+      "source_location": "L119",
+      "weight": 1.0
+    },
+    {
+      "source": "$graphify-root$_turbo_tasks",
+      "target": "$graphify-root$_turbo_tasks_host_test_e2e_preview",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "turbo.json",
+      "source_location": "L133",
+      "weight": 1.0
+    },
+    {
+      "source": "$graphify-root$_turbo_tasks_host_test_e2e_preview",
+      "target": "$graphify-root$_turbo_host_test_e2e_preview_dependson",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "turbo.json",
+      "source_location": "L134",
+      "weight": 1.0
+    },
+    {
+      "source": "$graphify-root$_turbo_tasks_host_test_e2e_preview",
+      "target": "$graphify-root$_turbo_host_test_e2e_preview_cache",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "turbo.json",
+      "source_location": "L135",
+      "weight": 1.0
+    },
+    {
+      "source": "$graphify-root$_turbo_tasks",
+      "target": "$graphify-root$_turbo_tasks_host_test_e2e",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "turbo.json",
+      "source_location": "L143",
+      "weight": 1.0
+    },
+    {
+      "source": "$graphify-root$_turbo_tasks_host_test_e2e",
+      "target": "$graphify-root$_turbo_host_test_e2e_cache",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "turbo.json",
+      "source_location": "L144",
+      "weight": 1.0
+    },
+    {
+      "source": "$graphify-root$_turbo_tasks",
+      "target": "$graphify-root$_turbo_tasks_smoke",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "turbo.json",
+      "source_location": "L160",
+      "weight": 1.0
+    },
+    {
+      "source": "$graphify-root$_turbo_tasks_smoke",
+      "target": "$graphify-root$_turbo_smoke_dependson",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "turbo.json",
+      "source_location": "L161",
+      "weight": 1.0
+    },
+    {
+      "source": "$graphify-root$_turbo_tasks_smoke",
+      "target": "$graphify-root$_turbo_smoke_cache",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "turbo.json",
+      "source_location": "L162",
+      "weight": 1.0
+    },
+    {
+      "source": "$graphify-root$_turbo_tasks",
+      "target": "$graphify-root$_turbo_tasks_dev",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "turbo.json",
+      "source_location": "L166",
+      "weight": 1.0
+    },
+    {
+      "source": "$graphify-root$_turbo_tasks_dev",
+      "target": "$graphify-root$_turbo_dev_cache",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "turbo.json",
+      "source_location": "L167",
+      "weight": 1.0
+    },
+    {
+      "source": "$graphify-root$_turbo_tasks_dev",
+      "target": "$graphify-root$_turbo_dev_persistent",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "turbo.json",
+      "source_location": "L168",
+      "weight": 1.0
+    },
+    {
+      "source": "$graphify-root$_turbo_tasks",
+      "target": "$graphify-root$_turbo_tasks_preview",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "turbo.json",
+      "source_location": "L171",
+      "weight": 1.0
+    },
+    {
+      "source": "$graphify-root$_turbo_tasks_preview",
+      "target": "$graphify-root$_turbo_preview_dependson",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "turbo.json",
+      "source_location": "L172",
+      "weight": 1.0
+    },
+    {
+      "source": "$graphify-root$_turbo_tasks_preview",
+      "target": "$graphify-root$_turbo_preview_cache",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "turbo.json",
+      "source_location": "L173",
+      "weight": 1.0
+    },
+    {
+      "source": "$graphify-root$_turbo_tasks_preview",
+      "target": "$graphify-root$_turbo_preview_persistent",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "turbo.json",
+      "source_location": "L174",
+      "weight": 1.0
+    },
+    {
+      "source": "$graphify-root$_turbo_tasks",
+      "target": "$graphify-root$_turbo_tasks_format",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "turbo.json",
+      "source_location": "L177",
+      "weight": 1.0
+    },
+    {
+      "source": "$graphify-root$_turbo_tasks_format",
+      "target": "$graphify-root$_turbo_format_cache",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "turbo.json",
+      "source_location": "L178",
+      "weight": 1.0
+    }
+  ]
+}

@@ -1,0 +1,968 @@
+{
+  ".claude/launch.json": {
+    "mtime": 1788299754.8392417,
+    "seen": 1788880662.283493,
+    "ast_hash": "7df8a9777a76bd806c2b3ece61ecc5e7",
+    "semantic_hash": "7df8a9777a76bd806c2b3ece61ecc5e7"
+  },
+  ".prettierrc.json": {
+    "mtime": 1788299754.8403594,
+    "seen": 1788880662.283494,
+    "ast_hash": "81e1a85eb3522eed48d5095183125238",
+    "semantic_hash": "81e1a85eb3522eed48d5095183125238"
+  },
+  ".syncpackrc.json": {
+    "mtime": 1788533647.158697,
+    "seen": 1788880662.283495,
+    "ast_hash": "d2f0c93f2db45d7a14675e683a239ef7",
+    "semantic_hash": "d2f0c93f2db45d7a14675e683a239ef7"
+  },
+  ".vscode/extensions.json": {
+    "mtime": 1788299754.8405483,
+    "seen": 1788880662.283496,
+    "ast_hash": "ab10c0fef4d2d250f090368be1a0bc16",
+    "semantic_hash": "ab10c0fef4d2d250f090368be1a0bc16"
+  },
+  "apps/host/.oxlintrc.json": {
+    "mtime": 1788443623.1224818,
+    "seen": 1788880662.2834969,
+    "ast_hash": "2bc81a0f964a248752d70461ba7b726a",
+    "semantic_hash": "2bc81a0f964a248752d70461ba7b726a"
+  },
+  "apps/host/e2e/navbar.spec.ts": {
+    "mtime": 1788880187.6429548,
+    "seen": 1788880662.2834969,
+    "ast_hash": "8754bab4f4f725d2c165fd06f0833d97",
+    "semantic_hash": "8754bab4f4f725d2c165fd06f0833d97"
+  },
+  "apps/host/e2e/remote-outage.spec.ts": {
+    "mtime": 1788443623.1226993,
+    "seen": 1788880662.283498,
+    "ast_hash": "94ad07c859d6c2b50fa4c6f56ccc0f2f",
+    "semantic_hash": "94ad07c859d6c2b50fa4c6f56ccc0f2f"
+  },
+  "apps/host/env.d.ts": {
+    "mtime": 1788443623.1227705,
+    "seen": 1788880662.283503,
+    "ast_hash": "0352474ba2918efe13895edbc3780d94",
+    "semantic_hash": "0352474ba2918efe13895edbc3780d94"
+  },
+  "apps/host/eslint.config.ts": {
+    "mtime": 1788443623.1228576,
+    "seen": 1788880662.283504,
+    "ast_hash": "da378e2d313484d396a644a491e7888c",
+    "semantic_hash": "da378e2d313484d396a644a491e7888c"
+  },
+  "apps/host/module-federation.config.ts": {
+    "mtime": 1788872936.628347,
+    "seen": 1788880662.283504,
+    "ast_hash": "2c3a38c085b709018e3594ef8ab939a2",
+    "semantic_hash": "2c3a38c085b709018e3594ef8ab939a2"
+  },
+  "apps/host/package.json": {
+    "mtime": 1788872936.6314542,
+    "seen": 1788880662.283505,
+    "ast_hash": "75100ee39989e91417ed11a963fe56c7",
+    "semantic_hash": "75100ee39989e91417ed11a963fe56c7"
+  },
+  "apps/host/playwright.config.ts": {
+    "mtime": 1788533647.1728058,
+    "seen": 1788880662.283506,
+    "ast_hash": "1c14a455946610b9b7a6fc32f7d5d6d5",
+    "semantic_hash": "1c14a455946610b9b7a6fc32f7d5d6d5"
+  },
+  "apps/host/src/App.vue": {
+    "mtime": 1788443623.1234393,
+    "seen": 1788880662.283506,
+    "ast_hash": "a2ea7be507a0a9b5e09a2ebba4e3cefa",
+    "semantic_hash": "a2ea7be507a0a9b5e09a2ebba4e3cefa"
+  },
+  "apps/host/src/base/config/colada/colada.options.ts": {
+    "mtime": 1788443623.1237807,
+    "seen": 1788880662.283506,
+    "ast_hash": "0f1234665a4352a54e937181395ce3a8",
+    "semantic_hash": "0f1234665a4352a54e937181395ce3a8"
+  },
+  "apps/host/src/base/config/env/env.config.ts": {
+    "mtime": 1788443623.123895,
+    "seen": 1788880662.2835069,
+    "ast_hash": "ca33f10ccc3ad7f070ad0676686d1275",
+    "semantic_hash": "ca33f10ccc3ad7f070ad0676686d1275"
+  },
+  "apps/host/src/base/config/env/env.schema.ts": {
+    "mtime": 1788872936.6367664,
+    "seen": 1788880662.2835069,
+    "ast_hash": "6e0814a3a1e4f71ac481ca46fb8ffbc1",
+    "semantic_hash": "6e0814a3a1e4f71ac481ca46fb8ffbc1"
+  },
+  "apps/host/src/base/config/router/index.ts": {
+    "mtime": 1788876087.2596216,
+    "seen": 1788880662.283508,
+    "ast_hash": "5de7749debe4a1d5c2d9d05b2a1ee943",
+    "semantic_hash": "5de7749debe4a1d5c2d9d05b2a1ee943"
+  },
+  "apps/host/src/base/config/router/remotes.ts": {
+    "mtime": 1788876822.5872386,
+    "seen": 1788880662.283508,
+    "ast_hash": "b410fd287fe45b4e54773a7072cbf1a3",
+    "semantic_hash": "b410fd287fe45b4e54773a7072cbf1a3"
+  },
+  "apps/host/src/main.ts": {
+    "mtime": 1788443623.1242266,
+    "seen": 1788880662.283509,
+    "ast_hash": "413d4f48871e36fdc26615c25bce25fc",
+    "semantic_hash": "413d4f48871e36fdc26615c25bce25fc"
+  },
+  "apps/host/src/modules/shared/presentation/layouts/public/PublicLayout.vue": {
+    "mtime": 1788443623.124528,
+    "seen": 1788880662.283509,
+    "ast_hash": "54770ab6798c74d4ab80cfab1d0a8fa8",
+    "semantic_hash": "54770ab6798c74d4ab80cfab1d0a8fa8"
+  },
+  "apps/host/src/modules/shared/presentation/layouts/public/usePublicLayoutViewModel.ts": {
+    "mtime": 1788872936.6434062,
+    "seen": 1788880662.28351,
+    "ast_hash": "7b51c619f5db439d084799ec8b2d7940",
+    "semantic_hash": "7b51c619f5db439d084799ec8b2d7940"
+  },
+  "apps/host/src/modules/shared/presentation/models/nav-item.model.ts": {
+    "mtime": 1788443623.124738,
+    "seen": 1788880662.28351,
+    "ast_hash": "32500bf6af7223a9bfc8d730f153ee4d",
+    "semantic_hash": "32500bf6af7223a9bfc8d730f153ee4d"
+  },
+  "apps/host/src/modules/shared/presentation/screens/NotFoundScreen.vue": {
+    "mtime": 1788443623.1249962,
+    "seen": 1788880662.283511,
+    "ast_hash": "76239e77e1b77b1ee3717c2339c8c1af",
+    "semantic_hash": "76239e77e1b77b1ee3717c2339c8c1af"
+  },
+  "apps/host/src/modules/shared/presentation/screens/RemoteUnavailableScreen.vue": {
+    "mtime": 1788443623.125077,
+    "seen": 1788880662.283511,
+    "ast_hash": "63c068d5260f0153c7f17f9608cbc4f4",
+    "semantic_hash": "63c068d5260f0153c7f17f9608cbc4f4"
+  },
+  "apps/host/src/types/remotes.d.ts": {
+    "mtime": 1788872936.6488335,
+    "seen": 1788880662.283512,
+    "ast_hash": "0d3401b79286f7f4a10c78f9d5d8e37d",
+    "semantic_hash": "0d3401b79286f7f4a10c78f9d5d8e37d"
+  },
+  "apps/host/tests/base/config/router/router.spec.ts": {
+    "mtime": 1788876087.3107593,
+    "seen": 1788880662.283512,
+    "ast_hash": "acdb26ba00dcf19307b7cf4062bab322",
+    "semantic_hash": "acdb26ba00dcf19307b7cf4062bab322"
+  },
+  "apps/host/tests/modules/shared/presentation/layouts/public/PublicLayout.spec.ts": {
+    "mtime": 1788443623.1259763,
+    "seen": 1788880662.283513,
+    "ast_hash": "baf00be4830097000e99d87bb7406c70",
+    "semantic_hash": "baf00be4830097000e99d87bb7406c70"
+  },
+  "apps/host/tests/modules/shared/presentation/layouts/public/usePublicLayoutViewModel.spec.ts": {
+    "mtime": 1788443623.126139,
+    "seen": 1788880662.283513,
+    "ast_hash": "8af587e32da2f8deae9b082f61c6677a",
+    "semantic_hash": "8af587e32da2f8deae9b082f61c6677a"
+  },
+  "apps/host/tests/stubs/remote-dragonball-export-app.ts": {
+    "mtime": 1788876087.3250363,
+    "seen": 1788880662.283514,
+    "ast_hash": "01bbdce202fdaa72317689d37af2e911",
+    "semantic_hash": "01bbdce202fdaa72317689d37af2e911"
+  },
+  "apps/host/tests/stubs/remote-pokemon-export-app.ts": {
+    "mtime": 1788876087.3339252,
+    "seen": 1788880662.283514,
+    "ast_hash": "ffb31f01dbe6b458a8e687a1e4922948",
+    "semantic_hash": "ffb31f01dbe6b458a8e687a1e4922948"
+  },
+  "apps/host/tsconfig.app.json": {
+    "mtime": 1788443623.1265454,
+    "seen": 1788880662.283515,
+    "ast_hash": "d23d3dece9cd70f4925fd79f7acc4571",
+    "semantic_hash": "d23d3dece9cd70f4925fd79f7acc4571"
+  },
+  "apps/host/tsconfig.json": {
+    "mtime": 1788443623.1266265,
+    "seen": 1788880662.283515,
+    "ast_hash": "aec40fdcbdacf2e95abf0e4c2969429d",
+    "semantic_hash": "aec40fdcbdacf2e95abf0e4c2969429d"
+  },
+  "apps/host/tsconfig.node.json": {
+    "mtime": 1788443623.1267154,
+    "seen": 1788880662.283516,
+    "ast_hash": "39db2317d67ebd8fd55ce57acb649171",
+    "semantic_hash": "39db2317d67ebd8fd55ce57acb649171"
+  },
+  "apps/host/tsconfig.vitest.json": {
+    "mtime": 1788443623.126792,
+    "seen": 1788880662.283516,
+    "ast_hash": "279c7420ebe3b7d12f1ae86a2d7c84fb",
+    "semantic_hash": "279c7420ebe3b7d12f1ae86a2d7c84fb"
+  },
+  "apps/host/vite.config.ts": {
+    "mtime": 1788873785.5026414,
+    "seen": 1788880662.283516,
+    "ast_hash": "09c32c9f20bdd7806a8d0b8329aca8e1",
+    "semantic_hash": "09c32c9f20bdd7806a8d0b8329aca8e1"
+  },
+  "apps/remote-dragonball/.oxlintrc.json": {
+    "mtime": 1788443623.1275,
+    "seen": 1788880662.283517,
+    "ast_hash": "2bc81a0f964a248752d70461ba7b726a",
+    "semantic_hash": "2bc81a0f964a248752d70461ba7b726a"
+  },
+  "apps/remote-dragonball/env.d.ts": {
+    "mtime": 1788443623.1277483,
+    "seen": 1788880662.283517,
+    "ast_hash": "0352474ba2918efe13895edbc3780d94",
+    "semantic_hash": "0352474ba2918efe13895edbc3780d94"
+  },
+  "apps/remote-dragonball/eslint.config.ts": {
+    "mtime": 1788443623.127909,
+    "seen": 1788880662.2835178,
+    "ast_hash": "0edce93015400ab8d28744c1229dab6e",
+    "semantic_hash": "0edce93015400ab8d28744c1229dab6e"
+  },
+  "apps/remote-dragonball/module-federation.config.ts": {
+    "mtime": 1788872936.670384,
+    "seen": 1788880662.2835178,
+    "ast_hash": "86f9eb8b23abdde6be57dc1fef74faed",
+    "semantic_hash": "86f9eb8b23abdde6be57dc1fef74faed"
+  },
+  "apps/remote-dragonball/package.json": {
+    "mtime": 1788872936.6757488,
+    "seen": 1788880662.283519,
+    "ast_hash": "6f38317201a925e1d0d61d780bf24c8e",
+    "semantic_hash": "6f38317201a925e1d0d61d780bf24c8e"
+  },
+  "apps/remote-dragonball/src/App.vue": {
+    "mtime": 1788872936.6787868,
+    "seen": 1788880662.283519,
+    "ast_hash": "7ea19bd1915ce91081ff3c7077d53e03",
+    "semantic_hash": "7ea19bd1915ce91081ff3c7077d53e03"
+  },
+  "apps/remote-dragonball/src/base/config/colada/colada.options.ts": {
+    "mtime": 1788443623.1289728,
+    "seen": 1788880662.28352,
+    "ast_hash": "5773f024c29d378809cb776c2b3fd7e5",
+    "semantic_hash": "5773f024c29d378809cb776c2b3fd7e5"
+  },
+  "apps/remote-dragonball/src/base/config/di/container.ts": {
+    "mtime": 1788443623.1291084,
+    "seen": 1788880662.28352,
+    "ast_hash": "3f95c0748053859437bbfe2685e33b92",
+    "semantic_hash": "3f95c0748053859437bbfe2685e33b92"
+  },
+  "apps/remote-dragonball/src/base/config/env/env.config.ts": {
+    "mtime": 1788443623.1292343,
+    "seen": 1788880662.283521,
+    "ast_hash": "ca33f10ccc3ad7f070ad0676686d1275",
+    "semantic_hash": "ca33f10ccc3ad7f070ad0676686d1275"
+  },
+  "apps/remote-dragonball/src/base/config/env/env.schema.ts": {
+    "mtime": 1788873822.0592427,
+    "seen": 1788880662.283521,
+    "ast_hash": "5b2548ae82053126e0e15501caa1cda0",
+    "semantic_hash": "5b2548ae82053126e0e15501caa1cda0"
+  },
+  "apps/remote-dragonball/src/base/config/http/axios.http-client.ts": {
+    "mtime": 1788443623.1296742,
+    "seen": 1788880662.2835221,
+    "ast_hash": "c7ef084568886f05841c9dfd572d833a",
+    "semantic_hash": "c7ef084568886f05841c9dfd572d833a"
+  },
+  "apps/remote-dragonball/src/base/config/http/exception/http-service.exception.ts": {
+    "mtime": 1788443623.1298068,
+    "seen": 1788880662.2835221,
+    "ast_hash": "cffcffe56132e91842c576dc574dd916",
+    "semantic_hash": "cffcffe56132e91842c576dc574dd916"
+  },
+  "apps/remote-dragonball/src/base/config/http/http-response.ts": {
+    "mtime": 1788443623.1298904,
+    "seen": 1788880662.283523,
+    "ast_hash": "8f31fe20fdc842ed88dffef2e2f9eb63",
+    "semantic_hash": "8f31fe20fdc842ed88dffef2e2f9eb63"
+  },
+  "apps/remote-dragonball/src/base/config/router/index.ts": {
+    "mtime": 1788443623.130089,
+    "seen": 1788880662.283523,
+    "ast_hash": "ac03d5c543d5bc33a02c5039dd790405",
+    "semantic_hash": "ac03d5c543d5bc33a02c5039dd790405"
+  },
+  "apps/remote-dragonball/src/base/constants/index.ts": {
+    "mtime": 1788443623.1302176,
+    "seen": 1788880662.283524,
+    "ast_hash": "4d65aa295cedc80187bd32111a67519b",
+    "semantic_hash": "4d65aa295cedc80187bd32111a67519b"
+  },
+  "apps/remote-dragonball/src/base/lib/application/use-case.base.ts": {
+    "mtime": 1788443623.1304083,
+    "seen": 1788880662.283524,
+    "ast_hash": "b7798e6b95940c38ee702dbc84c8a399",
+    "semantic_hash": "b7798e6b95940c38ee702dbc84c8a399"
+  },
+  "apps/remote-dragonball/src/base/lib/domain/command.base.ts": {
+    "mtime": 1788443623.130577,
+    "seen": 1788880662.2835252,
+    "ast_hash": "6d55d1b9d0abcb6101d9832938f3392a",
+    "semantic_hash": "6d55d1b9d0abcb6101d9832938f3392a"
+  },
+  "apps/remote-dragonball/src/base/lib/domain/domain-exception.base.ts": {
+    "mtime": 1788443623.1306648,
+    "seen": 1788880662.2835252,
+    "ast_hash": "42c52f92d2d3768cc510a8c8746f3ead",
+    "semantic_hash": "42c52f92d2d3768cc510a8c8746f3ead"
+  },
+  "apps/remote-dragonball/src/base/lib/domain/paginated.ts": {
+    "mtime": 1788443623.130814,
+    "seen": 1788880662.2835252,
+    "ast_hash": "ff77d1c123ca602bad41f6afe94301a7",
+    "semantic_hash": "ff77d1c123ca602bad41f6afe94301a7"
+  },
+  "apps/remote-dragonball/src/base/lib/domain/props.base.ts": {
+    "mtime": 1788443623.13093,
+    "seen": 1788880662.283526,
+    "ast_hash": "73326a4c268b61548af9d6f46b417a0b",
+    "semantic_hash": "73326a4c268b61548af9d6f46b417a0b"
+  },
+  "apps/remote-dragonball/src/base/lib/domain/query.base.ts": {
+    "mtime": 1788443623.1310148,
+    "seen": 1788880662.283526,
+    "ast_hash": "ea237b7f42158a2e8dd022da1b6dca64",
+    "semantic_hash": "ea237b7f42158a2e8dd022da1b6dca64"
+  },
+  "apps/remote-dragonball/src/base/lib/domain/result.ts": {
+    "mtime": 1788443623.1311052,
+    "seen": 1788880662.283527,
+    "ast_hash": "d7705d736301b0e39bd8bba769004cc9",
+    "semantic_hash": "d7705d736301b0e39bd8bba769004cc9"
+  },
+  "apps/remote-dragonball/src/base/lib/utils/index.ts": {
+    "mtime": 1788443623.1312351,
+    "seen": 1788880662.283527,
+    "ast_hash": "37102cb58c1a5f339e63a5b243674f04",
+    "semantic_hash": "37102cb58c1a5f339e63a5b243674f04"
+  },
+  "apps/remote-dragonball/src/base/lib/utils/string.utils.ts": {
+    "mtime": 1788443623.1313224,
+    "seen": 1788880662.2835279,
+    "ast_hash": "0e293331d7151b0b9c64ae31e9bfd57d",
+    "semantic_hash": "0e293331d7151b0b9c64ae31e9bfd57d"
+  },
+  "apps/remote-dragonball/src/export-app.ts": {
+    "mtime": 1788876087.3621545,
+    "seen": 1788880662.2835279,
+    "ast_hash": "12c69e85f9afc4caf7c364d1ca931b38",
+    "semantic_hash": "12c69e85f9afc4caf7c364d1ca931b38"
+  },
+  "apps/remote-dragonball/src/main.ts": {
+    "mtime": 1788443623.132002,
+    "seen": 1788880662.283529,
+    "ast_hash": "3c8493b7aba34399c54d89d040b708c5",
+    "semantic_hash": "3c8493b7aba34399c54d89d040b708c5"
+  },
+  "apps/remote-dragonball/src/modules/character/application/use-cases/character-finder/character-finder.use-case.ts": {
+    "mtime": 1788443623.132463,
+    "seen": 1788880662.283529,
+    "ast_hash": "9518f2501eb2819e529af6e41cc18746",
+    "semantic_hash": "9518f2501eb2819e529af6e41cc18746"
+  },
+  "apps/remote-dragonball/src/modules/character/application/use-cases/characters-finder/characters-finder.use-case.ts": {
+    "mtime": 1788443623.1326003,
+    "seen": 1788880662.28353,
+    "ast_hash": "d964e5a4792ec50dac3a68bc4531b091",
+    "semantic_hash": "d964e5a4792ec50dac3a68bc4531b091"
+  },
+  "apps/remote-dragonball/src/modules/character/domain/entities/character-summary.entity.ts": {
+    "mtime": 1788443623.132777,
+    "seen": 1788880662.28353,
+    "ast_hash": "cac1714c6cc28b8b02c6a6fe3fbc618c",
+    "semantic_hash": "cac1714c6cc28b8b02c6a6fe3fbc618c"
+  },
+  "apps/remote-dragonball/src/modules/character/domain/entities/character.entity.ts": {
+    "mtime": 1788443623.132862,
+    "seen": 1788880662.283531,
+    "ast_hash": "e19b9a95932696dd3b0d605282e3b2a1",
+    "semantic_hash": "e19b9a95932696dd3b0d605282e3b2a1"
+  },
+  "apps/remote-dragonball/src/modules/character/domain/exceptions/character-not-found.exception.ts": {
+    "mtime": 1788443623.1329894,
+    "seen": 1788880662.283531,
+    "ast_hash": "6ce7f9b3d68de0f97e9b3ff2412c39d0",
+    "semantic_hash": "6ce7f9b3d68de0f97e9b3ff2412c39d0"
+  },
+  "apps/remote-dragonball/src/modules/character/domain/ports/character.repository.ts": {
+    "mtime": 1788443623.1331408,
+    "seen": 1788880662.2835321,
+    "ast_hash": "8b7cbd35ed366f7521844e577992e641",
+    "semantic_hash": "8b7cbd35ed366f7521844e577992e641"
+  },
+  "apps/remote-dragonball/src/modules/character/domain/props/find-character.props.ts": {
+    "mtime": 1788443623.1332881,
+    "seen": 1788880662.2835321,
+    "ast_hash": "be413b41de4e75ab5ca65588c912585f",
+    "semantic_hash": "be413b41de4e75ab5ca65588c912585f"
+  },
+  "apps/remote-dragonball/src/modules/character/domain/props/find-characters.props.ts": {
+    "mtime": 1788443623.1333811,
+    "seen": 1788880662.2835321,
+    "ast_hash": "545f9ea56e1d5f9311bddfbded2a693f",
+    "semantic_hash": "545f9ea56e1d5f9311bddfbded2a693f"
+  },
+  "apps/remote-dragonball/src/modules/character/domain/value-objects/character-transformation.ts": {
+    "mtime": 1788443623.1335247,
+    "seen": 1788880662.283533,
+    "ast_hash": "beda316311b0e9eedbfc2984e49804c3",
+    "semantic_hash": "beda316311b0e9eedbfc2984e49804c3"
+  },
+  "apps/remote-dragonball/src/modules/character/domain/value-objects/origin-planet.ts": {
+    "mtime": 1788443623.133605,
+    "seen": 1788880662.283533,
+    "ast_hash": "f56c404dc5c80be34b8e3ef093f69123",
+    "semantic_hash": "f56c404dc5c80be34b8e3ef093f69123"
+  },
+  "apps/remote-dragonball/src/modules/character/infrastructure/dtos/character-list-response.dto.ts": {
+    "mtime": 1788443623.133787,
+    "seen": 1788880662.283534,
+    "ast_hash": "935e0d35efecd5344f41ec55dc35da8a",
+    "semantic_hash": "935e0d35efecd5344f41ec55dc35da8a"
+  },
+  "apps/remote-dragonball/src/modules/character/infrastructure/dtos/character-response.dto.ts": {
+    "mtime": 1788443623.1338682,
+    "seen": 1788880662.283534,
+    "ast_hash": "0ad0b256c153302ee79473030e4f6821",
+    "semantic_hash": "0ad0b256c153302ee79473030e4f6821"
+  },
+  "apps/remote-dragonball/src/modules/character/infrastructure/mappers/character.mapper.ts": {
+    "mtime": 1788443623.1339993,
+    "seen": 1788880662.283535,
+    "ast_hash": "3ccae49a9f45f971595d122f50c06cff",
+    "semantic_hash": "3ccae49a9f45f971595d122f50c06cff"
+  },
+  "apps/remote-dragonball/src/modules/character/infrastructure/repositories/http-character.repository.ts": {
+    "mtime": 1788443623.134121,
+    "seen": 1788880662.283535,
+    "ast_hash": "f5810519613ef431266a0a776071cca1",
+    "semantic_hash": "f5810519613ef431266a0a776071cca1"
+  },
+  "apps/remote-dragonball/src/modules/character/presentation/mappers/character-detail-screen.mapper.ts": {
+    "mtime": 1788443623.13431,
+    "seen": 1788880662.283536,
+    "ast_hash": "beb147380fe8fe7b0b3fd72941f5be6b",
+    "semantic_hash": "beb147380fe8fe7b0b3fd72941f5be6b"
+  },
+  "apps/remote-dragonball/src/modules/character/presentation/mappers/character-list-screen.mapper.ts": {
+    "mtime": 1788443623.1345572,
+    "seen": 1788880662.283536,
+    "ast_hash": "26ea789b0abaf10e75bb33afaf3aab6f",
+    "semantic_hash": "26ea789b0abaf10e75bb33afaf3aab6f"
+  },
+  "apps/remote-dragonball/src/modules/character/presentation/models/character-card.model.ts": {
+    "mtime": 1788443623.134823,
+    "seen": 1788880662.283537,
+    "ast_hash": "d2880b0a2b2b2276d04ff7258684706f",
+    "semantic_hash": "d2880b0a2b2b2276d04ff7258684706f"
+  },
+  "apps/remote-dragonball/src/modules/character/presentation/models/character-detail.model.ts": {
+    "mtime": 1788443623.1351042,
+    "seen": 1788880662.283537,
+    "ast_hash": "1c4427e08fce4bdef0501bdd61455adf",
+    "semantic_hash": "1c4427e08fce4bdef0501bdd61455adf"
+  },
+  "apps/remote-dragonball/src/modules/character/presentation/routes/character.routes.ts": {
+    "mtime": 1788876087.3681436,
+    "seen": 1788880662.2835379,
+    "ast_hash": "2017ee206e23b4de0ff1f36dc282349a",
+    "semantic_hash": "2017ee206e23b4de0ff1f36dc282349a"
+  },
+  "apps/remote-dragonball/src/modules/character/presentation/screens/character-detail/CharacterDetailScreen.vue": {
+    "mtime": 1788443623.1358337,
+    "seen": 1788880662.2835379,
+    "ast_hash": "fd2162a56c4a411175fcbecc525a3b53",
+    "semantic_hash": "fd2162a56c4a411175fcbecc525a3b53"
+  },
+  "apps/remote-dragonball/src/modules/character/presentation/screens/character-detail/useCharacterDetailViewModel.ts": {
+    "mtime": 1788443623.1360152,
+    "seen": 1788880662.2835379,
+    "ast_hash": "672074e95df6e7dc3ffd62f2305c76c5",
+    "semantic_hash": "672074e95df6e7dc3ffd62f2305c76c5"
+  },
+  "apps/remote-dragonball/src/modules/character/presentation/screens/character-list/CharacterListScreen.vue": {
+    "mtime": 1788443623.1361785,
+    "seen": 1788880662.283539,
+    "ast_hash": "38f414e79b0b7d2c860c191963679d8a",
+    "semantic_hash": "38f414e79b0b7d2c860c191963679d8a"
+  },
+  "apps/remote-dragonball/src/modules/character/presentation/screens/character-list/useCharacterListViewModel.ts": {
+    "mtime": 1788443623.136278,
+    "seen": 1788880662.283539,
+    "ast_hash": "09fc9aefa70a769818cc1c5560c34379",
+    "semantic_hash": "09fc9aefa70a769818cc1c5560c34379"
+  },
+  "apps/remote-dragonball/tests/helpers/with-setup.ts": {
+    "mtime": 1788443623.136456,
+    "seen": 1788880662.28354,
+    "ast_hash": "db58418afccbfa44c88e9a3dc3dc5199",
+    "semantic_hash": "db58418afccbfa44c88e9a3dc3dc5199"
+  },
+  "apps/remote-dragonball/tests/modules/character/application/use-cases/characters-finder/characters-finder.use-case.spec.ts": {
+    "mtime": 1788443623.136884,
+    "seen": 1788880662.28354,
+    "ast_hash": "96fd7067fba84b128137a7acf518a8d5",
+    "semantic_hash": "96fd7067fba84b128137a7acf518a8d5"
+  },
+  "apps/remote-dragonball/tests/modules/character/builders/character.builder.ts": {
+    "mtime": 1788443623.137131,
+    "seen": 1788880662.283543,
+    "ast_hash": "683de656b5c4390a2e9c12cf667ad32d",
+    "semantic_hash": "683de656b5c4390a2e9c12cf667ad32d"
+  },
+  "apps/remote-dragonball/tests/modules/character/infrastructure/repositories/http-character.repository.spec.ts": {
+    "mtime": 1788443623.1373835,
+    "seen": 1788880662.283543,
+    "ast_hash": "73eb0814515f49bf885248f8328caca8",
+    "semantic_hash": "73eb0814515f49bf885248f8328caca8"
+  },
+  "apps/remote-dragonball/tests/modules/character/presentation/screens/character-list/useCharacterListViewModel.spec.ts": {
+    "mtime": 1788443623.137635,
+    "seen": 1788880662.283544,
+    "ast_hash": "a389802878ff3fa1582c070527d8666a",
+    "semantic_hash": "a389802878ff3fa1582c070527d8666a"
+  },
+  "apps/remote-dragonball/tsconfig.app.json": {
+    "mtime": 1788443623.1377246,
+    "seen": 1788880662.283544,
+    "ast_hash": "d23d3dece9cd70f4925fd79f7acc4571",
+    "semantic_hash": "d23d3dece9cd70f4925fd79f7acc4571"
+  },
+  "apps/remote-dragonball/tsconfig.json": {
+    "mtime": 1788443623.1378071,
+    "seen": 1788880662.283545,
+    "ast_hash": "aec40fdcbdacf2e95abf0e4c2969429d",
+    "semantic_hash": "aec40fdcbdacf2e95abf0e4c2969429d"
+  },
+  "apps/remote-dragonball/tsconfig.node.json": {
+    "mtime": 1788443623.1378894,
+    "seen": 1788880662.283545,
+    "ast_hash": "39db2317d67ebd8fd55ce57acb649171",
+    "semantic_hash": "39db2317d67ebd8fd55ce57acb649171"
+  },
+  "apps/remote-dragonball/tsconfig.vitest.json": {
+    "mtime": 1788443623.1379697,
+    "seen": 1788880662.2835462,
+    "ast_hash": "43fc514848ca655372c3726789c05999",
+    "semantic_hash": "43fc514848ca655372c3726789c05999"
+  },
+  "apps/remote-dragonball/vite.config.ts": {
+    "mtime": 1788873796.0874066,
+    "seen": 1788880662.2835462,
+    "ast_hash": "31441f0d7641c1a3ad26d688f81202d6",
+    "semantic_hash": "31441f0d7641c1a3ad26d688f81202d6"
+  },
+  "apps/remote-pokemon/.oxlintrc.json": {
+    "mtime": 1788443623.1383967,
+    "seen": 1788880662.283547,
+    "ast_hash": "2bc81a0f964a248752d70461ba7b726a",
+    "semantic_hash": "2bc81a0f964a248752d70461ba7b726a"
+  },
+  "apps/remote-pokemon/env.d.ts": {
+    "mtime": 1788443623.1384816,
+    "seen": 1788880662.283547,
+    "ast_hash": "0352474ba2918efe13895edbc3780d94",
+    "semantic_hash": "0352474ba2918efe13895edbc3780d94"
+  },
+  "apps/remote-pokemon/eslint.config.ts": {
+    "mtime": 1788443623.1393864,
+    "seen": 1788880662.283547,
+    "ast_hash": "0edce93015400ab8d28744c1229dab6e",
+    "semantic_hash": "0edce93015400ab8d28744c1229dab6e"
+  },
+  "apps/remote-pokemon/module-federation.config.ts": {
+    "mtime": 1788872936.7024245,
+    "seen": 1788880662.2835479,
+    "ast_hash": "e899ab72e2e5223358223b0b73ea5562",
+    "semantic_hash": "e899ab72e2e5223358223b0b73ea5562"
+  },
+  "apps/remote-pokemon/package.json": {
+    "mtime": 1788872936.704184,
+    "seen": 1788880662.2835479,
+    "ast_hash": "d63c358ee414d43c11f59437d7c280e9",
+    "semantic_hash": "d63c358ee414d43c11f59437d7c280e9"
+  },
+  "apps/remote-pokemon/src/App.vue": {
+    "mtime": 1788872936.7044868,
+    "seen": 1788880662.2835488,
+    "ast_hash": "7ea19bd1915ce91081ff3c7077d53e03",
+    "semantic_hash": "7ea19bd1915ce91081ff3c7077d53e03"
+  },
+  "apps/remote-pokemon/src/base/config/colada/colada.options.ts": {
+    "mtime": 1788443623.1403642,
+    "seen": 1788880662.2835488,
+    "ast_hash": "5773f024c29d378809cb776c2b3fd7e5",
+    "semantic_hash": "5773f024c29d378809cb776c2b3fd7e5"
+  },
+  "apps/remote-pokemon/src/base/config/di/container.ts": {
+    "mtime": 1788443623.1405213,
+    "seen": 1788880662.28355,
+    "ast_hash": "7199afc58b038c357daa08c44123c66b",
+    "semantic_hash": "7199afc58b038c357daa08c44123c66b"
+  },
+  "apps/remote-pokemon/src/base/config/env/env.config.ts": {
+    "mtime": 1788443623.1406643,
+    "seen": 1788880662.28355,
+    "ast_hash": "ca33f10ccc3ad7f070ad0676686d1275",
+    "semantic_hash": "ca33f10ccc3ad7f070ad0676686d1275"
+  },
+  "apps/remote-pokemon/src/base/config/env/env.schema.ts": {
+    "mtime": 1788872936.704837,
+    "seen": 1788880662.283551,
+    "ast_hash": "e448f1b069e9c4f8456a4d1ebcef58e9",
+    "semantic_hash": "e448f1b069e9c4f8456a4d1ebcef58e9"
+  },
+  "apps/remote-pokemon/src/base/config/http/axios.http-client.ts": {
+    "mtime": 1788443623.1408906,
+    "seen": 1788880662.283551,
+    "ast_hash": "c7ef084568886f05841c9dfd572d833a",
+    "semantic_hash": "c7ef084568886f05841c9dfd572d833a"
+  },
+  "apps/remote-pokemon/src/base/config/http/exception/http-service.exception.ts": {
+    "mtime": 1788443623.1410372,
+    "seen": 1788880662.283551,
+    "ast_hash": "cffcffe56132e91842c576dc574dd916",
+    "semantic_hash": "cffcffe56132e91842c576dc574dd916"
+  },
+  "apps/remote-pokemon/src/base/config/http/http-response.ts": {
+    "mtime": 1788443623.1425242,
+    "seen": 1788880662.283552,
+    "ast_hash": "8f31fe20fdc842ed88dffef2e2f9eb63",
+    "semantic_hash": "8f31fe20fdc842ed88dffef2e2f9eb63"
+  },
+  "apps/remote-pokemon/src/base/config/router/index.ts": {
+    "mtime": 1788443623.1426675,
+    "seen": 1788880662.283552,
+    "ast_hash": "e24affcbf7d29bd4fb577e94f5c05fd7",
+    "semantic_hash": "e24affcbf7d29bd4fb577e94f5c05fd7"
+  },
+  "apps/remote-pokemon/src/base/constants/index.ts": {
+    "mtime": 1788443623.1427984,
+    "seen": 1788880662.2835531,
+    "ast_hash": "4d65aa295cedc80187bd32111a67519b",
+    "semantic_hash": "4d65aa295cedc80187bd32111a67519b"
+  },
+  "apps/remote-pokemon/src/base/lib/application/use-case.base.ts": {
+    "mtime": 1788443623.1429737,
+    "seen": 1788880662.2835531,
+    "ast_hash": "b7798e6b95940c38ee702dbc84c8a399",
+    "semantic_hash": "b7798e6b95940c38ee702dbc84c8a399"
+  },
+  "apps/remote-pokemon/src/base/lib/domain/command.base.ts": {
+    "mtime": 1788443623.1431599,
+    "seen": 1788880662.283554,
+    "ast_hash": "6d55d1b9d0abcb6101d9832938f3392a",
+    "semantic_hash": "6d55d1b9d0abcb6101d9832938f3392a"
+  },
+  "apps/remote-pokemon/src/base/lib/domain/domain-exception.base.ts": {
+    "mtime": 1788443623.1433816,
+    "seen": 1788880662.283554,
+    "ast_hash": "42c52f92d2d3768cc510a8c8746f3ead",
+    "semantic_hash": "42c52f92d2d3768cc510a8c8746f3ead"
+  },
+  "apps/remote-pokemon/src/base/lib/domain/paginated.ts": {
+    "mtime": 1788443623.1434648,
+    "seen": 1788880662.283555,
+    "ast_hash": "ff77d1c123ca602bad41f6afe94301a7",
+    "semantic_hash": "ff77d1c123ca602bad41f6afe94301a7"
+  },
+  "apps/remote-pokemon/src/base/lib/domain/props.base.ts": {
+    "mtime": 1788443623.1435375,
+    "seen": 1788880662.283555,
+    "ast_hash": "73326a4c268b61548af9d6f46b417a0b",
+    "semantic_hash": "73326a4c268b61548af9d6f46b417a0b"
+  },
+  "apps/remote-pokemon/src/base/lib/domain/query.base.ts": {
+    "mtime": 1788443623.1436188,
+    "seen": 1788880662.283556,
+    "ast_hash": "ea237b7f42158a2e8dd022da1b6dca64",
+    "semantic_hash": "ea237b7f42158a2e8dd022da1b6dca64"
+  },
+  "apps/remote-pokemon/src/base/lib/domain/result.ts": {
+    "mtime": 1788443623.143708,
+    "seen": 1788880662.283556,
+    "ast_hash": "d7705d736301b0e39bd8bba769004cc9",
+    "semantic_hash": "d7705d736301b0e39bd8bba769004cc9"
+  },
+  "apps/remote-pokemon/src/base/lib/utils/index.ts": {
+    "mtime": 1788443623.143839,
+    "seen": 1788880662.2835572,
+    "ast_hash": "37102cb58c1a5f339e63a5b243674f04",
+    "semantic_hash": "37102cb58c1a5f339e63a5b243674f04"
+  },
+  "apps/remote-pokemon/src/base/lib/utils/string.utils.ts": {
+    "mtime": 1788443623.143922,
+    "seen": 1788880662.2835572,
+    "ast_hash": "0e293331d7151b0b9c64ae31e9bfd57d",
+    "semantic_hash": "0e293331d7151b0b9c64ae31e9bfd57d"
+  },
+  "apps/remote-pokemon/src/export-app.ts": {
+    "mtime": 1788876087.3937924,
+    "seen": 1788880662.2835572,
+    "ast_hash": "4a93902366fcc419974e5f706495212f",
+    "semantic_hash": "4a93902366fcc419974e5f706495212f"
+  },
+  "apps/remote-pokemon/src/main.ts": {
+    "mtime": 1788443623.144017,
+    "seen": 1788880662.283558,
+    "ast_hash": "3c8493b7aba34399c54d89d040b708c5",
+    "semantic_hash": "3c8493b7aba34399c54d89d040b708c5"
+  },
+  "apps/remote-pokemon/src/modules/pokemon/application/use-cases/pokemon-finder/pokemon-finder.use-case.ts": {
+    "mtime": 1788443623.144343,
+    "seen": 1788880662.283558,
+    "ast_hash": "effa9d60a36f0b7ed54469320a48bdda",
+    "semantic_hash": "effa9d60a36f0b7ed54469320a48bdda"
+  },
+  "apps/remote-pokemon/src/modules/pokemon/application/use-cases/pokemons-finder/pokemons-finder.use-case.ts": {
+    "mtime": 1788443623.144472,
+    "seen": 1788880662.2835588,
+    "ast_hash": "0ca47d7c92d2bcf3c6e465e315a5fc5e",
+    "semantic_hash": "0ca47d7c92d2bcf3c6e465e315a5fc5e"
+  },
+  "apps/remote-pokemon/src/modules/pokemon/domain/entities/pokemon-summary.entity.ts": {
+    "mtime": 1788443623.1446636,
+    "seen": 1788880662.2835588,
+    "ast_hash": "aa22b971dd05658bd59fb88cfd3f3877",
+    "semantic_hash": "aa22b971dd05658bd59fb88cfd3f3877"
+  },
+  "apps/remote-pokemon/src/modules/pokemon/domain/entities/pokemon.entity.ts": {
+    "mtime": 1788443623.1447465,
+    "seen": 1788880662.28356,
+    "ast_hash": "e5ac22ef22e4ca87d8661c7a50a3390e",
+    "semantic_hash": "e5ac22ef22e4ca87d8661c7a50a3390e"
+  },
+  "apps/remote-pokemon/src/modules/pokemon/domain/exceptions/pokemon-not-found.exception.ts": {
+    "mtime": 1788443623.1448774,
+    "seen": 1788880662.28356,
+    "ast_hash": "b04dd59e38d0e558602906a687ee8d46",
+    "semantic_hash": "b04dd59e38d0e558602906a687ee8d46"
+  },
+  "apps/remote-pokemon/src/modules/pokemon/domain/ports/pokemon.repository.ts": {
+    "mtime": 1788443623.1450167,
+    "seen": 1788880662.283561,
+    "ast_hash": "3bf6e9ab6eabe02efdeee96650fa7ead",
+    "semantic_hash": "3bf6e9ab6eabe02efdeee96650fa7ead"
+  },
+  "apps/remote-pokemon/src/modules/pokemon/domain/props/find-pokemon.props.ts": {
+    "mtime": 1788443623.145133,
+    "seen": 1788880662.283561,
+    "ast_hash": "05889675600006cc927ee2f17869bb9c",
+    "semantic_hash": "05889675600006cc927ee2f17869bb9c"
+  },
+  "apps/remote-pokemon/src/modules/pokemon/domain/props/find-pokemons.props.ts": {
+    "mtime": 1788443623.1452296,
+    "seen": 1788880662.283562,
+    "ast_hash": "a7d86cd61b63997077145e11be350bbe",
+    "semantic_hash": "a7d86cd61b63997077145e11be350bbe"
+  },
+  "apps/remote-pokemon/src/modules/pokemon/domain/value-objects/pokemon-stat.ts": {
+    "mtime": 1788443623.1453516,
+    "seen": 1788880662.283562,
+    "ast_hash": "ac5fe7f4186d05cfdccecd91577cbd88",
+    "semantic_hash": "ac5fe7f4186d05cfdccecd91577cbd88"
+  },
+  "apps/remote-pokemon/src/modules/pokemon/infrastructure/dtos/pokemon-list-response.dto.ts": {
+    "mtime": 1788443623.1455462,
+    "seen": 1788880662.283563,
+    "ast_hash": "e9ebbdb0077da4787a8ea80056a8f3af",
+    "semantic_hash": "e9ebbdb0077da4787a8ea80056a8f3af"
+  },
+  "apps/remote-pokemon/src/modules/pokemon/infrastructure/dtos/pokemon-response.dto.ts": {
+    "mtime": 1788443623.145641,
+    "seen": 1788880662.283563,
+    "ast_hash": "b91c78bb98c1396bad0fdd6332a4c0af",
+    "semantic_hash": "b91c78bb98c1396bad0fdd6332a4c0af"
+  },
+  "apps/remote-pokemon/src/modules/pokemon/infrastructure/mappers/pokemon.mapper.ts": {
+    "mtime": 1788443623.1457736,
+    "seen": 1788880662.283563,
+    "ast_hash": "c97d29f763a9db7708b3cff85cc0486a",
+    "semantic_hash": "c97d29f763a9db7708b3cff85cc0486a"
+  },
+  "apps/remote-pokemon/src/modules/pokemon/infrastructure/repositories/http-pokemon.repository.ts": {
+    "mtime": 1788443623.1459057,
+    "seen": 1788880662.283564,
+    "ast_hash": "8fbb600234e7f5eabc63ca7299765110",
+    "semantic_hash": "8fbb600234e7f5eabc63ca7299765110"
+  },
+  "apps/remote-pokemon/src/modules/pokemon/presentation/mappers/pokemon-detail-screen.mapper.ts": {
+    "mtime": 1788443623.1460862,
+    "seen": 1788880662.283564,
+    "ast_hash": "f1d4c35efe679f8be9b39136a1d45e1b",
+    "semantic_hash": "f1d4c35efe679f8be9b39136a1d45e1b"
+  },
+  "apps/remote-pokemon/src/modules/pokemon/presentation/mappers/pokemon-list-screen.mapper.ts": {
+    "mtime": 1788443623.1462238,
+    "seen": 1788880662.283565,
+    "ast_hash": "25846f56f97e4c565cdc300e2b22d0cf",
+    "semantic_hash": "25846f56f97e4c565cdc300e2b22d0cf"
+  },
+  "apps/remote-pokemon/src/modules/pokemon/presentation/models/pokemon-card.model.ts": {
+    "mtime": 1788443623.1465147,
+    "seen": 1788880662.283565,
+    "ast_hash": "7ec6e6fba64a28102bc1853c0937b12f",
+    "semantic_hash": "7ec6e6fba64a28102bc1853c0937b12f"
+  },
+  "apps/remote-pokemon/src/modules/pokemon/presentation/models/pokemon-detail.model.ts": {
+    "mtime": 1788443623.1466,
+    "seen": 1788880662.283566,
+    "ast_hash": "afedcf754896bbe3983de95d9d61d341",
+    "semantic_hash": "afedcf754896bbe3983de95d9d61d341"
+  },
+  "apps/remote-pokemon/src/modules/pokemon/presentation/routes/pokemon.routes.ts": {
+    "mtime": 1788876087.401849,
+    "seen": 1788880662.283566,
+    "ast_hash": "bc4d46dd584f92610d2a9209c698c453",
+    "semantic_hash": "bc4d46dd584f92610d2a9209c698c453"
+  },
+  "apps/remote-pokemon/src/modules/pokemon/presentation/screens/pokemon-detail/PokemonDetailScreen.vue": {
+    "mtime": 1788443623.1469142,
+    "seen": 1788880662.2835672,
+    "ast_hash": "1907d25ed198ed8dc1762769f2440e61",
+    "semantic_hash": "1907d25ed198ed8dc1762769f2440e61"
+  },
+  "apps/remote-pokemon/src/modules/pokemon/presentation/screens/pokemon-detail/usePokemonDetailViewModel.ts": {
+    "mtime": 1788443623.1470094,
+    "seen": 1788880662.2835672,
+    "ast_hash": "eea9255ec0e7578e9e83e2f92a1f3b1d",
+    "semantic_hash": "eea9255ec0e7578e9e83e2f92a1f3b1d"
+  },
+  "apps/remote-pokemon/src/modules/pokemon/presentation/screens/pokemon-list/PokemonListScreen.vue": {
+    "mtime": 1788443623.147153,
+    "seen": 1788880662.2835681,
+    "ast_hash": "20b197c118fae3002ff37ff938403880",
+    "semantic_hash": "20b197c118fae3002ff37ff938403880"
+  },
+  "apps/remote-pokemon/src/modules/pokemon/presentation/screens/pokemon-list/usePokemonListViewModel.ts": {
+    "mtime": 1788443623.1472726,
+    "seen": 1788880662.2835681,
+    "ast_hash": "0472a37dde8607a0941e0944f5cbdb95",
+    "semantic_hash": "0472a37dde8607a0941e0944f5cbdb95"
+  },
+  "apps/remote-pokemon/tests/helpers/with-setup.ts": {
+    "mtime": 1788443623.1475143,
+    "seen": 1788880662.2835689,
+    "ast_hash": "db58418afccbfa44c88e9a3dc3dc5199",
+    "semantic_hash": "db58418afccbfa44c88e9a3dc3dc5199"
+  },
+  "apps/remote-pokemon/tests/modules/pokemon/application/use-cases/pokemons-finder/pokemons-finder.use-case.spec.ts": {
+    "mtime": 1788443623.147862,
+    "seen": 1788880662.2835689,
+    "ast_hash": "504b4bbc4809cb624e599cdebe2fe67b",
+    "semantic_hash": "504b4bbc4809cb624e599cdebe2fe67b"
+  },
+  "apps/remote-pokemon/tests/modules/pokemon/builders/pokemon.builder.ts": {
+    "mtime": 1788443623.1479948,
+    "seen": 1788880662.2835698,
+    "ast_hash": "aa6a9be2b72bcbc559c70bf01b911fba",
+    "semantic_hash": "aa6a9be2b72bcbc559c70bf01b911fba"
+  },
+  "apps/remote-pokemon/tests/modules/pokemon/infrastructure/repositories/http-pokemon.repository.spec.ts": {
+    "mtime": 1788443623.1481836,
+    "seen": 1788880662.2835698,
+    "ast_hash": "a079abc74e68f198921a826aa3a0ee8c",
+    "semantic_hash": "a079abc74e68f198921a826aa3a0ee8c"
+  },
+  "apps/remote-pokemon/tests/modules/pokemon/presentation/screens/pokemon-list/usePokemonListViewModel.spec.ts": {
+    "mtime": 1788443623.1484427,
+    "seen": 1788880662.2835698,
+    "ast_hash": "5417afd0fdea43ebc4b4cdc00aec7ea0",
+    "semantic_hash": "5417afd0fdea43ebc4b4cdc00aec7ea0"
+  },
+  "apps/remote-pokemon/tsconfig.app.json": {
+    "mtime": 1788443623.148538,
+    "seen": 1788880662.283571,
+    "ast_hash": "d23d3dece9cd70f4925fd79f7acc4571",
+    "semantic_hash": "d23d3dece9cd70f4925fd79f7acc4571"
+  },
+  "apps/remote-pokemon/tsconfig.json": {
+    "mtime": 1788443623.1486263,
+    "seen": 1788880662.283571,
+    "ast_hash": "aec40fdcbdacf2e95abf0e4c2969429d",
+    "semantic_hash": "aec40fdcbdacf2e95abf0e4c2969429d"
+  },
+  "apps/remote-pokemon/tsconfig.node.json": {
+    "mtime": 1788443623.148706,
+    "seen": 1788880662.283572,
+    "ast_hash": "39db2317d67ebd8fd55ce57acb649171",
+    "semantic_hash": "39db2317d67ebd8fd55ce57acb649171"
+  },
+  "apps/remote-pokemon/tsconfig.vitest.json": {
+    "mtime": 1788443623.1488998,
+    "seen": 1788880662.283572,
+    "ast_hash": "43fc514848ca655372c3726789c05999",
+    "semantic_hash": "43fc514848ca655372c3726789c05999"
+  },
+  "apps/remote-pokemon/vite.config.ts": {
+    "mtime": 1788872936.708255,
+    "seen": 1788880662.283573,
+    "ast_hash": "43f163ca7437a824ffbdabacbca3aba5",
+    "semantic_hash": "43f163ca7437a824ffbdabacbca3aba5"
+  },
+  "lint-staged.config.js": {
+    "mtime": 1788533647.2239945,
+    "seen": 1788880662.283573,
+    "ast_hash": "de2e68fb8dae97cf1d1ee3dcdd6937c9",
+    "semantic_hash": "de2e68fb8dae97cf1d1ee3dcdd6937c9"
+  },
+  "package.json": {
+    "mtime": 1788872936.7267106,
+    "seen": 1788880662.283574,
+    "ast_hash": "9d2354477244e9d3e4ea36fc7772ecde",
+    "semantic_hash": "9d2354477244e9d3e4ea36fc7772ecde"
+  },
+  "packages/mf-shared/package.json": {
+    "mtime": 1788443623.1521983,
+    "seen": 1788880662.283574,
+    "ast_hash": "d5a8090f1945536d9c9506e373f62833",
+    "semantic_hash": "d5a8090f1945536d9c9506e373f62833"
+  },
+  "packages/mf-shared/src/index.ts": {
+    "mtime": 1788443623.1534145,
+    "seen": 1788880662.283574,
+    "ast_hash": "6d061da4a3418e7b11d6080ca60bb152",
+    "semantic_hash": "6d061da4a3418e7b11d6080ca60bb152"
+  },
+  "packages/mf-shared/tests/shared-contract.spec.ts": {
+    "mtime": 1788443623.1535785,
+    "seen": 1788880662.283575,
+    "ast_hash": "66100d6dc15ae0324695c10f37813da7",
+    "semantic_hash": "66100d6dc15ae0324695c10f37813da7"
+  },
+  "packages/mf-shared/tsconfig.json": {
+    "mtime": 1788443623.1536586,
+    "seen": 1788880662.283575,
+    "ast_hash": "4928a0251937053f62cee63e27c36bcd",
+    "semantic_hash": "4928a0251937053f62cee63e27c36bcd"
+  },
+  "renovate.json": {
+    "mtime": 1788533647.2486718,
+    "seen": 1788880662.283576,
+    "ast_hash": "523ef34bd24b6fe435eb7ec3e9e6c9c9",
+    "semantic_hash": "523ef34bd24b6fe435eb7ec3e9e6c9c9"
+  },
+  "scripts/smoke-federation.mjs": {
+    "mtime": 1788872952.9687831,
+    "seen": 1788880662.283576,
+    "ast_hash": "686cbcf08e8fafee1e4e408ec2f31f5b",
+    "semantic_hash": "686cbcf08e8fafee1e4e408ec2f31f5b"
+  },
+  "turbo.json": {
+    "mtime": 1788872936.748544,
+    "seen": 1788880662.2835772,
+    "ast_hash": "f7b4956b164f4579bd16352455abaa06",
+    "semantic_hash": "f7b4956b164f4579bd16352455abaa06"
+  }
+}
