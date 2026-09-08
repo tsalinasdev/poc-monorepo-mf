@@ -189,13 +189,10 @@ vez, y el pipeline de cualquier app necesita el lockfile de la raíz como contex
 
 Bajo npm workspaces esto era peor de lo necesario: no había forma de instalar solo el
 subgrafo de una app — `npm ci --workspace host --include-workspace-root` instalaba el árbol
-completo. Con pnpm el subgrafo **sí** es expresable:
+completo. Con pnpm el subgrafo **sí** es expresable (ejemplo en CI o en un build local):
 
-```dockerfile
-COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
-COPY apps/host/package.json apps/host/
-COPY packages/mf-shared/package.json packages/mf-shared/
-RUN corepack enable && pnpm install --frozen-lockfile --filter host...
+```bash
+pnpm install --frozen-lockfile --filter host...
 ```
 
 `--filter host...` (con los tres puntos) instala el host **y sus dependencias de workspace**,
@@ -287,7 +284,7 @@ compila, y falla en runtime.
 
 Convivían `package-lock.json` (288 kB, el que se usaba) y `pnpm-lock.yaml` (5,8 kB, residual).
 Un repo con dos lockfiles tiene detección ambigua de gestor de paquetes: turbo, Renovate,
-Docker y el CI pueden elegir distinto, y "funciona en mi máquina" pasa a ser literal.
+CI y herramientas de build pueden elegir distinto, y "funciona en mi máquina" pasa a ser literal.
 
 - **Resolución (hecha):** se migró a **pnpm 10** y se eliminó `package-lock.json`.
   `pnpm-lock.yaml` es el único lockfile, y `"packageManager": "pnpm@10.34.5"` en el

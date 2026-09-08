@@ -450,10 +450,18 @@ Tres cosas que hay que hacer bien:
   devolvería el cacheado: un remote pidiendo sus chunks al bucket equivocado, 404 en runtime
   y CI en verde. Cada variable nueva que entre a un bundle se agrega a esa lista.
 
-### Host → Docker
+### Host → Cloud Storage + CDN
 
-Funciona con workspaces, con un detalle: el build context tiene que ser la raíz del repo
-(el lockfile es único), y dentro se instala solo el subgrafo de ese workspace:
+El host se sirve desde un bucket de Cloud Storage con CDN, igual que los remotes:
+
+```bash
+VITE_PUBLIC_PATH=https://cdn.midominio.com/host/ \
+  pnpm exec turbo run build --filter=host
+gsutil -m rsync -r apps/host/dist gs://mi-bucket/host
+```
+
+El build del host requiere el lockfile de la raíz y el subgrafo del workspace. Con pnpm el
+subgrafo es expresable:
 
 ```dockerfile
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
@@ -463,19 +471,17 @@ RUN corepack enable && pnpm install --frozen-lockfile --filter host...
 COPY apps/host apps/host
 COPY packages/mf-shared packages/mf-shared
 RUN pnpm --filter host build
-# → servir apps/host/dist con nginx
+# → gsutil rsync a Cloud Storage
 ```
 
 El `--filter host...` (con los tres puntos) instala el host **y sus dependencias de
-workspace**, no el árbol completo. Bajo npm workspaces esto no era expresable: había que
-instalar todo con `--include-workspace-root`.
+workspace**, no el árbol completo.
 
 `VITE_REMOTE_POKEMON_MANIFEST_URL` y `VITE_REMOTE_DRAGONBALL_MANIFEST_URL` se resuelven en
 el build del host, así que cambiar la URL de un remote implica rebuild del host. Si quieres
 desplegarlos de forma totalmente independiente, el siguiente paso es resolver esa URL en
 runtime con `registerRemotes()` (`@module-federation/runtime`) en el `main.ts` del host —
 un `window.__MF_REMOTES__` inyectado por el servidor o el runtime API de MF.
-el servidor, o el runtime API de MF) en vez de hornearla.
 
 ---
 
