@@ -2,17 +2,21 @@
  * Type surface of every federated module the host consumes.
  *
  * This is the ONLY place the host knows anything about a remote, and it is
- * deliberately narrow: a list of routes. No domain entity, use case, port or
- * adapter type crosses this line — each remote's hexagon stays inside it.
+ * deliberately narrow: a bridged Vue application. No domain entity, use case,
+ * port or adapter type crosses this line — each remote's hexagon stays inside
+ * it. See ADR 0005 for why the contract changed from `RouteRecordRaw[]` to
+ * `createBridgeComponent`.
  */
-declare module 'remotePokemon/routes' {
-  import type { RouteRecordRaw } from 'vue-router'
+declare module 'remotePokemon/export-app' {
+  import type { createBridgeComponent } from '@module-federation/bridge-vue3'
 
-  export const pokemonRoutes: RouteRecordRaw[]
+  const bridge: ReturnType<typeof createBridgeComponent>
+  export default bridge
 }
 
-declare module 'remoteDragonball/routes' {
-  import type { RouteRecordRaw } from 'vue-router'
+declare module 'remoteDragonball/export-app' {
+  import type { createBridgeComponent } from '@module-federation/bridge-vue3'
 
-  export const characterRoutes: RouteRecordRaw[]
+  const bridge: ReturnType<typeof createBridgeComponent>
+  export default bridge
 }

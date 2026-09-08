@@ -40,11 +40,11 @@ no hay acción pendiente) · **Abierto** (requiere trabajo)
 | R15 | **JWT es bloqueante** de todo el roadmap                  | 🔴    | **Abierto**                |
 | R16 | Dependencia de SRE en el camino crítico                   | 🔴    | **Abierto**                |
 | R17 | CORS y cache headers mal configurados en el bucket        | 🔴    | **Abierto**                |
+| R22 | Deriva entre la POC y la planificación                    | 🟢    | **Cerrado** (2026-09-07)   |
 | R18 | Doble manejador de rutas: monolito PHP vs router del host | 🟠    | **Abierto**                |
 | R19 | Colisión de estilos entre remotes y con el legacy         | 🟠    | **Abierto**                |
 | R20 | Pantalla en blanco en el _first hit_ del HOST             | 🟠    | **Abierto**                |
 | R21 | Un remote caído degrada mal y arrastra al shell           | 🟠    | Mitigado                   |
-| R22 | Deriva entre la POC y la planificación (stack, tooling)   | 🟠    | **Abierto**                |
 
 ---
 
@@ -460,10 +460,10 @@ remote inaccesible aunque estuviera sano.
   POC ya tiene el patrón funcionando y con test — se porta, no se reinventa.
 - **Dueño:** Frontend
 
-### R22 · Deriva entre la POC y la planificación 🟠 Abierto
+### R22 · Deriva entre la POC y la planificación 🟢 Cerrado
 
-La planificación y la POC no coinciden en varios puntos. Cada divergencia no resuelta es una
-discusión que va a aparecer a mitad de la implementación:
+La planificación y la POC no coincidían en varios puntos. Cada divergencia no resuelta era
+una discusión que iba a aparecer a mitad de la implementación:
 
 | Tema            | Planificación                  | POC                                                |
 | --------------- | ------------------------------ | -------------------------------------------------- |
@@ -474,13 +474,22 @@ discusión que va a aparecer a mitad de la implementación:
 | Proxy de sesión | `server.proxy` de Rsbuild      | `server.proxy` de Vite (equivalente)               |
 | Bridge          | `createBridgeComponent`        | expone `RouteRecordRaw[]` (más simple, sin bridge) |
 
-- **Nota sobre el último punto:** la planificación asume `createBridgeComponent`, pensado para
-  montar una **app** completa del remote. La POC expone un `RouteRecordRaw[]`, lo que da una
-  sola instancia de router y navegación derivada automáticamente — más simple y con menos
-  superficie de contrato. Vale evaluar cuál se adopta como estándar **antes** del primer
-  remote real, porque cambiarlo después toca todos los remotes.
-- **Mitigación:** actualizar el documento de planificación para que refleje el stack de la
-  POC, o justificar por escrito cada divergencia. Una sola fuente de verdad.
+**Resolución (2026-09-07):** se cierra el riesgo adoptando el contrato del plan, no el de la
+POC. Decisión documentada en [ADR 0005](adr/0005-bridge-y-manifest-como-contrato.md):
+
+- Cada remote expone **`./export-app`** vía `createBridgeComponent` de
+  `@module-federation/bridge-vue3` (en lugar de `RouteRecordRaw[]`).
+- El host carga los remotes desde **`mf-manifest.json`** vía `@module-federation/runtime`
+  (en lugar de `import` directo de `remoteEntry.js`).
+- El `navLabel` deja de derivarse de `meta` en las rutas y pasa a vivir en el catálogo
+  del host (`apps/host/src/base/config/router/remotes.ts`).
+- `pnpm 10` se mantiene; `Node` se alinea a `>=22.0.0 <25.0.0`; `pnpm 12` queda como tarea
+  de evaluación.
+
+Migración aplicada a las tres apps en este commit. Decisión abierta #3 del plan queda
+cerrada con este mismo cambio.
+
+- **Mitigación (aplicada):** la POC se migró al contrato del plan, una sola fuente de verdad.
 - **Dueño:** Tamy
 
 ---

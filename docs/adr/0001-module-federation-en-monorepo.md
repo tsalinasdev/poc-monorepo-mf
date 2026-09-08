@@ -151,11 +151,13 @@ nombre que el minificador renombra a `e`. Llevaba ahí desde el primer commit.
 ### En contra (deuda aceptada y consciente)
 
 1. **La URL de cada remote está horneada en el build del host.**
-   `VITE_REMOTE_POKEMON_ENTRY` y `VITE_REMOTE_DRAGONBALL_ENTRY` se resuelven en build-time,
-   así que mover un remote de origen implica **rebuild del host**. Es el acoplamiento de
-   despliegue que MF debería eliminar, y hoy no lo hace.
+   `VITE_REMOTE_POKEMON_MANIFEST_URL` y `VITE_REMOTE_DRAGONBALL_MANIFEST_URL` se resuelven
+   en build-time, así que mover un remote de origen implica **rebuild del host** (con el
+   nuevo contrato bridge+manifest, esas variables apuntan al `mf-manifest.json` de cada
+   remote, no al `remoteEntry.js` — ver [ADR 0005](0005-bridge-y-manifest-como-contrato.md)).
+   Es el acoplamiento de despliegue que MF debería eliminar, y hoy no lo hace.
    → Riesgo **R6**. El paso siguiente es resolver esas URLs en runtime
-   (`window.__MF_REMOTES__` inyectado por el servidor, o el runtime API de MF).
+   (`registerRemotes()` con la URL del manifest, o el runtime API de MF).
 
 2. **Lockfile único.** Un bump de dependencia toca a las tres apps a la vez, y el pipeline
    de cualquier app necesita el lockfile de la raíz. Con pnpm al menos el install se limita

@@ -1,7 +1,7 @@
 import { createModuleFederationConfig } from '@module-federation/vite'
 import { sharedSingletons } from '@pokedex/mf-shared'
 
-export interface RemoteEntries {
+export interface RemoteManifestUrls {
   remotePokemon: string
   remoteDragonball: string
 }
@@ -9,8 +9,14 @@ export interface RemoteEntries {
 /**
  * Remote entry URLs are deploy-time values (localhost in dev, bucket/CDN URLs in
  * production), so the config is a factory instead of a static object.
+ *
+ * The `entry` of each remote is its **`mf-manifest.json`**, not `remoteEntry.js`.
+ * The runtime (`@module-federation/runtime`) reads the manifest first to learn
+ * what modules the remote exposes and from which chunks, and only then pulls
+ * the bytes needed for the specific expose — `./export-app` per remote. This is
+ * cheaper and faster than `import`-ing `remoteEntry.js` blindly. See ADR 0005.
  */
-export function createHostFederationConfig(entries: RemoteEntries) {
+export function createHostFederationConfig(manifestUrls: RemoteManifestUrls) {
   return createModuleFederationConfig({
     name: 'host',
     filename: 'remoteEntry.js',
@@ -18,16 +24,11 @@ export function createHostFederationConfig(entries: RemoteEntries) {
     // itself in src/types/remotes.d.ts.
     dts: false,
     remotes: {
-      remotePokemon: {
-        type: 'module',
-        name: 'remotePokemon',
-        entry: entries.remotePokemon,
-      },
-      remoteDragonball: {
-        type: 'module',
-        name: 'remoteDragonball',
-        entry: entries.remoteDragonball,
-      },
+      // The Vite plugin understands the `<name>@<url>` shorthand: the runtime
+      // fetches `<url>` (here, the remote's mf-manifest.json) and resolves the
+      // remote's exposes from it. See ADR 0005.
+      remotePokemon: `remotePokemon@${manifestUrls.remotePokemon}`,
+      remoteDragonball: `remoteDragonball@${manifestUrls.remoteDragonball}`,
     },
     // Single source of truth for the singletons — see @pokedex/mf-shared.
     shared: sharedSingletons,

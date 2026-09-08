@@ -32,8 +32,9 @@ Vitest, con arquitectura hexagonal y vertical slicing según la skill
 `hexagonal-architecture`. Federación con
 [`@module-federation/vite`](https://module-federation.io/integrations/build-tool/vite.html).
 
-Requiere **pnpm 10** (`corepack enable` lo instala en la versión que fija
-`packageManager`) y Node `>=22.12`.
+Requiere **pnpm 10+** (`corepack enable` lo instala en la versión que fija
+`packageManager`) y Node en el rango **22 a 24** (`>=22.0.0 <25.0.0`). El CI corre
+sobre Node 24.
 
 ```bash
 pnpm install          # una sola vez, en la raíz
@@ -85,9 +86,10 @@ remote-dragonball:dev:  ➜  Local:   http://localhost:5175/
 
 Para trabajar en un solo remote sin levantar el resto:
 `pnpm dev:remote-dragonball` (corre standalone, con su propio router y layout).
-Los puertos son fijos (`strictPort`) porque el host tiene horneada la URL de cada
-`remoteEntry.js`: si un remote se moviera de puerto en silencio, la federación fallaría de
-forma confusa. Si algo más ocupa el 5173/5174/5175, el arranque falla a propósito.
+Los puertos son fijos (`strictPort`) porque el host tiene horneada la URL del
+`mf-manifest.json` de cada remote: si un remote se moviera de puerto en silencio, la
+federación fallaría de forma confusa. Si algo más ocupa el 5173/5174/5175, el arranque
+falla a propósito.
 
 Abre http://localhost:5173 → redirige a `/pokemons`. La barra del host lleva a los dos
 remotes, cada uno renderizado dentro del mismo layout.
@@ -96,36 +98,82 @@ remotes, cada uno renderizado dentro del mismo layout.
 
 ## El contrato federado
 
-Cada remote expone **una sola cosa**:
+Cada remote expone **una sola cosa**: una App envuelta con
+`createBridgeComponent` (`@module-federation/bridge-vue3`), y el host la carga
+a través de `mf-manifest.json` con `@module-federation/runtime`. Decisión y
+alternativas en [ADR 0005](docs/adr/0005-bridge-y-manifest-como-contrato.md).
 
 ```ts
 // apps/remote-pokemon/module-federation.config.ts
-exposes: { './routes': './src/modules/pokemon/presentation/routes/pokemon.routes.ts' }
+exposes: { './export-app': './src/export-app.ts' }
 
 // apps/remote-dragonball/module-federation.config.ts
-exposes: { './routes': './src/modules/character/presentation/routes/character.routes.ts' }
+exposes: { './export-app': './src/export-app.ts' }
 ```
 
-Un `RouteRecordRaw[]` con su lista y su detalle. El host los monta como hijos de la ruta
-de su layout:
+```ts
+// apps/remote-pokemon/src/export-app.ts (el "puente" que el host carga)
+import { createBridgeComponent } from '@module-federation/bridge-vue3'
+import { createPinia } from 'pinia'
+import { PiniaColada } from '@pinia/colada'
+import { createRouter, createWebHistory } from 'vue-router'
+
+import App from './App.vue'
+import { pokemonRoutes } from './modules/pokemon/presentation/routes/pokemon.routes'
+import { coladaOptions } from './base/config/colada/colada.options'
+
+export default createBridgeComponent({
+  rootComponent: App,
+  appOptions: ({ app, basename }) => {
+    app.use(createPinia())
+    app.use(PiniaColada, coladaOptions)
+    const router = createRouter({
+      history: createWebHistory(basename ?? import.meta.env.BASE_URL),
+      routes: [{ path: '/', redirect: { name: 'pokemon-list' } }, ...pokemonRoutes],
+    })
+    return { router }
+  },
+})
+```
+
+El host mantiene su **catálogo** (`apps/host/src/base/config/router/remotes.ts`)
+con los datos de cada remote (id, `routeName` de la sección, `navLabel`,
+`basePath`) y un `loadApp()` que llama a
+[`createRemoteAppComponent`](https://module-federation.io/integrations/practice/vue.html)
+sobre `loadRemote('<id>/./export-app')`. El resultado se monta como **una sola ruta
+catch-all** dentro del layout del host:
 
 ```ts
 // apps/host/src/base/config/router/index.ts
-import { pokemonRoutes } from 'remotePokemon/routes'
-import { characterRoutes } from 'remoteDragonball/routes'
-
 routes: [
   {
     path: '/',
     component: () => import('@/modules/shared/presentation/layouts/public/PublicLayout.vue'),
     children: [
-      { path: '', redirect: { name: 'pokemon-list' } },
-      ...pokemonRoutes,
-      ...characterRoutes,
+      { path: '', redirect: { name: 'remote-pokemon' } },
+      {
+        path: '/pokemons/:pathMatch(.*)*',
+        name: 'remote-pokemon',
+        component: RemotePokemon, // createRemoteAppComponent(...)
+        props: { basename: '/pokemons' },
+        meta: { navLabel: 'Pokédex' },
+      },
+      {
+        path: '/dragon-ball/:pathMatch(.*)*',
+        name: 'remote-dragonball',
+        component: RemoteDragonball,
+        props: { basename: '/dragon-ball' },
+        meta: { navLabel: 'Dragon Ball' },
+      },
     ],
   },
 ]
 ```
+
+La navegación interna de cada sección (lista, detalle, etc.) la maneja **el router
+interno del remote**: el host solo conoce el `basename`. Los nombres de ruta
+`pokemon-list` / `pokemon-detail` y `character-list` / `character-detail` ya no son
+parte del contrato — viven dentro del bridge.
 
 **Lo que NO cruza la frontera:** las entidades (`Pokemon`, `Character`), los casos de uso,
 los ports, los adapters HTTP, los contenedores de Awilix, los mappers, los presentation
@@ -133,36 +181,66 @@ models. Todo eso vive y muere dentro de su propia app. Es la regla "cada proyect
 propio hexágono" de la skill, aplicada un nivel más arriba: el expose es a un microfrontend
 lo que una API REST es a un microservicio.
 
-### La navegación se deriva, no se hardcodea
+### El `navLabel` vive en el host, no en el remote
 
-La ruta de listado de cada remote lleva `meta: { navLabel: '…' }`. El
-`usePublicLayoutViewModel` del host construye la barra a partir de las rutas montadas que
-traen ese meta, así que **agregar un remote no toca el layout del host**: basta con
-montar sus rutas en el router.
+El catálogo del host es la **fuente de verdad** del label de la sección. Los remotes
+ya no declaran `meta: { navLabel: '…' }` en sus rutas — el host lo pone en la ruta
+catch-all (`meta: { navLabel: 'Pokédex' }`). Razón: el label es un problema de UX
+(idioma, orden, copy) que depende del shell, no del remote.
 
 ```ts
-// remote → opt-in
-meta: {
-  navLabel: 'Dragon Ball'
+// apps/host/src/base/config/router/remotes.ts — fuente de verdad
+{
+  id: 'remotePokemon',
+  routeName: 'remote-pokemon',
+  navLabel: 'Pokédex',
+  basePath: '/pokemons',
+  loadApp: () => bridgeComponentFor('remotePokemon'),
 }
-
-// host → deriva label, destino y estado seleccionado
-router.getRoutes().filter((r) => typeof r.meta?.navLabel === 'string')
 ```
 
-**El estado seleccionado se calcula por prefijo de URL, no con `active-class`.** La lista y
-el detalle de un remote son rutas _hermanas_ (`/dragon-ball` y `/dragon-ball/:id`), no
-padre e hijo, así que vue-router no considera activa la ruta de lista mientras hay un
-detalle abierto: la pestaña se apagaba al entrar a un personaje. El ViewModel compara
-`route.path` contra el path de la sección (`=== path || startsWith(path + '/')`), y la View
-solo pinta el `isSelected` que recibe — sigue siendo pasiva. Hay tests que cubren el
-detalle y el caso borde de dos secciones con prefijo común (`/alpha` vs `/alpha-beta`).
+**El estado seleccionado se calcula por prefijo de URL, no con `active-class`.** El
+catch-all de cada sección consume todo lo que caiga bajo `/pokemons/*` o
+`/dragon-ball/*`, así que la pestaña sigue encendida mientras hay un detalle abierto.
+El ViewModel compara `route.path` contra el path de la sección
+(`=== path || startsWith(path + '/')`); la View solo pinta el `isSelected` que recibe
+— sigue siendo pasiva. Hay tests que cubren el detalle y el caso borde de dos
+secciones con prefijo común (`/alpha` vs `/alpha-beta`).
 
 La superficie de tipos que el host conoce está declarada a mano en
-`apps/host/src/types/remotes.d.ts` — un `declare module` por remote, con un solo export
-cada uno. La generación automática de `.d.ts` de MF
-está apagada (`dts: false`) porque invoca `tsc` pelado y no sabe compilar `.vue` ni `.css`;
-declararlo a mano además obliga a que el contrato se revise en un PR.
+`apps/host/src/types/remotes.d.ts` — un `declare module` por remote, con el tipo
+`ReturnType<typeof createBridgeComponent>`. La generación automática de `.d.ts` de
+MF está apagada (`dts: false`) porque invoca `tsc` pelado y no sabe compilar `.vue`
+ni `.css`; declararlo a mano además obliga a que el contrato se revise en un PR.
+
+### Carga por `mf-manifest.json`, no por `remoteEntry.js`
+
+El host apunta a cada remote por su **manifest** (`mf-manifest.json`), no por su
+`remoteEntry.js`:
+
+```ts
+// apps/host/module-federation.config.ts
+remotes: {
+  remotePokemon: 'remotePokemon@http://localhost:5174/mf-manifest.json',
+  remoteDragonball: 'remoteDragonball@http://localhost:5175/mf-manifest.json',
+}
+```
+
+El runtime (`@module-federation/runtime`) descarga el manifest primero, ve qué
+módulos expone cada remote, y solo entonces trae los chunks del módulo
+que se va a renderizar (`./export-app`). Resultado: una request de descubrimiento
+antes de pagar por la inicialización del remote, y la posibilidad de invalidar
+solo el manifest en vez del bundle entero al cambiar un expose.
+
+Las URLs se leen de `apps/host/.env`:
+
+```bash
+VITE_REMOTE_POKEMON_MANIFEST_URL=http://localhost:5174/mf-manifest.json
+VITE_REMOTE_DRAGONBALL_MANIFEST_URL=http://localhost:5175/mf-manifest.json
+```
+
+Y están declaradas en `turbo.json → tasks.build.env` para que turbo no cachee
+un build con la URL del manifest equivocada.
 
 ### Qué debe cumplir el host (la otra mitad del contrato)
 
@@ -174,16 +252,13 @@ host:
    reactividad; dos routers = las pantallas del remote nunca ven la navegación del host.
    La declaración vive en **un solo sitio** (`packages/mf-shared`) y las tres configs la
    importan: tres copias a mano podían divergir sin que fallara nada hasta producción.
-2. **Instala los plugins.** Solo existe una instancia de app y es del host, así que el host
-   hace `app.use(createPinia())` y `app.use(PiniaColada, coladaOptions)`. Una pantalla del
-   remote llamando a `useQuery()` asume que ya están ahí.
-3. **Respeta los nombres de ruta.** `pokemon-list` / `pokemon-detail` y
-   `character-list` / `character-detail` son parte del contrato: los enlaces de la barra
-   usan esos nombres. El redirect de `/` apunta a la **primera sección disponible**, no a
-   un nombre horneado, para que siga funcionando si ese remote es justo el que falta.
-
-El layout no nombra a ningún remote: sus enlaces salen del `navLabel` que cada remote
-declara.
+2. **Pasa el `basename` al bridge.** Cada remote recibe su sección como `basename` para
+   que su router interno construya URLs relativas correctas. Sin esto, los `<RouterLink>`
+   internos del remote apuntarían a la raíz y romperían la navegación de la sección.
+3. **No comparte estado con el remote en runtime.** El bridge crea una Vue app propia
+   por mount: cada remote tiene su **propio** Pinia, su **propio** Pinia-Colada cache y
+   su **propio** contenedor de Awilix. El host no lee estado del remote ni el remote
+   del host — esa es la autonomía que justifica el contrato bridge.
 
 ### Un remote caído no tumba el shell
 
@@ -203,7 +278,7 @@ las clases que usan las pantallas del remote. Por eso el módulo expuesto import
 stylesheet:
 
 ```ts
-// apps/remote-*/src/modules/<dominio>/presentation/routes/*.routes.ts
+// apps/remote-*/src/export-app.ts (y main.ts en standalone)
 import '@/assets/main.css'
 ```
 
@@ -301,10 +376,11 @@ Tres cosas que hay que hacer bien:
 - **`VITE_PUBLIC_PATH` es obligatorio en producción.** El host carga estos chunks desde
   otro origen; con rutas relativas el navegador las resolvería contra el origen del host y
   daría 404. Ese valor se convierte en el `base` de Vite.
-- **CORS en el bucket.** El host hace `import()` de `remoteEntry.js` cross-origin, así que
-  el bucket tiene que responder con `Access-Control-Allow-Origin` para el dominio del host.
-- **Cache headers.** `remoteEntry.js` y `mf-manifest.json` con TTL corto o `no-cache`; los
-  chunks con hash, `immutable, max-age=31536000`. Si cacheas el entry de forma agresiva,
+- **CORS en el bucket.** El host hace `import()` de `mf-manifest.json` y de los
+  chunks cross-origin, así que el bucket tiene que responder con
+  `Access-Control-Allow-Origin` para el dominio del host.
+- **Cache headers.** `mf-manifest.json` con TTL corto o `no-cache`; los chunks con
+  hash, `immutable, max-age=31536000`. Si cacheas el manifest de forma agresiva,
   despliegas una versión nueva del remote y el host sigue viendo la vieja.
 - **`VITE_PUBLIC_PATH` tiene que estar declarada en `turbo.json → tasks.build.env`** (ya lo
   está). Si no, turbo consideraría idénticos dos builds con URLs de CDN distintas y
@@ -331,9 +407,11 @@ El `--filter host...` (con los tres puntos) instala el host **y sus dependencias
 workspace**, no el árbol completo. Bajo npm workspaces esto no era expresable: había que
 instalar todo con `--include-workspace-root`.
 
-`VITE_REMOTE_POKEMON_ENTRY` y `VITE_REMOTE_DRAGONBALL_ENTRY` se resuelven en el build del
-host, así que cambiar la URL de un remote implica rebuild del host. Si quieres desplegarlos de forma totalmente independiente,
-el siguiente paso es resolver esa URL en runtime (un `window.__MF_REMOTES__` inyectado por
+`VITE_REMOTE_POKEMON_MANIFEST_URL` y `VITE_REMOTE_DRAGONBALL_MANIFEST_URL` se resuelven en
+el build del host, así que cambiar la URL de un remote implica rebuild del host. Si quieres
+desplegarlos de forma totalmente independiente, el siguiente paso es resolver esa URL en
+runtime con `registerRemotes()` (`@module-federation/runtime`) en el `main.ts` del host —
+un `window.__MF_REMOTES__` inyectado por el servidor o el runtime API de MF.
 el servidor, o el runtime API de MF) en vez de hornearla.
 
 ---
@@ -391,9 +469,10 @@ apps/host/
     └── modules/shared/…          ← verifica la navegación derivada
 
 apps/remote-<dominio>/
-├── module-federation.config.ts   ← exposes: { './routes': ... }
+├── module-federation.config.ts   ← exposes: { './export-app': ... }
 ├── src/
 │   ├── main.ts, App.vue          ← solo para correr standalone
+│   ├── export-app.ts             ← entry federado: createBridgeComponent(...) que envuelve la App + router
 │   ├── base/                     ← Result, bases, http, env, di, colada
 │   └── modules/<dominio>/
 │       ├── domain/               ← entidades, VO, excepciones, props, port

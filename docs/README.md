@@ -37,12 +37,13 @@ ejecución en PeopleFirst. Un riesgo sin señal de alerta es una sorpresa progra
 
 ### ADRs — decisiones de arquitectura
 
-| ADR                                               | Decisión                                  | Estado   |
-| ------------------------------------------------- | ----------------------------------------- | -------- |
-| [0001](adr/0001-module-federation-en-monorepo.md) | Module Federation dentro de un monorepo   | Aceptada |
-| [0002](adr/0002-turborepo.md)                     | Turborepo como orquestador de tareas      | Aceptada |
-| [0003](adr/0003-pnpm.md)                          | pnpm 10 en vez de npm workspaces          | Aceptada |
-| [0004](adr/0004-syncpack-renovate.md)             | Syncpack y Renovate para las dependencias | Aceptada |
+| ADR                                                 | Decisión                                                                  | Estado   |
+| --------------------------------------------------- | ------------------------------------------------------------------------- | -------- |
+| [0001](adr/0001-module-federation-en-monorepo.md)   | Module Federation dentro de un monorepo                                   | Aceptada |
+| [0002](adr/0002-turborepo.md)                       | Turborepo como orquestador de tareas                                      | Aceptada |
+| [0003](adr/0003-pnpm.md)                            | pnpm 10 en vez de npm workspaces                                          | Aceptada |
+| [0004](adr/0004-syncpack-renovate.md)               | Syncpack y Renovate para las dependencias                                 | Aceptada |
+| [0005](adr/0005-bridge-y-manifest-como-contrato.md) | Contrato federado: `createBridgeComponent` + carga por `mf-manifest.json` | Aceptada |
 
 El ADR 0001 tiene las **cinco reglas** que hacen que el monorepo no degenere en monolito, y
 —esto es lo que más se olvida— los **umbrales explícitos** para revisar la decisión. Un ADR

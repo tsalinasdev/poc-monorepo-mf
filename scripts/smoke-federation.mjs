@@ -16,7 +16,7 @@
  *
  * Qué comprueba:
  *   1. Cada remoteEntry.js y mf-manifest.json responde 200.
- *   2. El manifest expone el contrato esperado (`./routes`).
+ *   2. El manifest expone el contrato esperado (`./export-app`).
  *   3. El manifest declara los cuatro singletons con el requiredVersion del
  *      contrato de @pokedex/mf-shared — si el build negoció otro rango, acá se ve.
  *   4. Los cuatro singletons vienen como `singleton: true`. Uno en false es dos
@@ -41,8 +41,8 @@ const EXPECTED_SINGLETONS = {
 }
 
 const REMOTES = [
-  { name: 'remotePokemon', dir: 'apps/remote-pokemon/dist', port: 5174, expose: './routes' },
-  { name: 'remoteDragonball', dir: 'apps/remote-dragonball/dist', port: 5175, expose: './routes' },
+  { name: 'remotePokemon', dir: 'apps/remote-pokemon/dist', port: 5174, expose: './export-app' },
+  { name: 'remoteDragonball', dir: 'apps/remote-dragonball/dist', port: 5175, expose: './export-app' },
 ]
 
 const MIME = {
@@ -155,7 +155,7 @@ async function verifyHost() {
   // El host tiene la URL de cada remote horneada en el build (riesgo R6).
   // Verificarlo es la forma de detectar un dist/ construido para otro ambiente.
   const assets = await fetchOk('http://localhost:5173/mf-manifest.json')
-  if (assets.res.ok) {
+  if (assets.res.ok && assets.res.headers.get('content-type')?.includes('application/json')) {
     const m = JSON.parse(assets.body)
     const declared = (m.remotes ?? []).map((r) => r.entry ?? r.federationContainerName)
     console.log(`  · remotes declarados en el manifest: ${declared.join(', ') || '(ninguno)'}`)

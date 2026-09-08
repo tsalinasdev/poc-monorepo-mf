@@ -8,8 +8,11 @@ import { federation } from '@module-federation/vite'
 import { createHostFederationConfig } from './module-federation.config.ts'
 
 const DEV_ENTRIES = {
-  remotePokemon: 'http://localhost:5174/remoteEntry.js',
-  remoteDragonball: 'http://localhost:5175/remoteEntry.js',
+  // With the move to manifest-based loading (ADR 0005), the dev entries point
+  // to each remote's mf-manifest.json — the plugin emits it next to remoteEntry.js
+  // when `manifest: true` is set in module-federation.config.ts.
+  remotePokemon: 'http://localhost:5174/mf-manifest.json',
+  remoteDragonball: 'http://localhost:5175/mf-manifest.json',
 }
 
 // https://vite.dev/config/
@@ -31,8 +34,9 @@ export default defineConfig(({ mode }) => {
         : [
             federation(
               createHostFederationConfig({
-                remotePokemon: env.VITE_REMOTE_POKEMON_ENTRY || DEV_ENTRIES.remotePokemon,
-                remoteDragonball: env.VITE_REMOTE_DRAGONBALL_ENTRY || DEV_ENTRIES.remoteDragonball,
+                remotePokemon: env.VITE_REMOTE_POKEMON_MANIFEST_URL || DEV_ENTRIES.remotePokemon,
+                remoteDragonball:
+                  env.VITE_REMOTE_DRAGONBALL_MANIFEST_URL || DEV_ENTRIES.remoteDragonball,
               }),
             ),
           ]),
@@ -42,7 +46,27 @@ export default defineConfig(({ mode }) => {
         '@': fileURLToPath(new URL('./src', import.meta.url)),
       },
     },
-    server: { port: 5173, strictPort: true },
+    server: {
+      port: 5173,
+      strictPort: true,
+      // When remotes run inside the host their API calls hit the host's origin,
+      // so the host must proxy them — the remote's own dev-server proxy is only
+      // active when that remote runs standalone.
+      proxy: {
+        '/api/pokeapi': {
+          target: 'https://pokeapi.co',
+          changeOrigin: true,
+          secure: true,
+          rewrite: (path) => path.replace(/^\/api\/pokeapi/, '/api/v2'),
+        },
+        '/api/dragonball': {
+          target: 'https://dragonball-api.com',
+          changeOrigin: true,
+          secure: true,
+          rewrite: (path) => path.replace(/^\/api\/dragonball/, '/api'),
+        },
+      },
+    },
     preview: { port: 5173, strictPort: true },
     // Module Federation emits ESM with top-level await; chrome89 is the baseline
     // the plugin documents for that output.
@@ -55,11 +79,11 @@ export default defineConfig(({ mode }) => {
       alias: {
         // No remote is built during unit tests: the host is verified against
         // stubs of each federated contract.
-        'remotePokemon/routes': fileURLToPath(
-          new URL('./tests/stubs/remote-pokemon-routes.ts', import.meta.url),
+        'remotePokemon/export-app': fileURLToPath(
+          new URL('./tests/stubs/remote-pokemon-export-app.ts', import.meta.url),
         ),
-        'remoteDragonball/routes': fileURLToPath(
-          new URL('./tests/stubs/remote-dragonball-routes.ts', import.meta.url),
+        'remoteDragonball/export-app': fileURLToPath(
+          new URL('./tests/stubs/remote-dragonball-export-app.ts', import.meta.url),
         ),
       },
     },

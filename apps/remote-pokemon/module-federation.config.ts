@@ -15,14 +15,19 @@ export default createModuleFederationConfig({
   /**
    * The public contract of this project — the federated equivalent of a
    * backend's REST API. It is deliberately a single presentation artifact:
-   * a RouteRecordRaw[] carrying the list and detail screens.
+   * a bridged Vue application that the host mounts as one catch-all route
+   * per section.
+   *
+   * `createBridgeComponent` (`@module-federation/bridge-vue3`) lets the
+   * remote own its full lifecycle — its router, its Pinia, its plugins —
+   * while the host stays a thin shell. See ADR 0005 for the reasoning.
    *
    * Nothing from domain/, application/ or infrastructure/ is exposed. The host
    * cannot import a Pokemon entity, a use case, a port or the Awilix container,
    * so this hexagon stays sealed and free to change behind the contract.
    */
   exposes: {
-    './routes': './src/modules/pokemon/presentation/routes/pokemon.routes.ts',
+    './export-app': './src/export-app.ts',
   },
 
   // Single source of truth for the singletons — see @pokedex/mf-shared. The

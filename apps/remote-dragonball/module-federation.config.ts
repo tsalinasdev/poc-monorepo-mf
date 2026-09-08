@@ -12,13 +12,17 @@ export default createModuleFederationConfig({
   dts: false,
 
   /**
-   * The public contract of this project — a RouteRecordRaw[] carrying the
-   * character list and detail screens. Nothing from domain/, application/ or
-   * infrastructure/ crosses this line: the host cannot reach the Character
-   * entity, the use cases, the port, the adapter or the Awilix container.
+   * The public contract of this project — a bridged Vue application that the
+   * host mounts as one catch-all route per section. `createBridgeComponent`
+   * (`@module-federation/bridge-vue3`) gives the remote ownership of its
+   * router, plugins and lifecycle; the host stays a thin shell. See ADR 0005.
+   *
+   * Nothing from domain/, application/ or infrastructure/ crosses this line:
+   * the host cannot reach the Character entity, the use cases, the port, the
+   * adapter or the Awilix container.
    */
   exposes: {
-    './routes': './src/modules/character/presentation/routes/character.routes.ts',
+    './export-app': './src/export-app.ts',
   },
 
   // Single source of truth for the singletons — see @pokedex/mf-shared. The

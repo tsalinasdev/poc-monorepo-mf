@@ -14,7 +14,7 @@ export interface RemoteRegistration {
 
 /**
  * Composition root of the shell. The host owns the layout and the history mode;
- * each remote owns its own paths and screens and contributes them at runtime.
+ * each remote owns its app and contributes it at runtime as a bridged component.
  */
 export function createShellRouter(): Router {
   return createRouter({
@@ -33,7 +33,9 @@ export function createShellRouter(): Router {
 }
 
 /**
- * Loads every remote contract and mounts its routes inside the shell.
+ * Loads every remote contract and mounts a catch-all route per remote under
+ * the shell. The remote is mounted once per section (`/pokemons/*`,
+ * `/dragon-ball/*`) and its bridge takes care of internal navigation.
  *
  * `allSettled`, not `all`: one unreachable remote degrades ITS OWN section and
  * nothing else. The shell boots, the navbar renders, and every remote that did
@@ -47,21 +49,34 @@ export async function registerRemoteRoutes(
   router: Router,
   remotes: readonly RemoteDefinition[] = REMOTES,
 ): Promise<RemoteRegistration[]> {
-  const outcomes = await Promise.allSettled(remotes.map((remote) => remote.loadRoutes()))
+  const outcomes = await Promise.allSettled(remotes.map((remote) => remote.loadApp()))
 
-  // The route each section lands on, in catalogue order. Used for the index
-  // redirect so that '/' still works when the first remote is the one missing.
+  // The route name the shell-landing redirect should target, in catalogue
+  // order. Used so that '/' still works when the FIRST remote is the missing
+  // one — we land on its degraded screen instead of a 404.
   const landingRouteNames: string[] = []
 
   const registrations = remotes.map((remote, index): RemoteRegistration => {
     const outcome = outcomes[index]
 
     if (outcome?.status === 'fulfilled') {
-      outcome.value.forEach((route) => router.addRoute(SHELL_ROUTE_NAME, route))
+      const RemoteApp = outcome.value
 
-      const landing = outcome.value[0]?.name
-      if (landing) landingRouteNames.push(String(landing))
+      // One catch-all per section. The remote's bridge receives `basename`
+      // (its section path) so its internal router resolves /pokemons/:name
+      // against the same URL the host sees. The `basePath` lands in `meta`
+      // so `usePublicLayoutViewModel` can match the current URL against it
+      // (the route's own `path` is the catch-all template, not the section
+      // prefix).
+      router.addRoute(SHELL_ROUTE_NAME, {
+        path: `${remote.basePath}/:pathMatch(.*)*`,
+        name: remote.routeName,
+        component: RemoteApp,
+        props: { basename: remote.basePath },
+        meta: { navLabel: remote.navLabel, basePath: remote.basePath },
+      })
 
+      landingRouteNames.push(remote.routeName)
       return { id: remote.id, status: 'loaded' }
     }
 
@@ -81,12 +96,17 @@ export async function registerRemoteRoutes(
   })
 
   // Added last so they can never shadow a route a remote contributed.
-  const landing = landingRouteNames[0]
+  // The redirect uses the section's `basePath` directly — routing by NAME to
+  // a catch-all route (`/pokemons/:pathMatch(.*)*`) makes vue-router emit a
+  // doubled path (`/pokemons/pokemons`) because the empty `:pathMatch` is
+  // resolved against the current URL. Going through `basePath` skips that
+  // ambiguity.
+  const landing = remotes.find((remote, index) => landingRouteNames[index] === landingRouteNames[0])
   router.addRoute(SHELL_ROUTE_NAME, {
     path: '',
     name: 'shell-index',
     ...(landing
-      ? { redirect: { name: landing } }
+      ? { redirect: landing.basePath }
       : {
           component: () =>
             import('@/modules/shared/presentation/screens/RemoteUnavailableScreen.vue'),

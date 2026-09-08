@@ -1,20 +1,21 @@
-// This module is the federated entry (`remotePokemon/routes`), so it is also
-// where the remote's stylesheet is pulled in: the host builds its own Tailwind
-// output from its own sources and knows nothing about the classes these screens
-// use. Importing it here guarantees the styles ship with whatever loads the
-// contract — host or standalone.
-import '@/assets/main.css'
-
 import type { RouteRecordRaw } from 'vue-router'
 
+/**
+ * Routes consumed by this remote's standalone router (`src/base/config/router`)
+ * and — until the host stopped needing to know about them — by the federated
+ * contract. With the move to `createBridgeComponent` (ADR 0005) the host no
+ * longer sees these routes; it mounts the bridge as a single catch-all under
+ * the section path. The route definitions stay here because the standalone
+ * mode still needs them and the screens still own their paths.
+ *
+ * The CSS lives at the entry points (`main.ts` for standalone, `export-app.ts`
+ * for federated) so a remote is never loaded without its styles.
+ */
 export const pokemonRoutes: RouteRecordRaw[] = [
   {
     path: '/pokemons',
     name: 'pokemon-list',
     component: () => import('../screens/pokemon-list/PokemonListScreen.vue'),
-    // `navLabel` is the opt-in half of the contract: any route carrying it shows
-    // up in the host's navigation, so adding a remote needs no host layout change.
-    meta: { navLabel: 'Pokédex' },
   },
   {
     path: '/pokemons/:name',

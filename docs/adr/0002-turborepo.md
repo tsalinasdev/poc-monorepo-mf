@@ -89,7 +89,7 @@ que necesita los tres `dist/` porque Playwright los sirve en tres puertos.
 ```jsonc
 "build": {
   "env": ["VITE_PUBLIC_PATH", "VITE_API_BASE_URL",
-          "VITE_REMOTE_POKEMON_ENTRY", "VITE_REMOTE_DRAGONBALL_ENTRY"]
+          "VITE_REMOTE_POKEMON_MANIFEST_URL", "VITE_REMOTE_DRAGONBALL_MANIFEST_URL"]
 }
 ```
 

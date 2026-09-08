@@ -1,4 +1,3 @@
-import type { RouteRecordRaw } from 'vue-router'
 import { createShellRouter, registerRemoteRoutes } from '@/base/config/router'
 import { REMOTES } from '@/base/config/router/remotes'
 
@@ -14,29 +13,29 @@ async function shellWithRealRemotes() {
 
 const stubComponent = { template: '<div />' }
 
-function failingRemote(id: string, navLabel: string, basePath: string) {
+function failingRemote(id: string, navLabel: string, basePath: string, routeName: string) {
   return {
     id,
+    routeName,
     navLabel,
     basePath,
-    loadRoutes: () => Promise.reject(new Error(`${id} is down`)),
+    loadApp: () => Promise.reject(new Error(`${id} is down`)),
   }
 }
 
 function workingRemote(id: string, navLabel: string, basePath: string, routeName: string) {
   return {
     id,
+    routeName,
     navLabel,
     basePath,
-    loadRoutes: () =>
-      Promise.resolve<RouteRecordRaw[]>([
-        { path: basePath, name: routeName, component: stubComponent, meta: { navLabel } },
-      ]),
+    // Mirrors `createRemoteAppComponent(...)`: a functional Vue component.
+    loadApp: () => Promise.resolve(stubComponent),
   }
 }
 
 describe('with every remote reachable', () => {
-  it('renders pokemon remote routes inside the host layout', async () => {
+  it('registers a catch-all per remote under the shell layout', async () => {
     const router = await shellWithRealRemotes()
     await router.push('/pokemons')
     await router.isReady()
@@ -45,10 +44,12 @@ describe('with every remote reachable', () => {
 
     expect(matched).toHaveLength(2)
     expect(matched[0]?.path).toBe('/') // host layout route
-    expect(matched[1]?.name).toBe('pokemon-list') // remote screen, nested in it
+    // With bridge/manifest the host no longer sees the remote's route names —
+    // it owns the section name itself (e.g. `remote-pokemon`).
+    expect(matched[1]?.name).toBe('remote-pokemon')
   })
 
-  it('renders dragon ball remote routes inside the same layout', async () => {
+  it('does the same for the dragon ball section', async () => {
     const router = await shellWithRealRemotes()
     await router.push('/dragon-ball')
     await router.isReady()
@@ -57,45 +58,49 @@ describe('with every remote reachable', () => {
 
     expect(matched).toHaveLength(2)
     expect(matched[0]?.path).toBe('/')
-    expect(matched[1]?.name).toBe('character-list')
+    expect(matched[1]?.name).toBe('remote-dragonball')
   })
 
-  it('redirects the root path to the first remote list route', async () => {
+  it('redirects the root path to the first remote section', async () => {
     const router = await shellWithRealRemotes()
     await router.push('/')
     await router.isReady()
 
-    expect(router.currentRoute.value.name).toBe('pokemon-list')
+    expect(router.currentRoute.value.name).toBe('remote-pokemon')
   })
 
-  it('keeps each remote detail route inside the layout too', async () => {
+  it('keeps every deep path inside the same layout too', async () => {
     const router = await shellWithRealRemotes()
 
+    // The catch-all consumes everything under `/pokemons/*` and `/dragon-ball/*`.
     await router.push('/pokemons/pikachu')
     await router.isReady()
-    expect(router.currentRoute.value.name).toBe('pokemon-detail')
-    expect(router.currentRoute.value.params.name).toBe('pikachu')
+    expect(router.currentRoute.value.name).toBe('remote-pokemon')
     expect(router.currentRoute.value.matched[0]?.path).toBe('/')
 
     await router.push('/dragon-ball/1')
     await router.isReady()
-    expect(router.currentRoute.value.name).toBe('character-detail')
-    expect(router.currentRoute.value.params.id).toBe('1')
+    expect(router.currentRoute.value.name).toBe('remote-dragonball')
     expect(router.currentRoute.value.matched[0]?.path).toBe('/')
   })
 
   it('keeps the two remotes on separate path namespaces', async () => {
     const router = await shellWithRealRemotes()
 
-    // '/' and the catch-all belong to the host; everything else comes from a remote.
+    // Only the host layout route and the shell-level catch-all live at the
+    // top level; the per-remote catch-alls are nested under `path: '/'`.
     const remotePaths = router
       .getRoutes()
       .map((route) => route.path)
       .filter((path) => path !== '/' && !path.includes('pathMatch'))
 
-    expect(remotePaths).toContain('/pokemons')
-    expect(remotePaths).toContain('/dragon-ball')
-    expect(new Set(remotePaths).size).toBe(remotePaths.length) // no collisions
+    expect(remotePaths).toEqual([])
+    expect(router.getRoutes().find((r) => r.name === 'remote-pokemon')?.path).toBe(
+      '/pokemons/:pathMatch(.*)*',
+    )
+    expect(router.getRoutes().find((r) => r.name === 'remote-dragonball')?.path).toBe(
+      '/dragon-ball/:pathMatch(.*)*',
+    )
   })
 
   it('reports every remote as loaded', async () => {
@@ -113,8 +118,8 @@ describe('with every remote reachable', () => {
 // so it can be down while the shell is perfectly healthy.
 describe('with a remote that cannot be loaded', () => {
   const remotes = [
-    failingRemote('remoteBroken', 'Broken', '/broken'),
-    workingRemote('remoteHealthy', 'Healthy', '/healthy', 'healthy-list'),
+    failingRemote('remoteBroken', 'Broken', '/broken', 'remote-broken'),
+    workingRemote('remoteHealthy', 'Healthy', '/healthy', 'remote-healthy'),
   ]
 
   it('still boots the shell and keeps the healthy remote working', async () => {
@@ -124,7 +129,7 @@ describe('with a remote that cannot be loaded', () => {
     await router.push('/healthy')
     await router.isReady()
 
-    expect(router.currentRoute.value.name).toBe('healthy-list')
+    expect(router.currentRoute.value.name).toBe('remote-healthy')
     expect(router.currentRoute.value.matched[0]?.path).toBe('/')
   })
 
@@ -179,8 +184,8 @@ describe('with no remote available at all', () => {
   it('boots, and every address falls back to a host-owned screen', async () => {
     const router = createShellRouter()
     const registrations = await registerRemoteRoutes(router, [
-      failingRemote('remoteA', 'A', '/a'),
-      failingRemote('remoteB', 'B', '/b'),
+      failingRemote('remoteA', 'A', '/a', 'remote-a'),
+      failingRemote('remoteB', 'B', '/b', 'remote-b'),
     ])
 
     expect(registrations.every((r) => r.status === 'unavailable')).toBe(true)

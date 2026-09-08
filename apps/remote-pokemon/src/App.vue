@@ -3,8 +3,13 @@ import { RouterView } from 'vue-router'
 </script>
 
 <template>
-  <!-- Standalone shell only. Under the host this component is never loaded:
-       the host provides the layout and the remote contributes routes. -->
+  <!--
+    In standalone mode this provides the page chrome.
+    Under the host this same component is mounted as the root of the bridge's
+    Vue app, so the wrapping classes duplicate the host's <PublicLayout>
+    chrome. That's harmless — the duplicated background-color paints over
+    itself — and it keeps a single App component for both modes.
+  -->
   <div class="min-h-screen bg-gray-50 text-gray-900">
     <RouterView />
   </div>

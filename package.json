@@ -36,6 +36,14 @@
     "turbo": "^2.10.12"
   },
   "engines": {
-    "node": "^20.19.0 || >=22.12.0"
+    "node": ">=22.0.0 <25.0.0",
+    "pnpm": ">=10"
+  },
+  "pnpm": {
+    "peerDependencyRules": {
+      "allowedVersions": {
+        "vue-router": "5"
+      }
+    }
   }
 }

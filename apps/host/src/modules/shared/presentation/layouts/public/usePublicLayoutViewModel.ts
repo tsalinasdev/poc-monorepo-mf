@@ -18,7 +18,12 @@ export function usePublicLayoutViewModel() {
       .map((record) => ({
         label: record.meta.navLabel as string,
         routeName: String(record.name),
-        path: record.path,
+        // The section's base path lives in meta (set by the host router
+        // composition). With bridge/manifest each section has a single
+        // catch-all route, so `record.path` is the path-template (e.g.
+        // `/pokemons/:pathMatch(.*)*`) and NOT the section prefix the user
+        // is at — matching against that template would never select.
+        path: (record.meta?.basePath as string | undefined) ?? record.path,
       })),
   )
 

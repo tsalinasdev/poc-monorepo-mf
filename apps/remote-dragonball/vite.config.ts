@@ -33,7 +33,26 @@ export default defineConfig(({ mode }) => {
       },
     },
     // CORS must stay open: the host fetches remoteEntry.js cross-origin.
-    server: { port: 5175, strictPort: true, origin: DEV_ORIGIN, cors: true },
+    server: {
+      port: 5175,
+      strictPort: true,
+      origin: DEV_ORIGIN,
+      cors: true,
+      // Dev-only proxy to the Dragon Ball API. The browser blocks cross-origin
+      // XHR when the upstream doesn't return permissive CORS headers (or when
+      // a corporate firewall strips them); routing through Vite removes the
+      // cross-origin. `.env.development` points `VITE_API_BASE_URL` at this
+      // proxy path; `.env` keeps the real upstream URL for production
+      // builds.
+      proxy: {
+        '/api/dragonball': {
+          target: 'https://dragonball-api.com',
+          changeOrigin: true,
+          secure: true,
+          rewrite: (path) => path.replace(/^\/api\/dragonball/, '/api'),
+        },
+      },
+    },
     preview: { port: 5175, strictPort: true, cors: true },
     build: { target: 'chrome89' },
     test: {

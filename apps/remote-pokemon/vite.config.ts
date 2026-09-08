@@ -32,8 +32,31 @@ export default defineConfig(({ mode }) => {
         '@': fileURLToPath(new URL('./src', import.meta.url)),
       },
     },
+    // The dev-mode `VITE_API_BASE_URL` is supplied via `.env.development`
+    // (the proxy URL `/api/pokeapi` is not a valid absolute URL for the env
+    // schema, and `.env` is reserved for the production value that ships
+    // in builds). Vite loads `.env.<mode>` automatically when `mode === 'development'`.
     // CORS must stay open: the host fetches remoteEntry.js cross-origin.
-    server: { port: 5174, strictPort: true, origin: DEV_ORIGIN, cors: true },
+    server: {
+      port: 5174,
+      strictPort: true,
+      origin: DEV_ORIGIN,
+      cors: true,
+      // Dev-only proxy to PokeAPI. The browser blocks cross-origin XHR when
+      // PokeAPI doesn't return permissive CORS headers (or when a corporate
+      // firewall strips them — Cato, lookin' at you); routing through Vite
+      // removes the cross-origin and the dependency on the network's posture.
+      // Build/preview don't apply: production hits PokeAPI directly with the
+      // `VITE_API_BASE_URL` the deployment pipeline sets.
+      proxy: {
+        '/api/pokeapi': {
+          target: 'https://pokeapi.co',
+          changeOrigin: true,
+          secure: true,
+          rewrite: (path) => path.replace(/^\/api\/pokeapi/, '/api/v2'),
+        },
+      },
+    },
     preview: { port: 5174, strictPort: true, cors: true },
     build: { target: 'chrome89' },
     test: {
