@@ -3,7 +3,7 @@
  *
  * This is the ONLY place the host knows anything about a remote, and it is
  * deliberately narrow: a bridged Vue application. No domain entity, use case,
- * port or adapter type crosses this line — each remote's hexagon stays inside
+ * port or adapter type crosses this line — each remote's internals stay inside
  * it. See ADR 0005 for why the contract changed from `RouteRecordRaw[]` to
  * `createBridgeComponent`.
  */

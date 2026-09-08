@@ -18,7 +18,7 @@ const DEV_ENTRIES = {
 // https://vite.dev/config/
 export default defineConfig(({ mode }) => {
   // Read here (Node side) to build the federation config; the same variables are
-  // validated again at runtime in src/base/config/env so a missing/malformed
+  // validated again at runtime in src/config/env so a missing/malformed
   // value fails fast with a readable error instead of a cryptic MF failure.
   const env = loadEnv(mode, process.cwd(), 'VITE_')
 
@@ -28,7 +28,7 @@ export default defineConfig(({ mode }) => {
       tailwindcss(),
       // The federation plugin rewrites imports of `remote*/…`; Vitest never
       // resolves a real remote, so it is left out of the test pipeline (tests
-      // stub each contract instead — see tests/stubs).
+      // stub each contract instead — see src/__test__/stubs).
       ...(mode === 'test'
         ? []
         : [
@@ -56,13 +56,13 @@ export default defineConfig(({ mode }) => {
         '/api/pokeapi': {
           target: 'https://pokeapi.co',
           changeOrigin: true,
-          secure: true,
+          secure: false, // dev-only: the corporate proxy re-signs TLS with its own CA
           rewrite: (path) => path.replace(/^\/api\/pokeapi/, '/api/v2'),
         },
         '/api/dragonball': {
           target: 'https://dragonball-api.com',
           changeOrigin: true,
-          secure: true,
+          secure: false, // dev-only: the corporate proxy re-signs TLS with its own CA
           rewrite: (path) => path.replace(/^\/api\/dragonball/, '/api'),
         },
       },
@@ -75,15 +75,15 @@ export default defineConfig(({ mode }) => {
       environment: 'jsdom',
       globals: true,
       root: '.',
-      include: ['tests/**/*.spec.ts'],
+      include: ['src/__test__/**/*.spec.ts'],
       alias: {
         // No remote is built during unit tests: the host is verified against
-        // stubs of each federated contract.
+        // stubs of each federated contract (src/__test__/stubs).
         'remotePokemon/export-app': fileURLToPath(
-          new URL('./tests/stubs/remote-pokemon-export-app.ts', import.meta.url),
+          new URL('./src/__test__/stubs/remote-pokemon-export-app.ts', import.meta.url),
         ),
         'remoteDragonball/export-app': fileURLToPath(
-          new URL('./tests/stubs/remote-dragonball-export-app.ts', import.meta.url),
+          new URL('./src/__test__/stubs/remote-dragonball-export-app.ts', import.meta.url),
         ),
       },
     },

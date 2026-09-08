@@ -1,13 +1,13 @@
 import './assets/main.css'
-import './base/config/env/env.config' // must be first — crashes early if vars are missing
+import '@/modules/shared/config/env' // must be first — crashes early if vars are missing
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import { PiniaColada } from '@pinia/colada'
 
 import App from './App.vue'
-import router from './base/config/router'
-import { coladaOptions } from './base/config/colada/colada.options'
+import router from './router'
+import { coladaOptions } from '@/modules/shared/config/colada'
 
 // Standalone entry point: mirrors what the host does for us in federated mode,
 // so the remote stays independently runnable and debuggable.
