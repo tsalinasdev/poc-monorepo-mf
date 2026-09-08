@@ -21,7 +21,7 @@ export function createHostFederationConfig(manifestUrls: RemoteManifestUrls) {
     name: 'host',
     filename: 'remoteEntry.js',
     // The remotes publish no generated types; the host declares every contract
-    // itself in src/types/remotes.d.ts.
+    // itself in src/modules/shared/types/remotes.d.ts.
     dts: false,
     remotes: {
       // The Vite plugin understands the `<name>@<url>` shorthand: the runtime

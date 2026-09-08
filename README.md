@@ -2,7 +2,7 @@
 
 Monorepo con tres SPAs independientes. El **host** es el shell (layout + router) y cada
 **remote** trae su propio dominio con listado paginado y detalle. Cada app es su propio
-hexágono: no se importan código entre sí, solo hablan por el contrato federado.
+módulo federado: no se importan código entre sí, solo hablan por el contrato federado.
 
 > Este repositorio es la POC y la base técnica del microfrontend de **PeopleFirst**.
 > La decisión de monorepo, el plan de implementación por fases y el registro de riesgos
@@ -18,8 +18,8 @@ pokedex-vue/
 │   └── mf-shared/             ← contrato `shared` de MF (solo build-time)
 └── apps/
     ├── host/                  ← shell: layout, router, plugins   → :5173
-    ├── remote-pokemon/        ← hexágono pokemon (PokeAPI)       → :5174
-    └── remote-dragonball/     ← hexágono character (DB API)      → :5175
+    ├── remote-pokemon/        ← módulo pokemon (PokeAPI)         → :5174
+    └── remote-dragonball/     ← módulo character (DB API)        → :5175
 ```
 
 | App                 | Dominio     | API                                                             | Rutas                              |
@@ -27,10 +27,10 @@ pokedex-vue/
 | `remote-pokemon`    | `pokemon`   | [PokeAPI](https://pokeapi.co)                                   | `/pokemons`, `/pokemons/:name`     |
 | `remote-dragonball` | `character` | [Dragon Ball API](https://web.dragonball-api.com/documentation) | `/dragon-ball`, `/dragon-ball/:id` |
 
-Stack por app: Vue 3 + Vue Router + Pinia + `@pinia/colada` + Awilix + Axios + Tailwind +
-Vitest, con arquitectura hexagonal y vertical slicing según la skill
-`hexagonal-architecture`. Federación con
-[`@module-federation/vite`](https://module-federation.io/integrations/build-tool/vite.html).
+Stack por app: Vue 3 + Vue Router + Pinia + `@pinia/colada` + Axios + Tailwind + Vitest,
+con [Screaming Architecture](https://github.com/TalanaHRM/docs-frontend/wiki/Screaming-Architecture)
+por feature (`modules/<dominio>/{composables,services,models,views}` + `modules/shared/`).
+Federación con [`@module-federation/vite`](https://module-federation.io/integrations/build-tool/vite.html).
 
 Requiere **pnpm 10+** (`corepack enable` lo instala en la versión que fija
 `packageManager`) y Node en el rango **22 a 24** (`>=22.0.0 <25.0.0`). El CI corre
@@ -39,7 +39,7 @@ sobre Node 24.
 ```bash
 pnpm install          # una sola vez, en la raíz
 pnpm dev              # ← levanta las 3 apps en paralelo (host + los dos remotes)
-pnpm test             # 65 unit tests: hexágono de cada remote + shell del host + contrato MF
+pnpm test             # unit tests: composables y services de cada remote + shell del host + contrato MF
 pnpm test:e2e         # 12 e2e (Playwright) contra dev servers — rápido
 pnpm test:e2e:preview # los mismos 12 contra los BUILDS ← lo que corre CI
 pnpm lint             # incluye eslint-plugin-boundaries en cada app (NO arregla)
@@ -119,8 +119,8 @@ import { PiniaColada } from '@pinia/colada'
 import { createRouter, createWebHistory } from 'vue-router'
 
 import App from './App.vue'
-import { pokemonRoutes } from './modules/pokemon/presentation/routes/pokemon.routes'
-import { coladaOptions } from './base/config/colada/colada.options'
+import { pokemonRoutes } from './modules/pokemon/router'
+import { coladaOptions } from './modules/shared/config/colada'
 
 // Strip basename prefix so bridge router doesn't double-prefix
 function routesRelativeTo(basename: string | undefined) {
@@ -150,14 +150,14 @@ export default createBridgeComponent({
 })
 ```
 
-El host mantiene su **catálogo** (`apps/host/src/base/config/router/remotes.ts`)
+El host mantiene su **catálogo** (`apps/host/src/router/remotes.ts`)
 con los datos de cada remote (id, `routeName` de la sección, `navLabel`,
 `basePath`) y un `loadApp()` que usa `probeAndWrap` para cargar eagerly el
 contrato federado y envolverlo con `createRemoteAppComponent`. Si el remote
 no responde, `allSettled` detecta la falla y registra la ruta degradada:
 
 ```ts
-// apps/host/src/base/config/router/remotes.ts
+// apps/host/src/router/remotes.ts
 async function probeAndWrap(loader: () => Promise<unknown>): Promise<Component> {
   await loader() // eagerly probe — allSettled detecta la falla
   return createRemoteAppComponent({
@@ -182,11 +182,11 @@ export const REMOTES: readonly RemoteDefinition[] = [
 Las rutas se registran dinámicamente en `registerRemoteRoutes()`:
 
 ```ts
-// apps/host/src/base/config/router/index.ts
+// apps/host/src/router/index.ts
 routes: [
   {
     path: '/',
-    component: () => import('@/modules/shared/presentation/layouts/public/PublicLayout.vue'),
+    component: () => import('@/modules/shell/components/PublicLayout.vue'),
     children: [], // filled by registerRemoteRoutes()
   },
 ]
@@ -197,11 +197,12 @@ interno del remote**: el host solo conoce el `basename`. Los nombres de ruta
 `pokemon-list` / `pokemon-detail` y `character-list` / `character-detail` ya no son
 parte del contrato — viven dentro del bridge.
 
-**Lo que NO cruza la frontera:** las entidades (`Pokemon`, `Character`), los casos de uso,
-los ports, los adapters HTTP, los contenedores de Awilix, los mappers, los presentation
-models. Todo eso vive y muere dentro de su propia app. Es la regla "cada proyecto es su
-propio hexágono" de la skill, aplicada un nivel más arriba: el expose es a un microfrontend
-lo que una API REST es a un microservicio.
+**Lo que NO cruza la frontera:** las entidades (`Pokemon`, `Character`), los composables,
+los services, los modelos de UI. Todo eso vive y muere dentro de su propia app. La estructura
+interna sigue Screaming Architecture (`modules/<feature>/{composables,services,models,views}`
+
+- `modules/shared/`), así que el contrato federado es a un microfrontend lo que una API REST
+  es a un microservicio.
 
 ### El `navLabel` vive en el host, no en el remote
 
@@ -211,7 +212,7 @@ catch-all (`meta: { navLabel: 'Pokédex' }`). Razón: el label es un problema de
 (idioma, orden, copy) que depende del shell, no del remote.
 
 ```ts
-// apps/host/src/base/config/router/remotes.ts — fuente de verdad
+// apps/host/src/router/remotes.ts — fuente de verdad
 {
   id: 'remotePokemon',
   routeName: 'remote-pokemon',
@@ -230,9 +231,9 @@ El ViewModel compara `route.path` contra el path de la sección
 secciones con prefijo común (`/alpha` vs `/alpha-beta`).
 
 La superficie de tipos que el host conoce está declarada a mano en
-`apps/host/src/types/remotes.d.ts` — un `declare module` por remote, con el tipo
-`ReturnType<typeof createBridgeComponent>`. La generación automática de `.d.ts` de
-MF está apagada (`dts: false`) porque invoca `tsc` pelado y no sabe compilar `.vue`
+`apps/host/src/modules/shared/types/remotes.d.ts` — un `declare module` por remote, con
+el tipo `ReturnType<typeof createBridgeComponent>`. La generación automática de `.d.ts`
+de MF está apagada (`dts: false`) porque invoca `tsc` pelado y no sabe compilar `.vue`
 ni `.css`; declararlo a mano además obliga a que el contrato se revise en un PR.
 
 ### Carga por `mf-manifest.json`, no por `remoteEntry.js`
@@ -306,15 +307,15 @@ host:
    que su router interno construya URLs relativas correctas. Sin esto, los `<RouterLink>`
    internos del remote apuntarían a la raíz y romperían la navegación de la sección.
 3. **No comparte estado con el remote en runtime.** El bridge crea una Vue app propia
-   por mount: cada remote tiene su **propio** Pinia, su **propio** Pinia-Colada cache y
-   su **propio** contenedor de Awilix. El host no lee estado del remote ni el remote
-   del host — esa es la autonomía que justifica el contrato bridge.
+   por mount: cada remote tiene su **propio** Pinia y su **propio** Pinia-Colada cache. El
+   host no lee estado del remote ni el remote del host — esa es la autonomía que justifica
+   el contrato bridge.
 
 ### Un remote caído no tumba el shell
 
 Los contratos se cargan con `probeAndWrap` (eagerly probe) y `Promise.allSettled`
-en `registerRemoteRoutes()` (`src/base/config/router/`). Si el remote no
-responde, se registra una ruta degradada con `RemoteUnavailableScreen` que
+en `registerRemoteRoutes()` (`src/router/`). Si el remote no
+responde, se registra una ruta degradada con `RemoteUnavailableView` que
 muestra "Pokédex is unavailable" o "Dragon Ball is unavailable". El remote
 queda en la barra de navegación y su ruta base explica qué pasó, mientras el
 resto de la aplicación funciona con normalidad.
@@ -324,7 +325,7 @@ resto de la aplicación funciona con normalidad.
 router.addRoute(SHELL_ROUTE_NAME, {
   path: remote.basePath,
   name: `${remote.id}-unavailable`,
-  component: () => import('@/modules/shared/presentation/screens/RemoteUnavailableScreen.vue'),
+  component: () => import('@/modules/shell/views/RemoteUnavailableView.vue'),
   props: { sectionLabel: remote.navLabel },
   meta: { navLabel: remote.navLabel },
 })
@@ -366,8 +367,9 @@ sin host.
 
 Dos niveles, y la diferencia importa:
 
-- **Unit (Vitest)** — cada remote prueba su hexágono; el host se prueba contra **stubs** de
-  los contratos federados (`apps/host/tests/stubs/`). Rápido, sin red, sin remotes.
+- **Unit (Vitest)** — cada remote prueba sus composables y services; el host se prueba contra
+  **stubs** de los contratos federados (`apps/host/src/__test__/stubs/`). Rápido, sin red, sin
+  remotes.
 - **Contrato MF (`packages/mf-shared/tests/`)** — verifica que el rango `requiredVersion`
   declarado siga siendo un superconjunto de lo que cada app instala. Sin esto, subir una
   app a Vue 4 dejaría `^3.5.0` mintiendo, con el build en verde y dos Vues en producción.
@@ -391,8 +393,9 @@ gestor de paquetes** — ver [ADR 0003](docs/adr/0003-pnpm.md) — así que este
 sitio donde se verifica el artefacto que se despliega.
 
 No es teórico: el primer `test:e2e:preview` tumbó 5 de 7 tests que pasaban en dev, por un
-`InjectionMode.CLASSIC` de Awilix que resuelve por nombre de parámetro del constructor —
-nombre que el minificador renombra a `e`. Llevaba ahí desde el primer commit.
+detalle del contrato `shared` que solo aparece cuando el código va minificado: el chunk del
+remote perdía acceso al singleton que el host había registrado y el query devolvía `undefined`.
+Llevaba ahí desde el primer commit.
 
 Lo que cubre el e2e: la barra lista ambos remotes, cada remote renderiza dentro del layout
 del host, hacer clic cambia de sección, **la selección sobrevive al entrar a un detalle**
@@ -487,32 +490,37 @@ un `window.__MF_REMOTES__` inyectado por el servidor o el runtime API de MF.
 
 ## El contrato "Colada confinado" (se mantiene)
 
-`@pinia/colada` sigue viviendo **solo** dentro de los `use*ViewModel.ts` del remote. La
-View, el dominio, la aplicación y la infraestructura no saben que existe.
+`@pinia/colada` sigue viviendo **solo** dentro de los composables del remote (`use*` en
+`modules/<feature>/composables/`). La View, los services y los models no saben que existe.
 
-1. **Solo los ViewModels importan la librería** (más `main.ts` / `base/config/colada` para
-   registrar el plugin, que en modo federado hace el host, y el helper de tests).
-   Verificable:
+1. **Solo los composables importan la librería** (más `main.ts` y
+   `modules/shared/config/colada.ts` para registrar el plugin, que en modo federado hace el
+   host, y el helper de tests). Verificable:
    ```bash
    grep -rl "@pinia/colada" apps/*/src/
    ```
    Las keys llevan el módulo por delante (`['pokemon', …]`, `['character', …]`), así que
    dos remotes comparten la caché del host sin pisarse.
-2. **La `query` del VM es el único lugar del frontend que lanza.** Los use cases retornan
-   `Result<T>` y nunca lanzan; el VM desenvuelve con
-   `if (result.isErr()) throw result.getError()`. Es la frontera driving — simétrico al
-   controller del backend, que lanza hacia su `DomainExceptionFilter`. Aquí el "filter" es
-   el motor de queries, que captura y expone `error`.
-3. **La caché guarda datos de dominio** (`Paginated<PokemonSummary>`, `Pokemon`), no models
-   de presentación. El VM mapea con `computed` + Screen Mapper.
-4. **La View recibe `string | null` como error** — el VM mapea `DomainException.code` →
-   mensaje vía `toUiError`. Jamás expone la excepción, el `Result` ni el objeto query.
+2. **La `query` del composable es el único lugar del frontend que lanza.** El service llama
+   a la API, transforma inline a model, y lanza errores tipados (`NotFoundError`,
+   `ApiError`). El composable captura con `useQuery({ query: … })`, que expone `error`.
+3. **La caché guarda modelos de UI** (`PokemonCard`, `CharacterCard`, `PokemonDetail`),
+   no DTOs de la API. La transformación vive dentro del service (`getPokemon`,
+   `getPokemons`).
+4. **La View recibe `string | null` como error** — el composable mapea `error` → mensaje
+   con un helper local. Jamás expone la excepción ni el objeto query.
 5. **Keys**: `[modulo, accion, ...params]` → `['pokemon', 'list', page]`.
-6. **Política técnica centralizada**: `staleTime` en `base/config/colada/colada.options.ts`.
-   En modo federado **ganan las opciones del host**, que es quien instala el plugin.
+6. **Política técnica centralizada**: `staleTime` en
+   `modules/shared/config/colada.ts`. En modo federado **ganan las opciones del host**, que
+   es quien instala el plugin.
    ***
 
 ## Estructura
+
+Las tres apps siguen [Screaming Architecture](https://github.com/TalanaHRM/docs-frontend/wiki/Screaming-Architecture):
+las carpetas de nivel superior son módulos de dominio (`pokemon`, `character`, `shell`),
+no capas técnicas. Los services contienen lógica de negocio y llamadas a API en el mismo
+archivo — sin `Result<T>`, sin mappers, sin DI, sin ports.
 
 ```
 packages/mf-shared/
@@ -520,39 +528,47 @@ packages/mf-shared/
 
 apps/host/
 ├── module-federation.config.ts   ← remotes (importa los singletons de mf-shared)
-├── src/
-│   ├── main.ts                   ← única app: pinia + colada + registro de remotes
-│   ├── types/remotes.d.ts        ← contrato tipado de los remotes
-│   ├── base/config/router/
-│   │   ├── remotes.ts            ← catálogo: loaders dinámicos + fallback por remote
-│   │   └── index.ts              ← createShellRouter + registerRemoteRoutes
-│   ├── base/config/{env,colada}/
-│   └── modules/shared/presentation/
-│       ├── models/nav-item.model.ts
-│       ├── screens/              ← RemoteUnavailableScreen, NotFoundScreen
-│       └── layouts/public/       ← PublicLayout.vue + usePublicLayoutViewModel.ts
-├── e2e/                          ← navbar.spec.ts + remote-outage.spec.ts
-└── tests/
-    ├── stubs/                    ← dobles de cada contrato federado
-    ├── base/config/router/       ← composición shell + remotes, y modo degradado
-    └── modules/shared/…          ← verifica la navegación derivada
+├── e2e/                          ← navbar.spec.ts + remote-outage.spec.ts (Playwright)
+└── src/
+    ├── main.ts                   ← única app: pinia + colada + registro de remotes
+    ├── App.vue                   ← monta el shell
+    ├── router/
+    │   ├── remotes.ts            ← catálogo: loaders dinámicos + probeAndWrap
+    │   └── index.ts              ← createShellRouter + registerRemoteRoutes
+    ├── modules/
+    │   ├── shared/               ← transversal del host
+    │   │   ├── config/           ← env.ts, colada.ts
+    │   │   └── types/            ← remotes.d.ts (declare module por remote)
+    │   └── shell/                ← el shell como feature
+    │       ├── components/       ← PublicLayout.vue
+    │       ├── composables/      ← usePublicLayout.ts
+    │       └── views/            ← RemoteUnavailableView, NotFoundView
+    └── __test__/                 ← Vitest (espejo de src/)
+        ├── stubs/                ← dobles de cada contrato federado
+        ├── router/               ← composición shell + remotes, y modo degradado
+        └── shell/                ← verifica la navegación derivada
 
 apps/remote-<dominio>/
 ├── module-federation.config.ts   ← exposes: { './export-app': ... }
-├── src/
-│   ├── main.ts, App.vue          ← solo para correr standalone
-│   ├── export-app.ts             ← entry federado: createBridgeComponent(...) que envuelve la App + router
-│   ├── base/                     ← Result, bases, http, env, di, colada
-│   └── modules/<dominio>/
-│       ├── domain/               ← entidades, VO, excepciones, props, port
-│       ├── application/          ← <X>sFinder, <X>Finder
-│       ├── infrastructure/       ← DTOs de la API, mapper, Http<X>Repository
-│       └── presentation/         ← screens (View + VM), mappers, models, routes
-└── tests/                        ← espeja src; builders + helpers/with-setup
+└── src/
+    ├── main.ts, App.vue          ← solo para correr standalone
+    ├── export-app.ts             ← entry federado: createBridgeComponent(...) que envuelve la App + router
+    ├── modules/
+    │   ├── <dominio>/            ← la sección: pokemon o character
+    │   │   ├── composables/      ← use<Pokemon|Character>(s).ts
+    │   │   ├── models/           ← interfaces de UI
+    │   │   ├── router/           ← routes del módulo
+    │   │   ├── services/         ← httpGet + transformación inline
+    │   │   └── views/            ← <List|Detail>View.vue
+    │   └── shared/               ← transversal del remote
+    │       ├── api/              ← http.ts: cliente axios + retry + ApiError
+    │       └── config/           ← env.ts, colada.ts, constants.ts
+    └── __test__/                 ← espeja src/; builders + helpers
 ```
 
-La duplicación de `src/base/` entre las tres apps es **deliberada** (regla de la skill): es
-el precio de que cada una sea autónoma y desplegable por separado. Extraer un paquete
-compartido acoplaría los despliegues y es una decisión explícita, no automática.
+Las apps comparten `modules/shared/config/` (env, colada) **a propósito** — cada app
+valida y registra sus propios plugins en modo standalone, y un paquete de runtime
+compartido se bundlea en cada remote y rompe la negociación de `requiredVersion` de MF
+(ver [R5](docs/riesgos.md#r5--shared-degenera-en-mini-monolito-interno-🔴-mitigado)).
 
 ![Diagrama](image.png)

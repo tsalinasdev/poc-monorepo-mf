@@ -23,7 +23,7 @@ export default defineConfig(({ mode }) => {
     plugins: [
       vue(),
       tailwindcss(),
-      // Left out under Vitest: tests exercise the hexagon directly, and the
+      // Left out under Vitest: tests exercise the app directly, and the
       // plugin's remote-entry rewriting has no meaning outside a real build.
       ...(mode === 'test' ? [] : [federation(mfConfig)]),
     ],
@@ -48,7 +48,7 @@ export default defineConfig(({ mode }) => {
         '/api/dragonball': {
           target: 'https://dragonball-api.com',
           changeOrigin: true,
-          secure: true,
+          secure: false, // dev-only: the corporate proxy re-signs TLS with its own CA
           rewrite: (path) => path.replace(/^\/api\/dragonball/, '/api'),
         },
       },
@@ -59,7 +59,7 @@ export default defineConfig(({ mode }) => {
       environment: 'jsdom',
       globals: true,
       root: '.',
-      include: ['tests/**/*.spec.ts'],
+      include: ['src/__test__/**/*.spec.ts'],
     },
   }
 })

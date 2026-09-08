@@ -66,7 +66,9 @@ cambia según el gestor de paquetes. Queda escrito el error, no solo la conclusi
 
 2. **`packages/` es solo metadata de build-time.** Un paquete de runtime compartido se
    bundlea en cada remote y su versión de workspace `0.0.0` vuelve sin sentido la negociación
-   de `requiredVersion` de MF. La duplicación de `src/base/` entre apps es deliberada.
+   de `requiredVersion` de MF. La duplicación de `modules/shared/config/` (env.ts, colada.ts)
+   entre apps es deliberada — cada app valida y registra sus propios plugins en modo
+   standalone.
    → [R5](riesgos.md#r5--shared-degenera-en-mini-monolito-interno-🔴-mitigado)
 
 3. **La URL de cada remote está horneada en el build del host.** Es el acoplamiento de

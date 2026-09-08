@@ -132,9 +132,6 @@ importers:
       '@vueuse/core':
         specifier: ^14.3.0
         version: 14.4.0(vue@3.5.42(typescript@6.0.3))
-      awilix:
-        specifier: ^13.0.3
-        version: 13.0.5
       axios:
         specifier: ^1.17.0
         version: 1.20.0
@@ -235,9 +232,6 @@ importers:
       '@vueuse/core':
         specifier: ^14.3.0
         version: 14.4.0(vue@3.5.42(typescript@6.0.3))
-      awilix:
-        specifier: ^13.0.3
-        version: 13.0.5
       axios:
         specifier: ^1.17.0
         version: 1.20.0
@@ -1490,10 +1484,6 @@ packages:
 
   asynckit@0.4.0:
     resolution: {integrity: sha512-Oei9OH4tRh0YqU3GxhX79dM/mwVgvbZJaSNaRk+bshkj0S5cfHcgYakreBjrHwatXKbz+IoIdYLxrKim2MjW0Q==}
-
-  awilix@13.0.5:
-    resolution: {integrity: sha512-ORtca6suBdYA1FyTzqHEZDvEuUwo3lPDDBRm7GrzHgi6STESzJKdBtpqfTzObdMj1NGQUWX6k26E3EbQaGJX5Q==}
-    engines: {node: '>=20.0.0'}
 
   axios@1.20.0:
     resolution: {integrity: sha512-r8aOh8j9cGKpgQAqpzrUHnSIc6a59Y3Xf/cv8sy1DrHCkZHzQGEuoq1tARk6qSyDdtQGSDgpb9kFlruzPvrgwg==}
@@ -4127,10 +4117,6 @@ snapshots:
       ast-kit: 2.2.0
 
   asynckit@0.4.0: {}
-
-  awilix@13.0.5:
-    dependencies:
-      fast-glob: 3.3.3
 
   axios@1.20.0:
     dependencies:

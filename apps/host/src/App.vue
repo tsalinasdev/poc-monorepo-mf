@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { RouterView } from 'vue-router'
+import PublicLayout from '@/modules/shell/components/PublicLayout.vue'
 </script>
 
 <template>
-  <RouterView />
+  <PublicLayout />
 </template>

@@ -1,13 +1,13 @@
 import './assets/main.css'
-import './base/config/env/env.config' // must be first — crashes early if vars are missing
+import '@/modules/shared/config/env' // must be first — crashes early if vars are missing
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import { PiniaColada } from '@pinia/colada'
 
 import App from './App.vue'
-import router, { registerRemoteRoutes } from './base/config/router'
-import { coladaOptions } from './base/config/colada/colada.options'
+import router, { registerRemoteRoutes } from './router'
+import { coladaOptions } from '@/modules/shared/config/colada'
 
 // The host is the only place an app instance exists, so it installs every plugin
 // the remotes rely on. This is the runtime half of the federated contract: a
