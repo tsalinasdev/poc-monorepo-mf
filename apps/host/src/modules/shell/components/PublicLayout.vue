@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
-import { usePublicLayout } from './usePublicLayout'
+import { usePublicLayout } from '../composables/usePublicLayout'
 
 const { navItems } = usePublicLayout()
 </script>

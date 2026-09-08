@@ -54,7 +54,7 @@ export async function registerRemoteRoutes(
     router.addRoute({
       path: remote.basePath,
       name: `${remote.id}-unavailable`,
-      component: () => import('@/views/RemoteUnavailableView.vue'),
+      component: () => import('@/modules/shell/views/RemoteUnavailableView.vue'),
       props: { sectionLabel: remote.navLabel },
       meta: { navLabel: remote.navLabel },
     })
@@ -72,7 +72,7 @@ export async function registerRemoteRoutes(
     ...(landing
       ? { redirect: landing.basePath }
       : {
-          component: () => import('@/views/RemoteUnavailableView.vue'),
+          component: () => import('@/modules/shell/views/RemoteUnavailableView.vue'),
         }),
   })
 
@@ -81,7 +81,7 @@ export async function registerRemoteRoutes(
   router.addRoute({
     path: '/:pathMatch(.*)*',
     name: 'not-found',
-    component: () => import('@/views/NotFoundView.vue'),
+    component: () => import('@/modules/shell/views/NotFoundView.vue'),
   })
 
   return registrations

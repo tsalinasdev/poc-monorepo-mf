@@ -1,6 +1,6 @@
 import { createApp, type App } from 'vue'
 import { createRouter, createMemoryHistory, type RouteRecordRaw } from 'vue-router'
-import { usePublicLayout } from '@/layouts/usePublicLayout'
+import { usePublicLayout } from '@/modules/shell/composables/usePublicLayout'
 
 /**
  * Mounts the composable under a real router sitting at `path`.

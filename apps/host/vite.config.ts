@@ -18,7 +18,7 @@ const DEV_ENTRIES = {
 // https://vite.dev/config/
 export default defineConfig(({ mode }) => {
   // Read here (Node side) to build the federation config; the same variables are
-  // validated again at runtime in src/config/env so a missing/malformed
+  // validated again at runtime in src/modules/shared/config/env so a missing/malformed
   // value fails fast with a readable error instead of a cryptic MF failure.
   const env = loadEnv(mode, process.cwd(), 'VITE_')
 
