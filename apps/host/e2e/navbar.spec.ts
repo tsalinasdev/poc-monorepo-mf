@@ -21,7 +21,7 @@ async function expectSelected(page: Page, selected: string, notSelected: string)
 test('the shell renders both remotes in its navbar', async ({ page }) => {
   await page.goto('/')
 
-  await expect(page).toHaveURL(/\/pokemons$/) // landing redirect
+  await expect(page).toHaveURL(/\/pokemons\/?$/) // landing redirect
   await expect(page.locator('nav ul a')).toHaveText(['Pokédex', 'Dragon Ball'])
 })
 
@@ -38,7 +38,7 @@ test('clicking the navbar switches to the dragon ball remote', async ({ page }) 
 
   await navLink(page, 'Dragon Ball').click()
 
-  await expect(page).toHaveURL(/\/dragon-ball$/)
+  await expect(page).toHaveURL(/\/dragon-ball\/?$/)
   await expect(page.getByRole('heading', { name: 'Dragon Ball', level: 1 })).toBeVisible()
   await expectSelected(page, 'Dragon Ball', 'Pokédex')
 })
