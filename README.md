@@ -572,3 +572,7 @@ compartido se bundlea en cada remote y rompe la negociación de `requiredVersion
 (ver [R5](docs/riesgos.md#r5--shared-degenera-en-mini-monolito-interno-🔴-mitigado)).
 
 ![Diagrama](image.png)
+
+
+Arquitectura transversal de Talana
+https://github.com/TalanaHRM/docs-frontend/wiki/Screaming-Architecture
