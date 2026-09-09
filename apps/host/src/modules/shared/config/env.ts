@@ -6,8 +6,8 @@ import { z } from 'zod'
 // The runtime then fetches the manifest first and loads only the exposes it
 // needs — see ADR 0005.
 export const envSchema = z.object({
-  VITE_REMOTE_POKEMON_MANIFEST_URL: z.url(),
   VITE_REMOTE_DRAGONBALL_MANIFEST_URL: z.url(),
+  VITE_REMOTE_KPI_MANIFEST_URL: z.url(),
 })
 
 export type Env = z.infer<typeof envSchema>

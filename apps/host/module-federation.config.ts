@@ -2,8 +2,8 @@ import { createModuleFederationConfig } from '@module-federation/vite'
 import { sharedSingletons } from '@pokedex/mf-shared'
 
 export interface RemoteManifestUrls {
-  remotePokemon: string
   remoteDragonball: string
+  remoteKpi: string
 }
 
 /**
@@ -27,8 +27,8 @@ export function createHostFederationConfig(manifestUrls: RemoteManifestUrls) {
       // The Vite plugin understands the `<name>@<url>` shorthand: the runtime
       // fetches `<url>` (here, the remote's mf-manifest.json) and resolves the
       // remote's exposes from it. See ADR 0005.
-      remotePokemon: `remotePokemon@${manifestUrls.remotePokemon}`,
       remoteDragonball: `remoteDragonball@${manifestUrls.remoteDragonball}`,
+      remoteKpi: `remoteKpi@${manifestUrls.remoteKpi}`,
     },
     // Single source of truth for the singletons — see @pokedex/mf-shared.
     shared: sharedSingletons,

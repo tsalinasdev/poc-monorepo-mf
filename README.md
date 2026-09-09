@@ -1,12 +1,17 @@
 # Microfrontends con Module Federation
 
 Monorepo con tres SPAs independientes. El **host** es el shell (layout + router) y cada
-**remote** trae su propio dominio con listado paginado y detalle. Cada app es su propio
-módulo federado: no se importan código entre sí, solo hablan por el contrato federado.
+**remote** trae su propio dominio. Cada app es su propio módulo federado: no se importan
+código entre sí, solo hablan por el contrato federado.
 
 > Este repositorio es la POC y la base técnica del microfrontend de **PeopleFirst**.
 > La decisión de monorepo, el plan de implementación por fases y el registro de riesgos
 > están en **[`docs/`](docs/README.md)**. Este README cubre cómo funciona y cómo correrlo.
+>
+> El shell usa la navegación **PeopleFirst** (Header, MainNavbar y Breadcrumbs portados de
+> kpi-project, con la librería de componentes `@talana/talanify-next`), y el contenido de
+> kpi-project corre como segundo remote (el primero del catálogo: el redirect de `'/'` del
+> shell lleva ahí).
 
 ```
 pokedex-vue/
@@ -17,14 +22,14 @@ pokedex-vue/
 ├── packages/
 │   └── mf-shared/             ← contrato `shared` de MF (solo build-time)
 └── apps/
-    ├── host/                  ← shell: layout, router, plugins   → :5173
-    ├── remote-pokemon/        ← módulo pokemon (PokeAPI)         → :5174
+    ├── host/                  ← shell: layout (Header/MainNavbar/Breadcrumbs), router, plugins → :5173
+    ├── remote-kpi/            ← módulo gestión KPI (kpi-project) → :5176
     └── remote-dragonball/     ← módulo character (DB API)        → :5175
 ```
 
 | App                 | Dominio     | API                                                             | Rutas                              |
 | ------------------- | ----------- | --------------------------------------------------------------- | ---------------------------------- |
-| `remote-pokemon`    | `pokemon`   | [PokeAPI](https://pokeapi.co)                                   | `/pokemons`, `/pokemons/:name`     |
+| `remote-kpi`        | `kpi`       | Mocks locales (`api/`, localStorage — sin red)                  | `/gestion-kpi`, `/gestion-kpi/…`   |
 | `remote-dragonball` | `character` | [Dragon Ball API](https://web.dragonball-api.com/documentation) | `/dragon-ball`, `/dragon-ball/:id` |
 
 Stack por app: Vue 3 + Vue Router + Pinia + `@pinia/colada` + Axios + Tailwind + Vitest,

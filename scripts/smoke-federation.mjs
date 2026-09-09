@@ -41,8 +41,8 @@ const EXPECTED_SINGLETONS = {
 }
 
 const REMOTES = [
-  { name: 'remotePokemon', dir: 'apps/remote-pokemon/dist', port: 5174, expose: './export-app' },
   { name: 'remoteDragonball', dir: 'apps/remote-dragonball/dist', port: 5175, expose: './export-app' },
+  { name: 'remoteKpi', dir: 'apps/remote-kpi/dist', port: 5176, expose: './export-app' },
 ]
 
 const MIME = {
@@ -173,7 +173,7 @@ try {
   const useLocal = !argOrigin('remote-pokemon') && !argOrigin('remote-dragonball')
 
   if (useLocal) {
-    console.log('Sirviendo los dist/ locales (5173/5174/5175)…')
+    console.log('Sirviendo los dist/ locales (5173/5175/5176)…')
     servers.push(await serveDist('apps/host/dist', 5173))
     for (const r of REMOTES) servers.push(await serveDist(r.dir, r.port))
     await verifyHost()

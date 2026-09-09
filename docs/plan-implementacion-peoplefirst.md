@@ -606,7 +606,20 @@ Tres cosas que hay que hacer bien:
 - [ ] Plantilla de remote documentada, con los dos entry points (`main.ts` standalone + `export-app.ts` bridged)
 - [ ] Contrato estándar decidido y escrito (`RouteRecordRaw[]` vs `createBridgeComponent`)
 - [ ] Aislamiento de estilos verificado por un E2E con dos remotes en la misma página
-- [ ] Header/sidebar extraídos como remote, si aplica
+- [x] Header/sidebar extraídos de la app de KPI, **si aplica** — cerrado en el cierre de la
+      POC (2026-09-09), con un desvío consciente respecto a esta fase: en la POC el chrome
+      compartido (Header, MainNavbar, Breadcrumbs portados de kpi-project) vive **en el
+      host** (`apps/host/src/modules/shell/`), no como sub-aplicación remota. El plan de la
+      Fase 2 define al HOST como dueño del layout, y para la POC es lo más simple: un remote
+      de chrome agrega un salto federado más sin beneficio en un solo shell. Si PeopleFirst
+      necesita que el chrome lo reutilicen varios hosts (fusión People First / Rex+), se
+      extrae entonces como remote — el componente ya está aislado del contenido.
+      Con el mismo cambio, el contenido de `kpi-project` corre como remote
+      (`apps/remote-kpi`, port `5176`, base `/gestion-kpi`) y la librería de componentes
+      `@talana/talanify-next` quedó instalada (host + remote-kpi, con su registry en
+      `.npmrc`). El remote de Pokédex se quitó del POC: la navegación PeopleFirst
+      queda entre `Gestión KPI` y `Dragon Ball`, con el landing del shell en
+      `/gestion-kpi`.
 - [ ] Pipeline de deploy por remote con smoke test post-deploy
 - [ ] **Prueba del criterio de éxito:** crear un remote vacío nuevo y montarlo en el host lleva
       menos de un día, sin tocar código del host

@@ -80,6 +80,17 @@ it('selects nothing outside every section', async () => {
   const { result, app } = await withRouterAt(extra, '/', usePublicLayout)
 
   expect(result.navItems.value.every((item) => !item.isSelected)).toBe(true)
+  expect(result.currentSection.value).toBeUndefined()
+  app.unmount()
+})
+
+// currentSection feeds the shell breadcrumbs: the section the URL belongs to,
+// even on a detail screen that did not opt into the nav itself.
+it('resolves the current section for the breadcrumbs on a detail screen', async () => {
+  const { result, app } = await withRouterAt(routes, '/alpha/42', usePublicLayout)
+
+  expect(result.currentSection.value?.label).toBe('Alpha')
+  expect(result.currentSection.value?.path).toBe('/alpha')
   app.unmount()
 })
 

@@ -74,8 +74,8 @@
       "env": [
         "VITE_PUBLIC_PATH",
         "VITE_API_BASE_URL",
-        "VITE_REMOTE_POKEMON_MANIFEST_URL",
-        "VITE_REMOTE_DRAGONBALL_MANIFEST_URL"
+        "VITE_REMOTE_DRAGONBALL_MANIFEST_URL",
+        "VITE_REMOTE_KPI_MANIFEST_URL"
       ]
     },
 
@@ -113,8 +113,8 @@
       "inputs": [
         "$TURBO_DEFAULT$",
         "../../apps/host/package.json",
-        "../../apps/remote-pokemon/package.json",
-        "../../apps/remote-dragonball/package.json"
+        "../../apps/remote-dragonball/package.json",
+        "../../apps/remote-kpi/package.json"
       ],
       "outputs": []
     },
@@ -131,7 +131,7 @@
     // navegador. Un "cache hit" acá sería una mentira útil para nadie.
     // -------------------------------------------------------------------------
     "host#test:e2e:preview": {
-      "dependsOn": ["build", "remote-pokemon#build", "remote-dragonball#build"],
+      "dependsOn": ["build", "remote-dragonball#build", "remote-kpi#build"],
       "cache": false
     },
 
@@ -158,7 +158,7 @@
     // Sin él, turbo busca un script `smoke` en cada workspace, no encuentra
     // ninguno, corre las dependencias y reporta éxito sin haber verificado nada.
     "//#smoke": {
-      "dependsOn": ["host#build", "remote-pokemon#build", "remote-dragonball#build"],
+      "dependsOn": ["host#build", "remote-dragonball#build", "remote-kpi#build"],
       "cache": false
     },
 

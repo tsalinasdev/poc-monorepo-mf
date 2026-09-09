@@ -7,8 +7,8 @@ const repoRoot = fileURLToPath(new URL('../..', import.meta.url))
 const HOST_URL = 'http://localhost:5173'
 
 /**
- * `dev` runs the three Vite dev servers — fast, and what you want while writing
- * a test. `preview` serves the three `dist/` builds instead, and is the ONLY
+ * `dev` runs the Vite dev servers — fast, and what you want while writing
+ * a test. `preview` serves the `dist/` builds instead, and is the ONLY
  * mode that reproduces production Module Federation.
  *
  * The difference matters regardless of the package manager: a dev server serves
@@ -22,7 +22,7 @@ const HOST_URL = 'http://localhost:5173'
  * that verifies the artifact that actually ships.
  *
  * `preview` requires a build first; `pnpm test:e2e:preview` at the repo root
- * does both — the turbo task declares the three builds as dependencies.
+ * does both — the turbo task declares the builds as dependencies.
  */
 const MODE = process.env.E2E_MODE === 'preview' ? 'preview' : 'dev'
 const isPreview = MODE === 'preview'
@@ -31,7 +31,7 @@ const serve = (workspace: string) => `pnpm --filter ${workspace} run ${MODE}`
 
 export default defineConfig({
   testDir: './e2e',
-  fullyParallel: false, // one shell, three servers: keep it predictable
+  fullyParallel: false, // one shell, two servers: keep it predictable
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
   workers: 1,
@@ -45,21 +45,21 @@ export default defineConfig({
 
   projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'] } }],
 
-  // The host is useless without its remotes, so all three come up together.
+  // The host is useless without its remotes, so they come up together.
   // `reuseExistingServer` lets a local `pnpm dev` session be reused instead
   // of fighting over the ports — but never in preview mode, where reusing a dev
   // server would silently test the exact thing this mode exists to avoid.
   webServer: [
     {
-      command: serve('remote-pokemon'),
-      url: 'http://localhost:5174/',
+      command: serve('remote-dragonball'),
+      url: 'http://localhost:5175/',
       cwd: repoRoot,
       reuseExistingServer: !process.env.CI && !isPreview,
       timeout: 120_000,
     },
     {
-      command: serve('remote-dragonball'),
-      url: 'http://localhost:5175/',
+      command: serve('remote-kpi'),
+      url: 'http://localhost:5176/',
       cwd: repoRoot,
       reuseExistingServer: !process.env.CI && !isPreview,
       timeout: 120_000,

@@ -1,0 +1,62 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+@import 'tailwindcss';
+
+@import '@talana/talanify-next/dist/tailwind-theme.css';
+@import '@talana/talanify-next/dist/index.css';
+
+@layer base {
+  body {
+    font-family: var(--font-sans);
+  }
+}
+
+@theme {
+  --font-sans: 'Inter', sans-serif;
+  --color-Text-Dark-Primary: #0E0E19;
+  --color-Text-Dark-Secondary: #A8A6C5;
+  --color-Text-Dark-Tertiary: #0E0E19;
+  --color-Text-Dark-Disabled: #0E0E19;
+  --color-Text-Light-Primary: #FFFFFF;
+  --color-Background-Main: #F3F1FF;
+  --color-Surface-BrandAlternative: #694DDC;
+  --color-Surface-Feedback-InfoSoft: #BAE7FF;
+  --color-Surface-Feedback-SuccessLight: #D7F6EF;
+  --color-Surface-Feedback-WarningLight: #FFF1B8;
+  --color-Surface-DisabledDark: #F1EFFF;
+  --color-Stroke-Feedback-Info: #096DD9;
+  --color-Icon-Dark-Disabled: #FFFFFF;
+  --color-Icon-Dark-Primary: #0E0E19;
+  --color-Icon-Dark-Secondary: #27273F;
+  --color-Surface-Brand: #694DDC;
+  --color-Icon-Other-Brand: #694DDC;
+  --color-Stroke-Neutral: #CFD8DC;
+  --color-Stroke-Primary: #8567FF;
+  --color-Surface-Main: #FFFFFF;
+  --color-Stroke-NeutralAlternative: #E0E0EC;
+  --color-Stroke-Brand: #694DDC;
+  --color-Text-Other-Brand: #694DDC;
+  --color-Icon-Brand: #694DDC;
+  --color-Color-IconColor-Primary: #263238;
+  --color-Icon-Dark-Neutral: #B0BEC5;
+  --color-Surface-Alternative: #F6F6F6;
+}
+
+@plugin '@tailwindcss/forms' {
+  strategy: class;
+}
+
+button[aria-haspopup],
+button[aria-haspopup="listbox"],
+button[aria-expanded],
+[role="button"],
+[role="combobox"],
+[role="option"] {
+  cursor: pointer !important;
+}
+
+div[class*="tln:justify-between"]:has(input[type="text"]) {
+  cursor: pointer;
+}
+div[class*="tln:justify-between"]:has(input[type="text"]) input[type="text"] {
+  cursor: text;
+}

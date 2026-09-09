@@ -7,14 +7,14 @@
  * it. See ADR 0005 for why the contract changed from `RouteRecordRaw[]` to
  * `createBridgeComponent`.
  */
-declare module 'remotePokemon/export-app' {
+declare module 'remoteDragonball/export-app' {
   import type { createBridgeComponent } from '@module-federation/bridge-vue3'
 
   const bridge: ReturnType<typeof createBridgeComponent>
   export default bridge
 }
 
-declare module 'remoteDragonball/export-app' {
+declare module 'remoteKpi/export-app' {
   import type { createBridgeComponent } from '@module-federation/bridge-vue3'
 
   const bridge: ReturnType<typeof createBridgeComponent>

@@ -1,0 +1,43 @@
+{
+  "extends": "@vue/tsconfig/tsconfig.dom.json",
+  "include": ["env.d.ts", "src/**/*", "src/**/*.vue", "api/**/*"],
+  "exclude": ["src/**/__tests__/*", "src/__test__"],
+  "compilerOptions": {
+    // Path mapping for cleaner imports.
+    "paths": {
+      "@/*": ["./src/*"],
+      "@api/*": ["./api/*"]
+    },
+
+    /*
+     * Convenciones de la casa (ver .claude/skills/no-skip-typescript):
+     * strict y noUncheckedIndexedAccess están activos.
+     *
+     * El contenido del módulo de configuración portado de kpi-project sigue
+     * anotándose — los archivos con tipos pendientes llevan
+     * `// @ts-nocheck` con un TODO que apunta a este tsconfig, y el override
+     * correspondiente en el eslint.config.ts (bloque
+     * `remote-kpi/port-nocheck`) lo declara explícitamente. La lista de
+     * archivos en ese override es la fuente de verdad: un archivo nuevo que
+     * se sume a esa lista sin abrir el seguimiento cuenta como una violación
+     * más de la convención.
+     */
+
+    // `vue-tsc --build` produces a .tsbuildinfo file for incremental type-checking.
+    // Specified here to keep it out of the root directory.
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo"
+  },
+  /*
+   * El template de los SFC no se puede relajar completamente con strict
+   * (vue-tsc todavía infiere tipos de slots genéricos como TTable<T>).
+   * Los componentes UI del port (DataTable, FormDrawer, etc.) usan
+   * `// @ts-nocheck` y necesitan esta relajación del chequeo de
+   * templates para que vue-tsc no se queje de inferencia sobre tipos
+   * externos — sin esto, el propio `// @ts-nocheck` no silencia esos
+   * errores (limitación conocida de vue-tsc). Ver
+   * .claude/skills/no-skip-typescript.
+   */
+  "vueCompilerOptions": {
+    "strictTemplates": false
+  }
+}

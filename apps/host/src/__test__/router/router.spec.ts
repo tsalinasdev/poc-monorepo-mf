@@ -37,7 +37,7 @@ function workingRemote(id: string, navLabel: string, basePath: string, routeName
 describe('with every remote reachable', () => {
   it('registers a top-level catch-all per remote (the layout is static chrome)', async () => {
     const router = await shellWithRealRemotes()
-    await router.push('/pokemons')
+    await router.push('/gestion-kpi')
     await router.isReady()
 
     const matched = router.currentRoute.value.matched
@@ -45,8 +45,8 @@ describe('with every remote reachable', () => {
     // The catch-all is matched[0]: that is what lets createRemoteAppComponent
     // derive the remote's basename from the matched path on its own.
     expect(matched).toHaveLength(1)
-    expect(matched[0]?.name).toBe('remote-pokemon')
-    expect(matched[0]?.path).toBe('/pokemons/:pathMatch(.*)*')
+    expect(matched[0]?.name).toBe('remote-kpi')
+    expect(matched[0]?.path).toBe('/gestion-kpi/:pathMatch(.*)*')
   })
 
   it('does the same for the dragon ball section', async () => {
@@ -66,16 +66,16 @@ describe('with every remote reachable', () => {
     await router.push('/')
     await router.isReady()
 
-    expect(router.currentRoute.value.name).toBe('remote-pokemon')
+    expect(router.currentRoute.value.name).toBe('remote-kpi')
   })
 
   it('keeps every deep path inside its section catch-all', async () => {
     const router = await shellWithRealRemotes()
 
-    // The catch-all consumes everything under `/pokemons/*` and `/dragon-ball/*`.
-    await router.push('/pokemons/pikachu')
+    // The catch-all consumes everything under `/gestion-kpi/*` and `/dragon-ball/*`.
+    await router.push('/gestion-kpi/ciclos')
     await router.isReady()
-    expect(router.currentRoute.value.name).toBe('remote-pokemon')
+    expect(router.currentRoute.value.name).toBe('remote-kpi')
     expect(router.currentRoute.value.matched).toHaveLength(1)
 
     await router.push('/dragon-ball/1')
@@ -95,11 +95,11 @@ describe('with every remote reachable', () => {
       .filter((path) => path !== '' && !path.includes('pathMatch'))
 
     expect(remotePaths).toEqual([])
-    expect(router.getRoutes().find((r) => r.name === 'remote-pokemon')?.path).toBe(
-      '/pokemons/:pathMatch(.*)*',
-    )
     expect(router.getRoutes().find((r) => r.name === 'remote-dragonball')?.path).toBe(
       '/dragon-ball/:pathMatch(.*)*',
+    )
+    expect(router.getRoutes().find((r) => r.name === 'remote-kpi')?.path).toBe(
+      '/gestion-kpi/:pathMatch(.*)*',
     )
   })
 
@@ -107,7 +107,9 @@ describe('with every remote reachable', () => {
     const router = createShellRouter()
     const registrations = await registerRemoteRoutes(router)
 
-    expect(registrations.map((registration) => registration.status)).toEqual(['loaded', 'loaded'])
+    expect(registrations.map((registration) => registration.status)).toEqual(
+      REMOTES.map(() => 'loaded'),
+    )
     expect(registrations.map((registration) => registration.id)).toEqual(
       REMOTES.map((remote) => remote.id),
     )

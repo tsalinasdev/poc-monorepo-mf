@@ -44,7 +44,11 @@ export async function registerRemoteRoutes(
         path: `${remote.basePath}/:pathMatch(.*)*`,
         name: remote.routeName,
         component: outcome.value,
-        meta: { navLabel: remote.navLabel, basePath: remote.basePath },
+        meta: {
+          navLabel: remote.navLabel,
+          basePath: remote.basePath,
+          ...(remote.hasDropdown !== undefined ? { hasDropdown: remote.hasDropdown } : {}),
+        },
       })
       return { id: remote.id, status: 'loaded' }
     }
@@ -56,7 +60,10 @@ export async function registerRemoteRoutes(
       name: `${remote.id}-unavailable`,
       component: () => import('@/modules/shell/views/RemoteUnavailableView.vue'),
       props: { sectionLabel: remote.navLabel },
-      meta: { navLabel: remote.navLabel },
+      meta: {
+        navLabel: remote.navLabel,
+        ...(remote.hasDropdown !== undefined ? { hasDropdown: remote.hasDropdown } : {}),
+      },
     })
     return { id: remote.id, status: 'unavailable', error: outcome?.reason }
   })

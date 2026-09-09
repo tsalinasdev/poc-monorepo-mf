@@ -53,7 +53,9 @@ export default defineConfig(({ mode }) => {
         },
       },
     },
-    preview: { port: 5175, strictPort: true, cors: true },
+    preview: { port: 5175, strictPort: true, cors: true, headers: { 'Cache-Control': 'no-cache' } },
+    // Ver apps/remote-kpi/vite.config.ts — el mismo truco.
+    appType: 'mpa',
     build: { target: 'chrome89' },
     test: {
       environment: 'jsdom',

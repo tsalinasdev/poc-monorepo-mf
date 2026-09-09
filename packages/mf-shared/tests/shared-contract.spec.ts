@@ -15,7 +15,7 @@ import { sharedSingletons } from '../src/index'
  * of what every app depends on.
  */
 
-const APPS = ['host', 'remote-pokemon', 'remote-dragonball'] as const
+const APPS = ['host', 'remote-dragonball', 'remote-kpi'] as const
 
 function dependenciesOf(app: string): Record<string, string> {
   const path = fileURLToPath(new URL(`../../../apps/${app}/package.json`, import.meta.url))

@@ -11,8 +11,8 @@ const DEV_ENTRIES = {
   // With the move to manifest-based loading (ADR 0005), the dev entries point
   // to each remote's mf-manifest.json — the plugin emits it next to remoteEntry.js
   // when `manifest: true` is set in module-federation.config.ts.
-  remotePokemon: 'http://localhost:5174/mf-manifest.json',
   remoteDragonball: 'http://localhost:5175/mf-manifest.json',
+  remoteKpi: 'http://localhost:5176/mf-manifest.json',
 }
 
 // https://vite.dev/config/
@@ -34,9 +34,9 @@ export default defineConfig(({ mode }) => {
         : [
             federation(
               createHostFederationConfig({
-                remotePokemon: env.VITE_REMOTE_POKEMON_MANIFEST_URL || DEV_ENTRIES.remotePokemon,
                 remoteDragonball:
                   env.VITE_REMOTE_DRAGONBALL_MANIFEST_URL || DEV_ENTRIES.remoteDragonball,
+                remoteKpi: env.VITE_REMOTE_KPI_MANIFEST_URL || DEV_ENTRIES.remoteKpi,
               }),
             ),
           ]),
@@ -53,12 +53,6 @@ export default defineConfig(({ mode }) => {
       // so the host must proxy them — the remote's own dev-server proxy is only
       // active when that remote runs standalone.
       proxy: {
-        '/api/pokeapi': {
-          target: 'https://pokeapi.co',
-          changeOrigin: true,
-          secure: false, // dev-only: the corporate proxy re-signs TLS with its own CA
-          rewrite: (path) => path.replace(/^\/api\/pokeapi/, '/api/v2'),
-        },
         '/api/dragonball': {
           target: 'https://dragonball-api.com',
           changeOrigin: true,
@@ -79,11 +73,11 @@ export default defineConfig(({ mode }) => {
       alias: {
         // No remote is built during unit tests: the host is verified against
         // stubs of each federated contract (src/__test__/stubs).
-        'remotePokemon/export-app': fileURLToPath(
-          new URL('./src/__test__/stubs/remote-pokemon-export-app.ts', import.meta.url),
-        ),
         'remoteDragonball/export-app': fileURLToPath(
           new URL('./src/__test__/stubs/remote-dragonball-export-app.ts', import.meta.url),
+        ),
+        'remoteKpi/export-app': fileURLToPath(
+          new URL('./src/__test__/stubs/remote-kpi-export-app.ts', import.meta.url),
         ),
       },
     },

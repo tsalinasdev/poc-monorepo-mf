@@ -1,1 +1,51 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
 @import 'tailwindcss';
+
+/*
+ * El chrome del shell (Header, MainNavbar, Breadcrumbs) usa componentes de
+ * Talanify y los tokens de diseño de PeopleFirst. El CSS de Talanify viaja con
+ * el contrato de cada remote también (los remotes lo importan en su propio
+ * main.css), así que aquí y en un remote remata la misma hoja — duplicación
+ * tolerada mientras no haya prefijado (R9 del plan PeopleFirst).
+ */
+@import '@talana/talanify-next/dist/tailwind-theme.css';
+@import '@talana/talanify-next/dist/index.css';
+
+@layer base {
+  body {
+    font-family: var(--font-sans);
+  }
+}
+
+/* Tokens de diseño de PeopleFirst (portados 1:1 desde kpi-project/src/assets/main.css).
+   Si un token cambia en Figma, cambia acá y en el remote que lo use. */
+@theme {
+  --font-sans: 'Inter', sans-serif;
+  --color-Text-Dark-Primary: #0e0e19;
+  --color-Text-Dark-Secondary: #a8a6c5;
+  --color-Text-Dark-Tertiary: #0e0e19;
+  --color-Text-Dark-Disabled: #0e0e19;
+  --color-Text-Light-Primary: #ffffff;
+  --color-Background-Main: #f3f1ff;
+  --color-Surface-BrandAlternative: #694ddc;
+  --color-Surface-Feedback-InfoSoft: #bae7ff;
+  --color-Surface-Feedback-SuccessLight: #d7f6ef;
+  --color-Surface-Feedback-WarningLight: #fff1b8;
+  --color-Surface-DisabledDark: #f1efff;
+  --color-Stroke-Feedback-Info: #096dd9;
+  --color-Icon-Dark-Disabled: #ffffff;
+  --color-Icon-Dark-Primary: #0e0e19;
+  --color-Icon-Dark-Secondary: #27273f;
+  --color-Surface-Brand: #694ddc;
+  --color-Icon-Other-Brand: #694ddc;
+  --color-Stroke-Neutral: #cfd8dc;
+  --color-Stroke-Primary: #8567ff;
+  --color-Surface-Main: #ffffff;
+  --color-Stroke-NeutralAlternative: #e0e0ec;
+  --color-Stroke-Brand: #694ddc;
+  --color-Text-Other-Brand: #694ddc;
+  --color-Icon-Brand: #694ddc;
+  --color-Color-IconColor-Primary: #263238;
+  --color-Icon-Dark-Neutral: #b0bec5;
+  --color-Surface-Alternative: #f6f6f6;
+}
