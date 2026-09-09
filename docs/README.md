@@ -1,19 +1,28 @@
 # Documentación — Microfrontend PeopleFirst (POC `pokedex-vuejs`)
 
-Cuatro documentos y cuatro ADRs, cada uno con un trabajo distinto. Si solo vas a leer uno, depende de qué
+Cinco documentos y cuatro ADRs, cada uno con un trabajo distinto. Si solo vas a leer uno, depende de qué
 necesites:
 
-| Necesito…                                           | Leer                                                                                                                                                               |
-| --------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Defender la decisión de monorepo ante alguien       | [monorepo-vs-multirepo.md](monorepo-vs-multirepo.md)                                                                                                               |
-| Saber qué hacemos, en qué orden y quién             | [plan-implementacion-peoplefirst.md](plan-implementacion-peoplefirst.md)                                                                                           |
-| Saber qué puede salir mal y qué hacemos al respecto | [riesgos.md](riesgos.md)                                                                                                                                           |
-| Entender **por qué** el código está así             | [adr/0001](adr/0001-module-federation-en-monorepo.md), [adr/0002](adr/0002-turborepo.md), [adr/0003](adr/0003-pnpm.md) y [adr/0004](adr/0004-syncpack-renovate.md) |
-| Correr el proyecto                                  | [README de la raíz](../README.md)                                                                                                                                  |
+| Necesito…                                                                | Leer                                                                                                                                                               |
+| ------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Responder rápido sobre estructura del monorepo o integración con backend | [arquitectura-integracion-backend.md](arquitectura-integracion-backend.md)                                                                                         |
+| Defender la decisión de monorepo ante alguien                            | [monorepo-vs-multirepo.md](monorepo-vs-multirepo.md)                                                                                                               |
+| Saber qué hacemos, en qué orden y quién                                  | [plan-implementacion-peoplefirst.md](plan-implementacion-peoplefirst.md)                                                                                           |
+| Saber qué puede salir mal y qué hacemos al respecto                      | [riesgos.md](riesgos.md)                                                                                                                                           |
+| Entender **por qué** el código está así                                  | [adr/0001](adr/0001-module-federation-en-monorepo.md), [adr/0002](adr/0002-turborepo.md), [adr/0003](adr/0003-pnpm.md) y [adr/0004](adr/0004-syncpack-renovate.md) |
+| Correr el proyecto                                                       | [README de la raíz](../README.md)                                                                                                                                  |
 
 ---
 
 ## Los documentos
+
+### [Arquitectura e integración con el backend](arquitectura-integracion-backend.md)
+
+Resumen ejecutivo para responder las preguntas recurrentes del equipo:
+la estructura del monorepo (`apps/<remote>/src/modules/<feature>/` con
+screaming architecture), por qué el shell no tiene `modules/`, y cómo se
+integra con el monolito PHP (a través de un BFF, con JWT como
+prerrequisito bloqueante). Versión canónica para mandar a planificación.
 
 ### [Por qué monorepo](monorepo-vs-multirepo.md)
 
