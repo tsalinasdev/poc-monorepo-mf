@@ -42,6 +42,29 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
           cache: pnpm
 
+      # ---------------------------------------------------------------------------
+      # Auth del registry privado de Talana (Talanify). El paquete está bajo
+      # @talana y solo se publica en el Artifact Registry de Google, que NO
+      # admite acceso anónimo. Sin este paso, `pnpm install --frozen-lockfile`
+      # falla con 401 antes de tocar el primer script del job.
+      #
+      # Configuración necesaria (una sola vez, en el repo):
+      #   1. Generar el token (recomendado: un service account JSON de GCP con
+      #      roles/artifactregistry.reader en el proyecto `linq-1350`, no el
+      #      _authToken OAuth de un usuario humano, que expira cada hora).
+      #   2. Settings → Secrets and variables → Actions → New repository secret:
+      #        NPM_CONFIG_TALANA_TOKEN   ← el token
+      #   3. Cualquier dev con auth local corre `./scripts/bootstrap-local-auth.sh`
+      #      y su `~/.npmrc` queda con la auth que pnpm/npm usan automáticamente.
+      # ---------------------------------------------------------------------------
+      - name: Configure Talana registry auth
+        if: env.TALANA_TOKEN != ''
+        run: |
+          mkdir -p ~/.npmrc
+          printf '\n//us-central1-npm.pkg.dev/linq-1350/frontend/:_authToken=%s\n' "$TALANA_TOKEN" >> ~/.npmrc
+        env:
+          TALANA_TOKEN: ${{ secrets.NPM_CONFIG_TALANA_TOKEN }}
+
       # --frozen-lockfile falla si el lockfile no corresponde a los package.json.
       # En CI eso es lo que se quiere: un lockfile desactualizado es un bug, no
       # algo que el pipeline deba arreglar en silencio.
@@ -106,6 +129,16 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: pnpm
+
+      # Misma auth que el job de checks: ambos jobs corren en runners limpios
+      # y la registry privada no admite acceso anónimo.
+      - name: Configure Talana registry auth
+        if: env.TALANA_TOKEN != ''
+        run: |
+          mkdir -p ~/.npmrc
+          printf '\n//us-central1-npm.pkg.dev/linq-1350/frontend/:_authToken=%s\n' "$TALANA_TOKEN" >> ~/.npmrc
+        env:
+          TALANA_TOKEN: ${{ secrets.NPM_CONFIG_TALANA_TOKEN }}
 
       # --frozen-lockfile falla si el lockfile no corresponde a los package.json.
       # En CI eso es lo que se quiere: un lockfile desactualizado es un bug, no
