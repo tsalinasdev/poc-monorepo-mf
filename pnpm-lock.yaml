@@ -132,6 +132,9 @@ importers:
       '@pinia/colada':
         specifier: ^1.3.1
         version: 1.4.4(pinia@3.0.4(typescript@6.0.3)(vue@3.5.42(typescript@6.0.3)))(vue@3.5.42(typescript@6.0.3))
+      '@talana/talanify-next':
+        specifier: ^7.3.0
+        version: 7.8.4(vite@8.2.2(@types/node@24.13.3)(jiti@2.7.0)(yaml@2.9.0))(vue@3.5.42(typescript@6.0.3))
       '@vueuse/core':
         specifier: ^14.3.0
         version: 14.4.0(vue@3.5.42(typescript@6.0.3))

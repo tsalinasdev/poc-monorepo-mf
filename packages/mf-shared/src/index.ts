@@ -45,4 +45,10 @@ export const sharedSingletons = {
   'vue-router': { singleton: true, requiredVersion: '^5.0.0' },
   pinia: { singleton: true, requiredVersion: '^3.0.0' },
   '@pinia/colada': { singleton: true, requiredVersion: '^1.3.0' },
+  // Design system de Talana. Hoy no tiene estado a nivel de módulo (verificado:
+  // sin plugin install, sin provide/inject), pero dos copias con versiones
+  // divergentes renderizarían componentes distintos en la misma página — para
+  // un design system la inconsistencia visual ES el bug de comportamiento.
+  // Además el sistema de toast es el candidato natural a crecer estado global.
+  '@talana/talanify-next': { singleton: true, requiredVersion: '^7.3.0' },
 } as const satisfies SharedDependencies

@@ -27,6 +27,9 @@ export default createModuleFederationConfig({
 
   // Single source of truth for the singletons — see @pokedex/mf-shared. The
   // shell declares the exact same object, which is what guarantees one Vue,
-  // one router and one Pinia on the page.
+  // one router and one Pinia on the page. This remote does not use
+  // @talana/talanify-next yet, but declares the full contract like its
+  // siblings — the guard in @pokedex/mf-shared requires every app to depend
+  // on every singleton.
   shared: sharedSingletons,
 })
